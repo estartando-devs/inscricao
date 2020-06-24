@@ -28,7 +28,7 @@ const Theme = {
   },
   typography: {
     fontFamily: "Open Sans",
-    htmlFontSize: 16,
+    htmlFontSize: "16px",
   },
 };
 
