@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
     *{
@@ -8,8 +8,12 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     body{
-        background-color: ${props=> props.theme.colors.background};
-        color: ${props=> props.theme.colors.text};
-        font-family: sans-serif;
+        background-color: ${(props) => props.theme.palette.background.default};
+        color: ${(props) => props.theme.palette.text.primary};
+        font-family: ${(props) => props.theme.typography.fontFamily};
     }
-`
+    
+    html {
+        font-size: ${(props) => props.theme.typography.htmlFontSize};
+    }
+`;
