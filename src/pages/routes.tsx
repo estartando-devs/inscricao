@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import {
   /* PLOP_ROUTE_IMPORT */
   Home,
-} from "./pages";
+} from ".";
 
 export default function Routes() {
   return (
