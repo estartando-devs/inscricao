@@ -6,38 +6,30 @@ const Theme = {
       main: "#2E3B80",
       error: "#ff4444",
       highlight: "#2E3B80",
-      disable: "#4f5781"
+      disable: "#4f5781",
     },
     secondary: {
-      main: "#fff"
-    }
-  },
-  colors: {
-    primary: "#2E3B80",
-    secondary: "#7159f1",
-    light: "#8A8A8A",
-    background: "#F5F5F5",
-    title: "#323232",
-    text: "#4B4B4B",
-    textLight: "#8a8a8a"
+      main: "#fff",
+    },
+    text: {
+      primary: "#fff",
+      secondary: "#fcfcfc",
+      disable: "fbfbfb",
+    },
+    background: {
+      paper: "#666666",
+      default: "#3C3C3C",
+    },
   },
   margin: {
     small: "8px",
     regular: "12px",
-    large: "16px"
+    large: "16px",
   },
   typography: {
-    fontFamily: {
-      primary: "Open Sans"
-    },
-    size: {
-      smallest: "10px",
-      small: "14px",
-      regular: "16px",
-      large: "18px",
-      largest: "20px"
-    }
-  }
+    fontFamily: "Open Sans",
+    htmlFontSize: 16,
+  },
 };
 
 export default Theme;
