@@ -7,6 +7,7 @@ import {
   IZindex,
   IAction,
   IShape,
+  IGrey,
 } from './interfaces';
 
 declare module "styled-components" {
@@ -15,17 +16,22 @@ declare module "styled-components" {
     palette: {
       type: string,
       primary: IColor,
-      secondary: IColor,
+      secondary?: IColor,
       text: IText,
       background: {
         paper: string,
         default: string,
       },
-      action: IAction
+      action?: IAction
+      grey: IGrey,
+      error?: IColor,
+      warning?: IColor,
+      info?: IColor,
+      success?: IColor
     },
-    margin: IMargin,
+    margin?: IMargin,
     typography: ITypography,
-    zIndex: IZindex,
-    shape: IShape
+    zIndex?: IZindex,
+    shape?: IShape
   }
 }

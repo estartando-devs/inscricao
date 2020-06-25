@@ -10,12 +10,6 @@ const Theme: DefaultTheme = {
       dark: "#488184",
       contrastText: "#525252"
     },
-    secondary: {
-      light: "#2E3B80",
-      main: "#666666",
-      dark: "#3B3B3B",
-      contrastText: "#fff"
-    },
     text: {
       primary: "#fff",
       secondary: "#fcfcfc",
@@ -40,6 +34,15 @@ const Theme: DefaultTheme = {
       A200: '#aaaaaa',
       A400: '#303030',
       A700: '#616161',
+    },
+    error:{
+      main: "#f44336",
+    },
+    warning: {
+      main: "#ff9800"
+    },
+    success: {
+      main: "#81c784"
     }
   },
   margin: {
