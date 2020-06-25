@@ -12,7 +12,7 @@ interface Buttontheme extends IVariant {
 
 interface ITypography {
   fontFamily?: string,
-  htmlFontSize?: string,
+  htmlFontSize?: number | string,
   pxToRem?: Function,
   round?: Function,
   fontSize?: number,

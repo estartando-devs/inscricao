@@ -1,5 +1,8 @@
 interface IShape {
-  borderRadius: number,
+  borderRadius: number | string,
+  padding: {
+    small: string,
+  }
 }
 
 export default IShape;
