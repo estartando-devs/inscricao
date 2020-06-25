@@ -30,6 +30,7 @@
         "import/prefer-default-export": "off",
         "@typescript-eslint/explicit-function-return-type": "off",
         "react/prop-types": "off",
+        "react/jsx-props-no-spreading": "off",
         "quotes": [1, "double"],
         "import/extensions": "off",
         "import/no-extraneous-dependencies": ["error", {
@@ -37,7 +38,8 @@
             "optionalDependencies": false,
             "peerDependencies": false
         }],
-        "import/no-unresolved": [1, { "ignore": [".ts", ".tsx"] }]
+        "import/no-unresolved": "off",
+        "@typescript-eslint/no-var-requires": "off"
     },
     "settings": {
         "import/parsers": {
@@ -46,5 +48,5 @@
         "import/resolver": {
           "typescript": {}
         }
-    },
+    }
 }
