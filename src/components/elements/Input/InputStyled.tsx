@@ -8,12 +8,17 @@ const InputContainer = styled.div`
 
 const Input = styled(Field)`
   background-color: ${(props) => props.theme.palette.background.paper};
-  border: none;
   padding: 9px 8px;
+  border-width: 2px;
+  border-style: solid;
   border-radius: 5px;
   width: ${(props) => props.width};
   color: ${(props) => props.theme.palette.text.primary};
+
+  border-color: ${(props) =>
+    props.error ? props.theme.palette.error.main : props.theme.palette.background.paper};
   :focus {
+    border-color: ${(props) => props.theme.palette.primary.main};
     outline: none;
   }
 `;
@@ -36,8 +41,7 @@ const ErrorMessageStyled = styled(ErrorMessage)`
   position: absolute;
   bottom: -15px;
   right: 0px;
-  color: ${(props) => props.theme.palette.primary.error};
-  font-family: "Montserrat";
+  color: ${(props) => props.theme.palette.error.main};
   font-size: 10px;
 `;
 
