@@ -1,28 +1,28 @@
-import styled, { css } from 'styled-components'
-import { IButton } from './Button'
+import styled, { css } from "styled-components";
+import { IButton } from "../../../models";
 
-const SIZE = { 
-  "small": css`
+const SIZE = {
+  small: css`
     width: 136px;
   `,
-  "medium": css`
+  medium: css`
     width: 200px;
   `,
-  "large": css`
+  large: css`
     width: 70%;
   `,
-  "huge": css`
+  huge: css`
     width: 100%;
-  `
+  `,
 };
 
 const VARIANT = {
-  "default": css`
+  default: css`
     background-color: ${(props) => props.theme.palette.primary.main};
     border-color: ${(props) => props.theme.palette.primary.main};
     color: ${(props) => props.theme.palette.primary.contrastText};
   `,
-  "outlined": css`
+  outlined: css`
     background-color: transparent;
     border-color: ${(props) => props.theme.palette.primary.main};
     color: ${(props) => props.theme.palette.primary.main};
@@ -53,4 +53,4 @@ const ButtonContainer = styled.button<IButton>`
   ${(props) => props.size && SIZE[props.size]}
 `;
 
-export { ButtonContainer }
+export { ButtonContainer };
