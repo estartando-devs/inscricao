@@ -20,10 +20,8 @@ const Input: React.FC<InputProps> = ({
   name,
   mask,
 }) => {
-  const { values, setFieldValue } = useFormikContext();
-
+  const { values, setFieldValue, errors } = useFormikContext();
   const handleChange = (event: Event) => {
-    console.log(event);
     const target = event.target as HTMLInputElement;
     const maskedValue = masks[mask || "standard"](target?.value || "");
     setFieldValue(name, maskedValue);
@@ -36,6 +34,7 @@ const Input: React.FC<InputProps> = ({
         placeholder=""
         type={type}
         name={name}
+        error={false}
         onChange={(e: Event) => handleChange(e)}
       />
       <S.ErrorMessageStyled name={name} component="div" />
