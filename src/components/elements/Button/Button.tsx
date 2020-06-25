@@ -1,20 +1,20 @@
 import React from 'react';
-import * as S from './ButtonStyled'
+import * as S from './ButtonStyled';
+import ReactLoading from 'react-loading';
 
-interface IButton {
+export interface IButton {
   /**
    *function to be performed at the click of button
    */
-  onClick: Function,
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void,
   /**
    * expected one of  'default' | 'outlined'
-   * @default 'default'
    */
-  variant?: 'default' | 'outlined',
+  variant?: 'default' | 'outlined' ,
   /**
    * one of 'large' | 'medium' | 'small'
    */
-  size?: 'large' | 'medium' | 'small',
+  size?: 'large' | 'medium' | 'small' | 'huge',
   /**
    * bollean 
    */
@@ -29,18 +29,33 @@ interface IButton {
   children: React.ReactNode
 }
 
-const Button = ({
+const Button: React.FC<IButton> = ({
   onClick,
-  variant,
-  size,
+  variant = "default",
+  size= "small",
   disabled,
-  isLoading,
+  isLoading = false,
   children,
   ...rest
-}: IButton) => {
+}) => {
 return (
-<S.ButtonContainer>
-  {children}
+<S.ButtonContainer 
+  onClick={onClick}
+  variant={variant}
+  size={size}
+  disabled={disabled}
+  isLoading={isLoading}
+  {...rest}
+>
+  {
+  isLoading ? 
+    <ReactLoading
+      type="spokes"
+      height={'20px'}
+      width={'20px'}
+    /> :
+    children
+  }
 </S.ButtonContainer>
 );
 };
