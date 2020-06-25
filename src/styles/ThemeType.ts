@@ -24,7 +24,7 @@ declare module "styled-components" {
       },
       action?: IAction
       grey: IGrey,
-      error?: IColor,
+      error: IColor,
       warning?: IColor,
       info?: IColor,
       success?: IColor
