@@ -1,8 +1,6 @@
-interface IColor {
+export interface IColor {
   light?: string,
-  main?: string,
+  main: string,
   dark?: string,
   contrastText?: string,
 }
-
-export default IColor;

@@ -1,4 +1,4 @@
-import 'styled-components'
+import "styled-components";
 import {
   IColor,
   IText,
@@ -8,7 +8,7 @@ import {
   IAction,
   IShape,
   IGrey,
-} from './interfaces';
+} from "./interfaces";
 
 declare module "styled-components" {
   export interface DefaultTheme {
