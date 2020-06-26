@@ -1,11 +1,11 @@
-import { DefaultTheme } from 'styled-components'
+import { DefaultTheme } from "styled-components";
 
 const Theme: DefaultTheme = {
   shadows: ["0px 4px 4px rgba(0, 0, 0, 0.25)"],
   palette: {
     type: "light",
     primary: {
-      main: "#2E3B80",
+      main: "#81CAA8",
       error: "#ff4444",
       highlight: "#2E3B80",
       disable: "#4f5781",
