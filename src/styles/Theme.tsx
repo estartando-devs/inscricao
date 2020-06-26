@@ -1,27 +1,55 @@
 import { DefaultTheme } from "styled-components";
 
 const Theme: DefaultTheme = {
-  shadows: ["0px 4px 4px rgba(0, 0, 0, 0.25)"],
+  shadows: [
+    "0px 3px 4px rgba(0, 0, 0, 0.1)",
+    "0px 4px 4px rgba(0, 0, 0, 0.25)"
+  ],
   palette: {
-    type: "light",
+    type: "dark",
     primary: {
+      light: "#81E7A8",
       main: "#81CAA8",
-      error: "#ff4444",
-      highlight: "#2E3B80",
-      disable: "#4f5781",
-    },
-    secondary: {
-      main: "#fff",
+      dark: "#488184",
+      contrastText: "#525252"
     },
     text: {
       primary: "#fff",
       secondary: "#fcfcfc",
-      disable: "fbfbfb",
+      disabled: "#fbfbfb",
     },
     background: {
       paper: "#666666",
-      default: "#3C3C3C",
+      default: "#3B3B3B",
     },
+    action:{
+      disabledBackground: "rgba(0, 0, 0, 0.12)"
+    },
+    grey: {
+      50: '#fafafa',
+      100: '#f5f5f5',
+      200: '#eeeeee',
+      300: '#e0e0e0',
+      400: '#bdbdbd',
+      500: '#9e9e9e',
+      600: '#757575',
+      700: '#616161',
+      800: '#424242',
+      900: '#212121',
+      A100: '#d5d5d5',
+      A200: '#aaaaaa',
+      A400: '#303030',
+      A700: '#616161',
+    },
+    error:{
+      main: "#f44336",
+    },
+    warning: {
+      main: "#ff9800"
+    },
+    success: {
+      main: "#81c784"
+    }
   },
   margin: {
     small: "8px",
@@ -29,9 +57,20 @@ const Theme: DefaultTheme = {
     large: "16px",
   },
   typography: {
-    fontFamily: "Open Sans",
-    htmlFontSize: "16px",
+    htmlFontSize: 16,
+    fontFamily: "Ubuntu Mono",
+    fontSize: 14,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    fontWeightBold: 700,
   },
+  shape:{
+    borderRadius: "5px",
+    padding:{
+      small: "8px"
+    }
+  }
 };
 
 export default Theme;

@@ -1,17 +1,16 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 interface LogoProps {
     width: string,
     height: string,
     padding: string,
     margin: string
-};
+}
 
-const LogoContainer = styled.img<LogoProps>`
+export const LogoContainer = styled.img<LogoProps>`
 display: flex;
-width: ${ (props) => props.width};
-height: ${ (props) => props.height};
-padding: ${ (props) => props.padding};
-margin: ${ (props) => props.margin};
-`
-export { LogoContainer }
+width: ${(props) => props.width};
+height: ${(props) => props.height};
+padding: ${(props) => props.padding};
+margin: ${(props) => props.margin};
+`;
