@@ -1,4 +1,8 @@
-export default {
+interface IImage<TValue> {
+  [id: string]: TValue;
+}
+
+const images: IImage<string> = {
   cursoDesenvolvimento: require("./curso-desenvolvimento.svg"),
   cursoDesign: require("./curso-design.svg"),
   finalNao: require("./final-nao.svg"),
@@ -7,7 +11,6 @@ export default {
   iconInstagram: require("./icon-instagram.svg"),
   inscricaoCancelada: require("./inscricao-cancelada.svg"),
   inscricaoConfirmada: require("./inscricao-confirmada.svg"),
-  logoDevs: require("./logo-devs.svg"),
   perfilFormado: require("./perfil-formado.svg"),
   step1: require("./step-1-white.svg"),
   step2: require("./step-2-white.svg"),
@@ -17,3 +20,5 @@ export default {
   step4: require("./step-4-white.svg"),
   step4Disabled: require("./step-4-grey.svg"),
 };
+
+export default images;

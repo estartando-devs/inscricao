@@ -10,9 +10,9 @@ interface Buttontheme extends IVariant {
   textTransform?: string,
 }
 
-interface ITypography {
+export interface ITypography {
   fontFamily?: string,
-  htmlFontSize?: string,
+  htmlFontSize?: number | string,
   pxToRem?: Function,
   round?: Function,
   fontSize?: number,
@@ -34,5 +34,3 @@ interface ITypography {
   caption?: IVariant,
   overline?: Buttontheme,
 }
-
-export default ITypography;

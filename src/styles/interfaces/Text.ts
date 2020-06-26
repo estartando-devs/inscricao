@@ -1,7 +1,5 @@
-interface IText {
+export interface IText {
   primary?: string,
   secondary?: string,
-  disable?: string,
+  disabled?: string,
 }
-
-export default IText;

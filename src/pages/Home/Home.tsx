@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import { FormManager } from "../../components/features/FormManager";
 
 const Home = () => {
-    return (
-        <div>
-            home works
-        </div>
-    )
-}
-
-export default Home
+  return (
+    <>
+      <FormManager />
+    </>
+  );
+};
+  
+export default Home;

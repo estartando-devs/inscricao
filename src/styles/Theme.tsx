@@ -1,7 +1,10 @@
-import { DefaultTheme } from 'styled-components'
+import { DefaultTheme } from "styled-components";
 
 const Theme: DefaultTheme = {
-  shadows: ["0px 4px 4px rgba(0, 0, 0, 0.25)"],
+  shadows: [
+    "0px 3px 4px rgba(0, 0, 0, 0.1)",
+    "0px 4px 4px rgba(0, 0, 0, 0.25)"
+  ],
   palette: {
     type: "dark",
     primary: {
@@ -13,11 +16,14 @@ const Theme: DefaultTheme = {
     text: {
       primary: "#fff",
       secondary: "#fcfcfc",
-      disable: "#fbfbfb",
+      disabled: "#fbfbfb",
     },
     background: {
       paper: "#666666",
       default: "#3B3B3B",
+    },
+    action:{
+      disabledBackground: "rgba(0, 0, 0, 0.12)"
     },
     grey: {
       50: '#fafafa',
@@ -51,9 +57,20 @@ const Theme: DefaultTheme = {
     large: "16px",
   },
   typography: {
-    fontFamily: "Open Sans",
-    htmlFontSize: "16px",
+    htmlFontSize: 16,
+    fontFamily: "Ubuntu Mono",
+    fontSize: 14,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    fontWeightBold: 700,
   },
+  shape:{
+    borderRadius: "5px",
+    padding:{
+      small: "8px"
+    }
+  }
 };
 
 export default Theme;
