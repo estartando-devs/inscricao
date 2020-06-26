@@ -1,4 +1,4 @@
-interface IAction {
+export interface IAction {
   active?: string,
   hover?: string,
   hoverOpacity?: number | string,
@@ -11,5 +11,3 @@ interface IAction {
   focusOpacity?: number | string,
   activatedOpacity?: number | string,
 }
-
-export default IAction;

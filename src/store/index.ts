@@ -1,15 +1,21 @@
-import { createStore, combineReducers, compose, applyMiddleware, Store } from "redux";
+import {
+  createStore,
+  combineReducers,
+  compose,
+  applyMiddleware,
+  Store,
+} from "redux";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import { IStudentState, studentReducer } from './ducks/student.duck'
+import { IStudentState, studentReducer } from "./ducks/student.duck";
 
 /* PLOP_DUCKS_IMPORT */
 
 const rootReducer = combineReducers({
   /* PLOP_COMBINE_IMPORT */
-  studentReducer
+  studentReducer,
 });
 
 interface ApplicationState {
@@ -36,9 +42,9 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store: Store<ApplicationState> = createStore(
   persistedReducer,
-  composeEnhancers(applyMiddleware(...middleware))
+  composeEnhancers(applyMiddleware(...middleware)),
 );
 
-let persistor = persistStore(store);
+const persistor = persistStore(store);
 
 export { store, persistor };

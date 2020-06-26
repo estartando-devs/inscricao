@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { shade } from "polished";
 import { IButton } from "../../../models";
 
 const SIZE = {
@@ -21,11 +22,27 @@ const VARIANT = {
     background-color: ${(props) => props.theme.palette.primary.main};
     border-color: ${(props) => props.theme.palette.primary.main};
     color: ${(props) => props.theme.palette.primary.contrastText};
+    &:hover {
+      background-color: ${(props) => shade(0.15, props.theme.palette.primary.main)};
+      border-color: ${(props) => shade(0.15, props.theme.palette.primary.main)};
+    }
+    &:active {
+      background-color: ${(props) => props.theme.palette.primary.main};
+      border-color: ${(props) => props.theme.palette.primary.main};
+    }
   `,
   outlined: css`
     background-color: transparent;
     border-color: ${(props) => props.theme.palette.primary.main};
     color: ${(props) => props.theme.palette.primary.main};
+    &:hover {
+      border-color: ${(props) => shade(0.15, props.theme.palette.primary.main)};
+      color: ${(props) => shade(0.15, props.theme.palette.primary.main)};
+    }
+    &:active {
+      border-color: ${(props) => props.theme.palette.primary.main};
+      color: ${(props) => props.theme.palette.primary.main};
+    }
   `,
 };
 
@@ -34,16 +51,22 @@ const DISABLED = css`
   background-color: ${(props) => props.theme.palette.grey[500]};
   border-color: ${(props) => props.theme.palette.grey[500]};
   color: ${(props) => props.theme.palette.grey[400]};
+  &:hover {
+    background-color: ${(props) => props.theme.palette.grey[500]};
+    border-color: ${(props) => props.theme.palette.grey[500]};
+  }
 `;
 
 const ButtonContainer = styled.button<IButton>`
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   outline: none;
   border: solid 2px;
   height: 40px;
+  transition-property: background-color, border-color;
+  transition:  .1s;
+  cursor: ${(props) => (props.isLoading ? "wait" : "pointer")};
   box-shadow: ${(props) => props.theme.shadows[0]};
   padding: ${(props) => props.theme.shape?.padding.small};
   border-radius: ${(props) => props.theme.shape?.borderRadius};

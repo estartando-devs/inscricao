@@ -1,4 +1,4 @@
-interface IGrey {
+export interface IGrey {
   50: string,
   100: string,
   200: string,
@@ -14,5 +14,3 @@ interface IGrey {
   A400: string,
   A700: string,
 }
-
-export default IGrey;

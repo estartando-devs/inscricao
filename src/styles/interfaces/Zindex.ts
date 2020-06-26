@@ -1,4 +1,4 @@
-interface IZindex {
+export interface IZindex {
   mobileStepper?: number,
   speedDial?: number,
   appBar?: number,
@@ -7,5 +7,3 @@ interface IZindex {
   snackbar?: number,
   tooltip?: number,
 }
-
-export default IZindex;

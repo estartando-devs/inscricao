@@ -1,13 +1,13 @@
 const STAGES = {
   dev: {
-    BASE_URL: ""
+    BASE_URL: "",
   },
   stg: {
-    BASE_URL: ""
+    BASE_URL: "",
   },
   prd: {
-    BASE_URL: ""
-  }
+    BASE_URL: "",
+  },
 };
 
 const env = process.env.REACT_APP_STAGE || "dev";
