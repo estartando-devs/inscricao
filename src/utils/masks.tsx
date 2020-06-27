@@ -6,7 +6,7 @@ const standard = (value: string) => {
 
 const date = (value: string) => {
   const rawValue = value.replace(/[/]/g, "");
-  return rawValue.replace(/(\d{2})(\d{2})(\d{4})/, "$1/$2/$3");
+  return VMasker.toPattern(rawValue, "99/99/9999");
 };
 
 const dateTime = (value: string) => {
@@ -21,8 +21,9 @@ const cpf = (value: string) => {
 
 const phone = (value: string) => {
   const rawValue = value.replace(/[()\-\s]/g, "");
-  if (rawValue.length < 11)
+  if (rawValue.length < 11) {
     return VMasker.toPattern(rawValue, "(99) 9999-9999");
+  }
   return VMasker.toPattern(rawValue, "(99) 99999-9999");
 };
 

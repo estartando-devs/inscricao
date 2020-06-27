@@ -42,7 +42,7 @@ const Theme: DefaultTheme = {
       A700: "#616161",
     },
     error: {
-      main: "#f44336",
+      main: "#E56467",
     },
     warning: {
       main: "#ff9800",
@@ -58,12 +58,19 @@ const Theme: DefaultTheme = {
   },
   typography: {
     htmlFontSize: 16,
-    fontFamily: "Ubuntu Mono",
+    fontFamily: "Open Sans",
     fontSize: 14,
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 500,
     fontWeightBold: 700,
+    h1: {
+      fontFamily: "Ubuntu Mono",
+      fontWeight: 300,
+      fontSize: "6rem",
+      lineHeight: 1.167,
+      letterSpacing: "-0.01562em",
+    },
   },
   shape: {
     borderRadius: "5px",
