@@ -16,4 +16,9 @@ export const GlobalStyles = createGlobalStyle`
   html {
     font-size: ${(props) => props.theme.typography.htmlFontSize}px;
   }
+
+  #root, html, body {
+    height: 100%;
+    width: 100%;
+  }
 `;
