@@ -3,23 +3,27 @@ import * as S from "./CardOptionStyled";
 
 interface ICardOption {
   image: string;
-  label: string;
-  isSelected: boolean;
+  label?: string;
+  value: string;
+  selected: string;
+  setValue: (value: string) => void;
 }
 
-const CardOption = ({ image, label, isSelected }: ICardOption) => {
-  const [selected, setSelected] = useState(false);
-
-  const toogleSelect = () => setSelected(!selected);
-
-  useEffect(() => setSelected(isSelected), [isSelected]);
+const CardOption = ({
+  image,
+  label,
+  value,
+  selected,
+  setValue,
+}: ICardOption) => {
+  const isSelected = value === selected;
 
   return (
     <S.CardContainer>
-      <S.Card selected={selected} onClick={toogleSelect}>
+      <S.Card selected={isSelected} onClick={() => setValue(value)}>
         <S.CardImage src={image} alt={label} />
       </S.Card>
-      <S.CardDescription>{label}</S.CardDescription>
+      {label && <S.CardDescription>{label}</S.CardDescription>}
     </S.CardContainer>
   );
 };
