@@ -19,6 +19,7 @@ const images: IImage<string> = {
   step3Disabled: require("./step-3-grey.svg"),
   step4: require("./step-4-white.svg"),
   step4Disabled: require("./step-4-grey.svg"),
+  students: require("./students.svg"),
 };
 
 export default images;
