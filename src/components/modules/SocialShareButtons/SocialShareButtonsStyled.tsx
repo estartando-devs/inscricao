@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+const SocialShareContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Title = styled.p`
   color: ${(props) => props.theme.palette.text.secondary};
   line-height: 19px;
@@ -8,7 +15,7 @@ const Title = styled.p`
   margin: 15px 0;
 `;
 
-const SocialButtonsContainer = styled.div`
+const SocialButtons = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,4 +31,4 @@ const SocialIcon = styled.img`
   height: auto;
 `;
 
-export { Title, SocialButtonsContainer, ShareLink, SocialIcon };
+export { SocialShareContainer, Title, SocialButtons, ShareLink, SocialIcon };

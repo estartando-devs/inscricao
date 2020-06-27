@@ -10,16 +10,16 @@ const ShareBtn = ({ icon, name, url }: ISocialShare) => (
 );
 
 const SocialShareButtons = () => (
-  <>
+  <S.SocialShareContainer>
     <S.Title>
       Siga a gente nas redes sociais e fique por dentro das novidades!
     </S.Title>
-    <S.SocialButtonsContainer>
+    <S.SocialButtons>
       {SocialShareIcons.map((socialIcon) => (
-        <ShareBtn {...socialIcon} />
+        <ShareBtn key={socialIcon.name} {...socialIcon} />
       ))}
-    </S.SocialButtonsContainer>
-  </>
+    </S.SocialButtons>
+  </S.SocialShareContainer>
 );
 
 export default SocialShareButtons;
