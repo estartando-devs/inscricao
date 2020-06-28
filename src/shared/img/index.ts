@@ -22,4 +22,6 @@ const images: IImage<string> = {
   students: require("./students.svg"),
 };
 
+export const getImage = (id: any) => images[id];
+
 export default images;

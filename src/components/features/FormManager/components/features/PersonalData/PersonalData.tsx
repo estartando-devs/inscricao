@@ -1,8 +1,7 @@
 import React from "react";
 import { Form } from "formik";
 
-import { Input } from "../../../../../elements/Input";
-import { Button } from "../../../../../elements/Button";
+import { Button, Input } from "../../../../../elements";
 import * as S from "./PersonalDataStyled";
 import { typeMask } from "../../../../../../utils/masks";
 
