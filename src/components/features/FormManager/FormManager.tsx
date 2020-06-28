@@ -14,6 +14,9 @@ interface IFormValues {
   phone: string;
   zipcode: string;
   address: string;
+  number: string;
+  city: string;
+  neighborhood: string;
   isStudent: boolean;
 }
 
@@ -25,6 +28,9 @@ const initialValues: IFormValues = {
   zipcode: "",
   address: "",
   isStudent: false,
+  number: "",
+  city: "",
+  neighborhood: "",
 };
 
 const PersonalDataSchema = Yup.object().shape({
@@ -37,9 +43,11 @@ const PersonalDataSchema = Yup.object().shape({
     .min(13, "Telefone inválido")
     .max(15, "Telefone inválido")
     .required("Telefone é obrigatório"),
-  cep: Yup.string().min(10, "Cep inválido").max(10, "Cep inválido"),
+  zipcode: Yup.string().min(10, "Cep inválido").max(10, "Cep inválido"),
+  number: Yup.string(),
   address: Yup.string().required("Endereço é obrigatório"),
-  isStudent: Yup.string(),
+  neighborhood: Yup.string().required("Bairro é obrigatória"),
+  city: Yup.string().required("Cidade é obrigatória"),
 });
 
 const FormManager = () => {
