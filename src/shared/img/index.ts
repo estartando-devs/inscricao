@@ -20,6 +20,7 @@ const images: IImage<string> = {
   step4: require("./step-4-white.svg"),
   step4Disabled: require("./step-4-grey.svg"),
   students: require("./students.svg"),
+  textAreaGreen: require("./text-area-green.svg"),
 };
 
 export const getImage = (id: any) => images[id];
