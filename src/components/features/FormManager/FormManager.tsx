@@ -1,11 +1,11 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
 import * as S from "./FormManagerStyled";
 import Stepper from "./components/modules/Stepper/Stepper";
-// import { Button } from "../../elements/Button";
 import PersonalData from "./components/features/PersonalData/PersonalData";
+import IsStudent from "./components/features/IsStudent/IsStudent";
 
 interface IFormValues {
   fullName: string;
@@ -17,6 +17,7 @@ interface IFormValues {
   number: string;
   city: string;
   neighborhood: string;
+  isStudent: boolean;
 }
 
 const initialValues: IFormValues = {
@@ -26,6 +27,7 @@ const initialValues: IFormValues = {
   phone: "",
   zipcode: "",
   address: "",
+  isStudent: false,
   number: "",
   city: "",
   neighborhood: "",
@@ -39,9 +41,9 @@ const PersonalDataSchema = Yup.object().shape({
   dateBirth: Yup.string().required("Data de nascimento é obrigatório"),
   phone: Yup.string()
     .min(13, "Telefone inválido")
-    .max(14, "Telefone inválido")
+    .max(15, "Telefone inválido")
     .required("Telefone é obrigatório"),
-  cep: Yup.string().min(10, "Cep inválido").max(10, "Cep inválido"),
+  zipcode: Yup.string().min(10, "Cep inválido").max(10, "Cep inválido"),
   number: Yup.string(),
   address: Yup.string().required("Endereço é obrigatório"),
   neighborhood: Yup.string().required("Bairro é obrigatória"),
@@ -64,7 +66,7 @@ const FormManager = () => {
       >
         <S.StepWizardStyled nav={<Stepper status={status} />}>
           <PersonalData />
-          <div>form 2</div>
+          <IsStudent />
           <div>form 3</div>
           <div>form 4</div>
         </S.StepWizardStyled>

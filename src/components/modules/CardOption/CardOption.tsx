@@ -5,7 +5,7 @@ interface ICardOption {
   image: string;
   label?: string;
   value: string;
-  selected: string;
+  selected?: string;
   setValue: (value: string) => void;
 }
 
