@@ -15,7 +15,7 @@ const Card = styled.div<ICard>`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 160px;
+  width: 140px;
   background: #fff;
   border-radius: 5px;
   box-shadow: ${(props) => props.theme.shadows[1]};
@@ -29,9 +29,14 @@ const CardImage = styled.img`
 `;
 
 const CardDescription = styled.p`
-  max-width: 160px;
+  max-width: 140px;
   text-align: center;
-  margin: 10px 5px 0;
+  padding: 10px 5px 0;
 `;
 
-export { CardContainer, Card, CardImage, CardDescription };
+export {
+  CardContainer,
+  Card,
+  CardImage,
+  CardDescription,
+};
