@@ -19,8 +19,9 @@ const Card = styled.div<ICard>`
   background: #fff;
   border-radius: 5px;
   box-shadow: ${(props) => props.theme.shadows[1]};
-  border: ${(props) =>
-    props.selected && `4px solid ${props.theme.palette.primary.main}`};
+  border: 4px solid transparent;
+  border-color: ${(props) =>
+    props.selected && `${props.theme.palette.primary.main}`};
 `;
 
 const CardImage = styled.img`

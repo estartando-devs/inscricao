@@ -6,6 +6,8 @@ import * as S from "./FormManagerStyled";
 import Stepper from "./components/modules/Stepper/Stepper";
 import PersonalData from "./components/features/PersonalData/PersonalData";
 import IsStudent from "./components/features/IsStudent/IsStudent";
+import SelectCourse from "./components/features/SelectCourse/SelectCourse";
+import AvailableTime from "./components/features/AvailableTime/AvailableTime";
 
 interface IFormValues {
   fullName: string;
@@ -18,6 +20,9 @@ interface IFormValues {
   city: string;
   neighborhood: string;
   isStudent: boolean;
+  course: string;
+  availableTime: boolean;
+  testimony: string;
 }
 
 const initialValues: IFormValues = {
@@ -31,6 +36,9 @@ const initialValues: IFormValues = {
   number: "",
   city: "",
   neighborhood: "",
+  course: "",
+  availableTime: true,
+  testimony: "",
 };
 
 const PersonalDataSchema = Yup.object().shape({
@@ -48,6 +56,10 @@ const PersonalDataSchema = Yup.object().shape({
   address: Yup.string().required("Endereço é obrigatório"),
   neighborhood: Yup.string().required("Bairro é obrigatória"),
   city: Yup.string().required("Cidade é obrigatória"),
+  isStudent: Yup.boolean(),
+  course: Yup.string(),
+  availableTime: Yup.boolean(),
+  testimony: Yup.string(),
 });
 
 const FormManager = () => {
@@ -67,8 +79,8 @@ const FormManager = () => {
         <S.StepWizardStyled nav={<Stepper status={status} />}>
           <PersonalData />
           <IsStudent />
-          <div>form 3</div>
-          <div>form 4</div>
+          <SelectCourse />
+          <AvailableTime />
         </S.StepWizardStyled>
       </Formik>
     </S.FormManagerContainer>
