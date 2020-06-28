@@ -9,6 +9,7 @@ interface InputProps {
   type?: string;
   name: string;
   mask?: typeMask;
+  onChange?: Function;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -17,13 +18,18 @@ const Input: React.FC<InputProps> = ({
   name,
   mask,
   width = "100%",
+  onChange,
 }) => {
   const { setFieldValue } = useFormikContext();
   const [, { error, touched }] = useField(name);
+
   const handleChange = (event: Event) => {
     const target = event.target as HTMLInputElement;
     const maskedValue = masks[mask || "standard"](target?.value || "");
     setFieldValue(name, maskedValue);
+    if (onChange) {
+      onChange(maskedValue);
+    }
   };
   const hasError = Boolean(error && touched);
   return (

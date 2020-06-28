@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -14,6 +14,9 @@ interface IFormValues {
   phone: string;
   zipcode: string;
   address: string;
+  number: string;
+  city: string;
+  neighborhood: string;
 }
 
 const initialValues: IFormValues = {
@@ -23,6 +26,9 @@ const initialValues: IFormValues = {
   phone: "",
   zipcode: "",
   address: "",
+  number: "",
+  city: "",
+  neighborhood: "",
 };
 
 const PersonalDataSchema = Yup.object().shape({
@@ -36,7 +42,10 @@ const PersonalDataSchema = Yup.object().shape({
     .max(14, "Telefone inválido")
     .required("Telefone é obrigatório"),
   cep: Yup.string().min(10, "Cep inválido").max(10, "Cep inválido"),
+  number: Yup.string(),
   address: Yup.string().required("Endereço é obrigatório"),
+  neighborhood: Yup.string().required("Bairro é obrigatória"),
+  city: Yup.string().required("Cidade é obrigatória"),
 });
 
 const FormManager = () => {
