@@ -3,8 +3,8 @@ interface IImage<TValue> {
 }
 
 const images: IImage<string> = {
-  cursoDesenvolvimento: require("./curso-desenvolvimento.svg"),
-  cursoDesign: require("./curso-design.svg"),
+  cursoDesenvolvimento: require("./option-desenvolvimento.svg"),
+  cursoDesign: require("./option-design.svg"),
   finalNao: require("./final-nao.svg"),
   finalSim: require("./final-sim.svg"),
   iconFacebook: require("./icon-facebook.svg"),

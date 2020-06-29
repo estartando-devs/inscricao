@@ -20,9 +20,12 @@ const CardOption = ({
 
   return (
     <S.CardContainer>
-      <S.Card selected={isSelected} onClick={() => setValue(value)}>
-        <S.CardImage src={image} alt={label} />
-      </S.Card>
+      <S.CardImage
+        selected={isSelected}
+        onClick={() => setValue(value)}
+        src={image}
+        alt={label}
+      />
       {label && <S.CardDescription>{label}</S.CardDescription>}
     </S.CardContainer>
   );
