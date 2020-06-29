@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik } from "formik";
+import { Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 
 import * as S from "./FormManagerStyled";
@@ -8,36 +8,25 @@ import PersonalData from "./components/features/PersonalData/PersonalData";
 import IsStudent from "./components/features/IsStudent/IsStudent";
 import SelectCourse from "./components/features/SelectCourse/SelectCourse";
 import AvailableTime from "./components/features/AvailableTime/AvailableTime";
+import {
+  sendSubscription,
+  ISubscription,
+} from "../../../services/student.service";
+import { useHistory } from "react-router-dom";
 
-interface IFormValues {
-  fullName: string;
-  email: string;
-  dateBirth: string;
-  phone: string;
-  zipcode: string;
-  address: string;
-  number: string;
-  city: string;
-  neighborhood: string;
-  isStudent: boolean;
-  course: string;
-  availableTime: boolean;
-  testimony: string;
-}
-
-const initialValues: IFormValues = {
+const initialValues: ISubscription = {
   fullName: "",
   email: "",
   dateBirth: "",
   phone: "",
   zipcode: "",
   address: "",
-  isStudent: false,
   number: "",
   city: "",
   neighborhood: "",
   course: "",
-  availableTime: true,
+  isStudent: undefined,
+  availableTime: undefined,
   testimony: "",
 };
 
@@ -56,17 +45,30 @@ const PersonalDataSchema = Yup.object().shape({
   address: Yup.string().required("Endereço é obrigatório"),
   neighborhood: Yup.string().required("Bairro é obrigatória"),
   city: Yup.string().required("Cidade é obrigatória"),
-  isStudent: Yup.boolean(),
-  course: Yup.string(),
-  availableTime: Yup.boolean(),
+  isStudent: Yup.boolean().required("isStudent"),
+  course: Yup.string().required("course"),
+  availableTime: Yup.boolean().required("availableTime"),
   testimony: Yup.string(),
 });
 
 const FormManager = () => {
-  const status = [true, true, false, false];
+  const status = [true, true, true, true];
+  const history = useHistory();
 
-  const onSubmit = (values: IFormValues) => {
-    console.log(values);
+  const onSubmit = async (
+    values: ISubscription,
+    { setSubmitting }: FormikHelpers<ISubscription>
+  ) => {
+    try {
+      // await sendSubscription(values);
+      console.log("SUbmit");
+      history.push("/registration-end", "success");
+      setSubmitting(false);
+    } catch (error) {
+      alert("Ops, tivemos um problema.");
+      console.log(error);
+    }
+    setSubmitting(false);
   };
 
   return (

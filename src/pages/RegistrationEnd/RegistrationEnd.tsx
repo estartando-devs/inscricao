@@ -2,6 +2,7 @@ import React from "react";
 import * as S from "./RegistrationEndStyled";
 import { SocialShareButtons } from "../../components/modules";
 import images from "../../shared/img";
+import { useLocation } from "react-router-dom";
 
 interface IRegistrarionEnd {
   status: "confirmed" | "canceled";
@@ -28,8 +29,12 @@ const messagesOptions: IMessagesOptions = {
   },
 };
 
-const RegistrationEnd = ({ status = "canceled" }: IRegistrarionEnd) => {
+const RegistrationEnd = ({ status = "confirmed" }: IRegistrarionEnd) => {
   const finalMessage = messagesOptions[status];
+
+  const { state } = useLocation();
+
+  console.log("state :: ", state);
 
   return (
     <S.RegistrationEndContainer>

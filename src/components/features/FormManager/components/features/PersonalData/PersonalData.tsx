@@ -54,7 +54,7 @@ const PersonalData: React.FC<IProps> = ({ nextStep = () => {} }) => {
       <Input label="Seu bairro" name="neighborhood" />
       <Input label="Sua cidade" name="city" />
       <S.ButtonsContainer>
-        <Button onClick={handleNext}>Avançar</Button>
+        <Button onClick={handleNext}>Continuar</Button>
       </S.ButtonsContainer>
     </Form>
   );
