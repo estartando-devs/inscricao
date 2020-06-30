@@ -29,7 +29,7 @@ const Step: React.FC<StepProps> = ({
     !disabled && action(step);
   };
   const generateKey = (_step: number, _disabled: boolean) =>
-    `step${step}${disabled ? "Disabled" : ""}`;
+    `step${_step}${_disabled ? "Disabled" : ""}`;
   return (
     <>
       <S.StepIndicatorContainer
@@ -37,7 +37,7 @@ const Step: React.FC<StepProps> = ({
         disabled={disabled}
         onClick={handleClick}
       >
-        <S.Icon src={images[generateKey(step, disabled)]} alt="" />
+        <S.Icon src={images[generateKey(step, !isActive)]} alt="" />
       </S.StepIndicatorContainer>
       {showDivisor && <S.StepDivisor disabled={isDisabled(step + 1, status)} />}
     </>
