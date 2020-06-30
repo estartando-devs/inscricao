@@ -18,7 +18,7 @@ export interface ISubscription {
 
 export const sendSubscription = async (subscription: ISubscription) => {
   await http(
-    "https://us-central1-estartando-devs-platform.cloudfunctions.net/subscribe",
+    "https://us-central1-estartando-devs-platform.cloudfunctions.net/platform/subscribe",
     { method: "post", body: JSON.stringify(subscription) }
   );
 };

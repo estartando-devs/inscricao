@@ -64,7 +64,7 @@ const AvailableTime: React.FC<IProps> = ({ previousStep = () => {} }) => {
         <Button
           isLoading={isSubmitting}
           disabled={!isReadyToSubmit}
-          type="submit"
+          type="button"
           onClick={handleNext}
         >
           Finalizar

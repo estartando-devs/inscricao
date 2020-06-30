@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation, useHistory } from "react-router-dom";
+
 import * as S from "./RegistrationEndStyled";
 import { SocialShareButtons } from "../../components/modules";
 import images from "../../shared/img";
-import { useLocation } from "react-router-dom";
 
 interface IRegistrarionEnd {
   status: "confirmed" | "canceled";
@@ -33,8 +34,14 @@ const RegistrationEnd = ({ status = "confirmed" }: IRegistrarionEnd) => {
   const finalMessage = messagesOptions[status];
 
   const { state } = useLocation();
+  const history = useHistory();
 
-  console.log("state :: ", state);
+  useEffect(() => {
+    console.log(state);
+    if (!state) {
+      history.push("/");
+    }
+  }, [state, history]);
 
   return (
     <S.RegistrationEndContainer>

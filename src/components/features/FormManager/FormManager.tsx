@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
+import { useHistory } from "react-router-dom";
 
 import * as S from "./FormManagerStyled";
 import Stepper from "./components/modules/Stepper/Stepper";
@@ -12,7 +13,6 @@ import {
   sendSubscription,
   ISubscription,
 } from "../../../services/student.service";
-import { useHistory } from "react-router-dom";
 
 const initialValues: ISubscription = {
   fullName: "",
@@ -60,15 +60,13 @@ const FormManager = () => {
     { setSubmitting }: FormikHelpers<ISubscription>
   ) => {
     try {
-      // await sendSubscription(values);
-      console.log("SUbmit");
-      history.push("/registration-end", "success");
+      await sendSubscription(values);
       setSubmitting(false);
+      history.push("/registration-end", "success");
     } catch (error) {
-      alert("Ops, tivemos um problema.");
+      setSubmitting(false);
       console.log(error);
     }
-    setSubmitting(false);
   };
 
   return (
