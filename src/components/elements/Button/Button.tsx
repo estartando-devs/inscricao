@@ -10,9 +10,11 @@ const Button: React.FC<IButton> = ({
   disabled,
   isLoading = false,
   children,
+  type = "button",
   ...rest
 }) => (
   <S.ButtonContainer
+    type={type}
     onClick={onClick}
     variant={variant}
     size={size}
@@ -20,17 +22,11 @@ const Button: React.FC<IButton> = ({
     isLoading={isLoading}
     {...rest}
   >
-    {
-    isLoading
-      ? (
-        <ReactLoading
-          type="spokes"
-          height="20px"
-          width="20px"
-        />
-      )
-      : children
-    }
+    {isLoading ? (
+      <ReactLoading type="spokes" height="20px" width="20px" />
+    ) : (
+      children
+    )}
   </S.ButtonContainer>
 );
 

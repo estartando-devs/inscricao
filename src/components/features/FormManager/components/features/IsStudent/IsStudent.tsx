@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useFormikContext } from "formik";
+import React from "react";
+import { useFormikContext, useField } from "formik";
 
 import { Button } from "../../../../../elements/Button";
 import * as S from "./IsStudentStyled";
@@ -18,10 +18,10 @@ const IsStudent: React.FC<IProps> = ({
 }) => {
   const { setFieldValue } = useFormikContext();
 
-  const [studentStatus, setStudentStatus] = useState("noStudent");
+  const [, { value }] = useField("isStudent");
 
-  const handleIsStudentStatus = (value: any) => {
-    setFieldValue("isStudent", value);
+  const handleIsStudentStatus = (_value: any) => {
+    setFieldValue("isStudent", _value);
   };
 
   const handlePrev = () => {
@@ -29,32 +29,31 @@ const IsStudent: React.FC<IProps> = ({
   };
   const handleNext = () => {
     nextStep();
-    handleIsStudentStatus((studentStatus === "isStudent"));
   };
   return (
     <S.IsStudentWrapper>
-      <S.PageHeader>
-        Em qual perfil você se encaixa?
-      </S.PageHeader>
+      <S.PageHeader>Em qual perfil você se encaixa?</S.PageHeader>
       <S.Options>
         <CardOption
           image={getImage("students")}
-          value="isStudent"
-          setValue={() => setStudentStatus("isStudent")}
+          value
+          setValue={handleIsStudentStatus}
           label="Estou no 3º ano do ensino médio"
-          selected={studentStatus}
+          selected={value}
         />
         <CardOption
           image={getImage("perfilFormado")}
-          value="noStudent"
-          setValue={() => setStudentStatus("noStudent")}
+          value={false}
+          setValue={handleIsStudentStatus}
           label="já concluí o ensino médio"
-          selected={studentStatus}
+          selected={value}
         />
       </S.Options>
       <S.ButtonsContainer>
-        <Button onClick={handlePrev} variant="outlined">Voltar</Button>
-        <Button onClick={handleNext}>Avançar</Button>
+        <Button onClick={handlePrev} variant="outlined">
+          Voltar
+        </Button>
+        <Button onClick={handleNext}>Continuar</Button>
       </S.ButtonsContainer>
     </S.IsStudentWrapper>
   );

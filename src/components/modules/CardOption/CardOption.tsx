@@ -4,9 +4,9 @@ import * as S from "./CardOptionStyled";
 interface ICardOption {
   image: string;
   label?: string;
-  value: string;
+  value: string | boolean | number;
   selected?: string;
-  setValue: (value: string) => void;
+  setValue: (value: string | boolean | number) => void;
 }
 
 const CardOption = ({
