@@ -3,7 +3,6 @@ import styled from "styled-components";
 const LayoutContainer = styled.div`
   width: 100%;
   height: 100%;
-  background-color: ${(props) => props.theme.palette.background.default};
 `;
 
 const LayoutContent = styled.div`
@@ -15,6 +14,8 @@ const LayoutContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3),
+    -5px -5px 8px rgba(123, 122, 122, 0.2); */
 `;
 
 export { LayoutContainer, LayoutContent };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, useFormikContext } from "formik";
+import { useFormikContext } from "formik";
 
 import { Button, Input } from "../../../../../elements";
 import * as S from "./PersonalDataStyled";
@@ -27,7 +27,7 @@ const PersonalData: React.FC<IProps> = ({ nextStep = () => {} }) => {
   };
 
   return (
-    <Form>
+    <S.PersonalDataWrapper>
       <Input label="Seu nome completo" name="fullName" />
       <Input label="Seu email" name="email" />
       <Input
@@ -50,13 +50,13 @@ const PersonalData: React.FC<IProps> = ({ nextStep = () => {} }) => {
         onChange={changeCep}
       />
       <Input label="Seu endereço" name="address" />
-      <Input label="Seu número" name="number" />
+      <Input label="Seu número" name="number" width="70%" />
       <Input label="Seu bairro" name="neighborhood" />
       <Input label="Sua cidade" name="city" />
       <S.ButtonsContainer>
         <Button onClick={handleNext}>Continuar</Button>
       </S.ButtonsContainer>
-    </Form>
+    </S.PersonalDataWrapper>
   );
 };
 

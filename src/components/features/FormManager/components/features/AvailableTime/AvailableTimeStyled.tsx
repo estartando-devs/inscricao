@@ -4,11 +4,6 @@ import media from "styled-media-query";
 
 export const AvailableTimeWrapper = styled(Form)`
   height: 100%;
-  display: grid;
-  grid-template-rows: auto 4fr 1fr;
-  ${media.greaterThan("medium")`
-    grid-template-rows: 60px 6fr 1fr;
-  `}
 `;
 
 export const PageHeader = styled.h2`
@@ -35,12 +30,23 @@ export const Options = styled.div`
 `;
 
 export const ButtonsContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-    margin: auto;
-    padding: 24px;
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(
+    900deg,
+    rgba(16, 16, 16, 0.8) 0%,
+    rgba(16, 16, 16, 1) 50%,
+    rgba(16, 16, 16, 1) 100%
+  );
   ${media.greaterThan("medium")`
     gap: 112px;
   `}
+  &>* {
+    margin: 0 10px;
+  }
 `;
