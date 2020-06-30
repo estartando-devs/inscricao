@@ -1,7 +1,7 @@
 import React from "react";
+import { StepperProps } from "react-step-wizard";
 
 import * as S from "./StepperStyled";
-import { StepperProps } from "react-step-wizard";
 import images from "../../../../../../shared/img";
 
 interface StepProps {
@@ -9,13 +9,20 @@ interface StepProps {
   step: number;
   status: Array<boolean>;
   totalSteps: number;
+  isActive: boolean;
 }
 
 const isDisabled = (step: number, status: Array<boolean>) => {
   return !(status[step - 1] || status[step]);
 };
 
-const Step: React.FC<StepProps> = ({ action, step, status, totalSteps }) => {
+const Step: React.FC<StepProps> = ({
+  action,
+  step,
+  status,
+  totalSteps,
+  isActive,
+}) => {
   const disabled = isDisabled(step, status);
   const showDivisor = totalSteps > step;
   const handleClick = () => {
@@ -25,7 +32,11 @@ const Step: React.FC<StepProps> = ({ action, step, status, totalSteps }) => {
     `step${step}${disabled ? "Disabled" : ""}`;
   return (
     <>
-      <S.StepIndicatorContainer disabled={disabled} onClick={handleClick}>
+      <S.StepIndicatorContainer
+        isActive={isActive}
+        disabled={disabled}
+        onClick={handleClick}
+      >
         <S.Icon src={images[generateKey(step, disabled)]} alt="" />
       </S.StepIndicatorContainer>
       {showDivisor && <S.StepDivisor disabled={isDisabled(step + 1, status)} />}
@@ -37,6 +48,7 @@ const Stepper: React.FC<StepperProps> = ({
   goToStep = () => {},
   totalSteps = 1,
   status,
+  currentStep,
 }) => {
   return (
     <S.Container>
@@ -45,24 +57,28 @@ const Stepper: React.FC<StepperProps> = ({
         step={1}
         status={status}
         totalSteps={totalSteps}
+        isActive={currentStep === 1}
       />
       <Step
         action={goToStep}
         step={2}
         status={status}
         totalSteps={totalSteps}
+        isActive={currentStep === 2}
       />
       <Step
         action={goToStep}
         step={3}
         status={status}
         totalSteps={totalSteps}
+        isActive={currentStep === 3}
       />
       <Step
         action={goToStep}
         step={4}
         status={status}
         totalSteps={totalSteps}
+        isActive={currentStep === 4}
       />
     </S.Container>
   );

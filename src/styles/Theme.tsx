@@ -11,7 +11,7 @@ const Theme: DefaultTheme = {
       light: "#81E7A8",
       main: "#81CAA8",
       dark: "#488184",
-      contrastText: "#525252",
+      contrastText: "#161616",
     },
     text: {
       primary: "#fff",
@@ -68,6 +68,13 @@ const Theme: DefaultTheme = {
       fontFamily: "Ubuntu Mono",
       fontWeight: 300,
       fontSize: "6rem",
+      lineHeight: 1.167,
+      letterSpacing: "-0.01562em",
+    },
+    button: {
+      fontFamily: "Ubuntu Mono",
+      fontWeight: 700,
+      fontSize: "1.2rem",
       lineHeight: 1.167,
       letterSpacing: "-0.01562em",
     },
