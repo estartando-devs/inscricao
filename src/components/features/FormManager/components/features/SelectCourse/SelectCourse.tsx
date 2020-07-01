@@ -56,7 +56,7 @@ const SelectCourse: React.FC<IProps> = ({
           gente!
         </S.TestimonyTitle>
         <S.TestimonyBox>
-          <TextArea name="testimony" placeholder="Você pode escrever aqui" />
+          <TextArea name="testimony" placeholder="Você pode escrever aqui." />
         </S.TestimonyBox>
       </S.TestimonyWrapper>
 

@@ -22,7 +22,8 @@ interface IMessagesOptions {
 const messagesOptions: IMessagesOptions = {
   confirmed: {
     image: images.inscricaoConfirmada,
-    message: "Sua inscrição foi confirmada!",
+    message: `Sua inscrição foi confirmada!
+    Fique atento ao seu email e telefone para acompanhar as próximas etapas.`,
   },
   canceled: {
     image: images.inscricaoCancelada,
@@ -36,12 +37,12 @@ const RegistrationEnd = ({ status = "confirmed" }: IRegistrarionEnd) => {
   const { state } = useLocation();
   const history = useHistory();
 
-  useEffect(() => {
-    console.log(state);
-    if (!state) {
-      history.push("/");
-    }
-  }, [state, history]);
+  // useEffect(() => {
+  //   console.log(state);
+  //   if (!state) {
+  //     history.push("/");
+  //   }
+  // }, [state, history]);
 
   return (
     <S.RegistrationEndContainer>

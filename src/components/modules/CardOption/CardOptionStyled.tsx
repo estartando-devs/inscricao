@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const CardContainer = styled.div`
   display: flex;
@@ -16,16 +16,19 @@ const CardImage = styled.img<ICard>`
   justify-content: center;
   align-items: center;
   width: 140px;
-  /* background: #fff; */
-  border-radius: 5px;
-  box-shadow: ${(props) => props.theme.shadows[1]};
+  border-radius: 8px;
   border: 4px solid transparent;
-  border-color: ${(props) =>
-    props.selected && `${props.theme.palette.primary.main}`};
-  /* width: 100%; */
-  /* height: auto; */
+  transition: all 0.2s ease-in;
   background-size: cover;
   object-fit: cover;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8),
+    -1px -1px 3px rgba(123, 122, 122, 0.3);
+  ${(props) =>
+    props.selected &&
+    css`
+      border-color: ${props.theme.palette.primary.main};
+      transform: scale(1.05);
+    `}
 `;
 
 const CardDescription = styled.p`
