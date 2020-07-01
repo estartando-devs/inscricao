@@ -14,8 +14,7 @@ const LayoutContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3),
-    -5px -5px 8px rgba(123, 122, 122, 0.2); */
+  box-shadow: ${(props) => props.theme.shadows[2]};
 `;
 
 export { LayoutContainer, LayoutContent };

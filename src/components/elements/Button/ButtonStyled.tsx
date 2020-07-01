@@ -55,6 +55,7 @@ const DISABLED = css`
   &:hover {
     background-color: ${(props) => props.theme.palette.grey[500]};
     border-color: ${(props) => props.theme.palette.grey[500]};
+    color: ${(props) => props.theme.palette.grey[400]};
   }
 `;
 

@@ -4,7 +4,7 @@ import { IButton } from "../../../models";
 import * as S from "./ButtonStyled";
 
 const Button: React.FC<IButton> = ({
-  onClick,
+  onClick = () => {},
   variant = "default",
   size = "small",
   disabled,

@@ -22,7 +22,8 @@ interface IMessagesOptions {
 const messagesOptions: IMessagesOptions = {
   confirmed: {
     image: images.inscricaoConfirmada,
-    message: "Sua inscrição foi confirmada!",
+    message: `Sua inscrição foi confirmada!
+    Fique atento ao seu email e telefone para acompanhar as próximas etapas.`,
   },
   canceled: {
     image: images.inscricaoCancelada,

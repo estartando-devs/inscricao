@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useImperativeHandle } from "react";
 import { StepperProps } from "react-step-wizard";
 
 import * as S from "./StepperStyled";
@@ -44,12 +44,23 @@ const Step: React.FC<StepProps> = ({
   );
 };
 
-const Stepper: React.FC<StepperProps> = ({
-  goToStep = () => {},
-  totalSteps = 1,
-  status,
-  currentStep,
-}) => {
+const Stepper: React.RefForwardingComponent<
+  { goToStep: Function },
+  StepperProps
+> = (
+  { goToStep = () => {}, totalSteps = 1, status, currentStep, setStep },
+  ref
+) => {
+  useEffect(() => {
+    setStep(currentStep);
+  }, [currentStep, setStep]);
+
+  useImperativeHandle(ref, () => ({
+    goToStep: (_step: number) => {
+      goToStep(_step);
+    },
+  }));
+
   return (
     <S.Container>
       <Step
@@ -84,4 +95,4 @@ const Stepper: React.FC<StepperProps> = ({
   );
 };
 
-export default Stepper;
+export default React.forwardRef(Stepper);

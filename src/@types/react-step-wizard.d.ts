@@ -42,6 +42,8 @@ declare module "react-step-wizard" {
     previousStep?: () => void;
     goToStep?: (step: number) => void;
     status: Array<boolen>;
+    setStep: Function;
+    ref: React.RefObject<{ goToStep: Function }>;
   }
 
   export default class StepWizard extends React.PureComponent<

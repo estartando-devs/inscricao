@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
@@ -13,6 +13,7 @@ import {
   sendSubscription,
   ISubscription,
 } from "../../../services/student.service";
+import StepperBottom from "./components/modules/StepperBottom/StepperBottom";
 
 const initialValues: ISubscription = {
   fullName: "",
@@ -47,7 +48,7 @@ const PersonalDataSchema = Yup.object().shape({
   city: Yup.string().required("Cidade é obrigatória"),
   isStudent: Yup.boolean().required("isStudent"),
   course: Yup.string().required("course"),
-  availableTime: Yup.boolean().required("availableTime"),
+  availableTime: Yup.boolean(),
   testimony: Yup.string(),
 });
 
@@ -55,18 +56,32 @@ const FormManager = () => {
   const status = [true, true, true, true];
   const history = useHistory();
 
+  const [loading, setLoading] = useState(false);
+  const [step, setStep] = useState(1);
+  const StepperRef = useRef<{ goToStep: Function }>(null);
+  const AvailableTimeRef = useRef<{ submitForm: Function }>(null);
+
   const onSubmit = async (
     values: ISubscription,
     { setSubmitting }: FormikHelpers<ISubscription>
   ) => {
+    console.log("VALUES :: ", values);
+    if (step !== 4) {
+      goToStep(step + 1);
+    }
+    setLoading(true);
     try {
       await sendSubscription(values);
-      setSubmitting(false);
+      setLoading(false);
       history.push("/registration-end", "success");
     } catch (error) {
-      setSubmitting(false);
+      setLoading(false);
       console.log(error);
     }
+  };
+
+  const goToStep = (_step: number) => {
+    StepperRef.current?.goToStep(_step);
   };
 
   return (
@@ -76,13 +91,23 @@ const FormManager = () => {
         initialValues={initialValues}
         validationSchema={PersonalDataSchema}
       >
-        <S.StepWizardStyled nav={<Stepper status={status} />}>
+        <S.StepWizardStyled
+          nav={<Stepper ref={StepperRef} setStep={setStep} status={status} />}
+        >
           <PersonalData />
           <IsStudent />
           <SelectCourse />
-          <AvailableTime />
+          <AvailableTime ref={AvailableTimeRef} />
         </S.StepWizardStyled>
       </Formik>
+      <StepperBottom
+        isFirst={step === 1}
+        handlePrev={() => goToStep(step - 1)}
+        handleNext={() => goToStep(step + 1)}
+        canSubmit={step === 4}
+        onSubmit={AvailableTimeRef.current?.submitForm}
+        isLoading={loading}
+      />
     </S.FormManagerContainer>
   );
 };

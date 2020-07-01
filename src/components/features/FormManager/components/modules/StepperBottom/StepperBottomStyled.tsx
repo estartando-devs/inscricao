@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import media from "styled-media-query";
+
+export const Container = styled.div``;
 
 export const ButtonsContainer = styled.div`
   position: fixed;
@@ -13,16 +14,10 @@ export const ButtonsContainer = styled.div`
     rgba(16, 16, 16, 1) 100%
   );
   display: flex;
+  justify-content: center;
+  padding: 24px;
+  z-index: 100;
   & > * {
     margin: 0 10px;
   }
-  justify-content: flex-end;
-  ${media.greaterThan("medium")`
-    justify-content: center;
-  `}
-  padding: 24px;
-`;
-
-export const PersonalDataWrapper = styled.div`
-  padding-bottom: 106px;
 `;

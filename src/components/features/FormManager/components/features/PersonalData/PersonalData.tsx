@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormikContext } from "formik";
 
-import { Button, Input } from "../../../../../elements";
+import { Input } from "../../../../../elements";
 import * as S from "./PersonalDataStyled";
 import { typeMask } from "../../../../../../utils/masks";
 import { getAddressByCep } from "../../../../../../services/helper.service";
@@ -12,9 +12,6 @@ interface IProps {
 
 const PersonalData: React.FC<IProps> = ({ nextStep = () => {} }) => {
   const { setFieldValue } = useFormikContext();
-  const handleNext = () => {
-    nextStep();
-  };
 
   const changeCep = async (value: string) => {
     const rawValue = value.replace(/[-.]/g, "");
@@ -52,9 +49,6 @@ const PersonalData: React.FC<IProps> = ({ nextStep = () => {} }) => {
       <Input label="Seu endereço" name="address" />
       <Input label="Seu bairro" name="neighborhood" />
       <Input label="Sua cidade" name="city" />
-      <S.ButtonsContainer>
-        <Button onClick={handleNext}>Continuar</Button>
-      </S.ButtonsContainer>
     </S.PersonalDataWrapper>
   );
 };

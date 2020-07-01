@@ -1,7 +1,6 @@
 import React from "react";
 import { useFormikContext, useField } from "formik";
 
-import { Button } from "../../../../../elements/Button";
 import * as S from "./IsStudentStyled";
 
 import { CardOption } from "../../../../../modules";
@@ -24,12 +23,6 @@ const IsStudent: React.FC<IProps> = ({
     setFieldValue("isStudent", _value);
   };
 
-  const handlePrev = () => {
-    previousStep();
-  };
-  const handleNext = () => {
-    nextStep();
-  };
   return (
     <S.IsStudentWrapper>
       <S.PageHeader>Em qual perfil você se encaixa?</S.PageHeader>
@@ -49,12 +42,6 @@ const IsStudent: React.FC<IProps> = ({
           selected={value}
         />
       </S.Options>
-      <S.ButtonsContainer>
-        <Button onClick={handlePrev} variant="outlined">
-          Voltar
-        </Button>
-        <Button onClick={handleNext}>Continuar</Button>
-      </S.ButtonsContainer>
     </S.IsStudentWrapper>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormikContext, useField } from "formik";
 
-import { Button, TextArea } from "../../../../../elements";
+import { TextArea } from "../../../../../elements";
 import * as S from "./SelectCourseStyled";
 
 import { CardOption } from "../../../../../modules";
@@ -24,12 +24,6 @@ const SelectCourse: React.FC<IProps> = ({
     setFieldValue("course", _course);
   };
 
-  const handlePrev = () => {
-    previousStep();
-  };
-  const handleNext = () => {
-    nextStep();
-  };
   return (
     <S.SelectCourseWrapper>
       <S.PageHeader>Qual curso você quer fazer?</S.PageHeader>
@@ -59,13 +53,6 @@ const SelectCourse: React.FC<IProps> = ({
           <TextArea name="testimony" placeholder="Você pode escrever aqui." />
         </S.TestimonyBox>
       </S.TestimonyWrapper>
-
-      <S.ButtonsContainer>
-        <Button onClick={handlePrev} variant="outlined">
-          Voltar
-        </Button>
-        <Button onClick={handleNext}>Continuar</Button>
-      </S.ButtonsContainer>
     </S.SelectCourseWrapper>
   );
 };

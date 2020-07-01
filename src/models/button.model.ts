@@ -2,7 +2,7 @@ export interface IButton {
   /**
    *function to be performed at the click of button
    */
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   /**
    * expected one of  'default' | 'outlined'
    */

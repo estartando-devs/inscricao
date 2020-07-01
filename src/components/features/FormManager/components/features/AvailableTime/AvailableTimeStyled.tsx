@@ -3,7 +3,7 @@ import { Form } from "formik";
 import media from "styled-media-query";
 
 export const AvailableTimeWrapper = styled(Form)`
-  height: 100%;
+  /* height: 100%; */
 `;
 
 export const PageHeader = styled.h2`
@@ -49,4 +49,17 @@ export const ButtonsContainer = styled.div`
   &>* {
     margin: 0 10px;
   }
+`;
+
+export const CardError = styled.div`
+  width: 80%;
+  max-width: 300px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: ${(props) => props.theme.palette.error.main};
+`;
+export const CardErrorMessage = styled.p`
+  width: 100%;
+  text-align: center;
+  color: ${(props) => props.theme.palette.error.contrastText};
 `;
