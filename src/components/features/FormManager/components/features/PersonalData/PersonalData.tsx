@@ -31,7 +31,7 @@ const PersonalData: React.FC<IProps> = ({ nextStep = () => {} }) => {
       <Input label="Seu nome completo" name="fullName" />
       <Input label="Seu email" name="email" />
       <Input
-        label="Quando você nasceu"
+        label="Quando você nasceu?"
         name="dateBirth"
         width="70%"
         mask={typeMask.date}
@@ -50,7 +50,6 @@ const PersonalData: React.FC<IProps> = ({ nextStep = () => {} }) => {
         onChange={changeCep}
       />
       <Input label="Seu endereço" name="address" />
-      <Input label="Seu número" name="number" width="70%" />
       <Input label="Seu bairro" name="neighborhood" />
       <Input label="Sua cidade" name="city" />
       <S.ButtonsContainer>

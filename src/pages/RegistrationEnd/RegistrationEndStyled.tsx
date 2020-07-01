@@ -13,7 +13,7 @@ const FinalImage = styled.img`
   height: auto;
 `;
 
-const FinalMessage = styled.h1`
+const FinalMessage = styled.h3`
   margin: 50px 0;
   text-align: center;
   font-family: ${(props) => props.theme.typography?.h1?.fontFamily || ""};

@@ -12,13 +12,12 @@ const TextArea = styled(Field)`
   max-width: 380px;
   max-height: 250px;
   color: ${(props) => props.theme.palette.text.primary};
-  border-color: ${(props) => (props.error
-    ? props.theme.palette.error.main
-    : props.theme.palette.background.paper
-  )};
+  border-color: ${(props) =>
+    props.error
+      ? props.theme.palette.error.main
+      : props.theme.palette.background.paper};
   ::placeholder {
     color: ${(props) => props.theme.palette.grey[400]};
-    text-transform: capitalize;
   }
   :focus {
     border-color: ${(props) => props.theme.palette.primary.main};

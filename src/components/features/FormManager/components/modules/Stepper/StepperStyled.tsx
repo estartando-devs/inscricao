@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import media from "styled-media-query";
 
 export const Container = styled.div`
   display: flex;
@@ -20,13 +21,16 @@ export const StepIndicatorContainer = styled.div<{
   border-radius: 50%;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8),
     -1px -1px 3px rgba(123, 122, 122, 0.3);
-  background-color: #fff;
   background-color: ${(props) => props.theme.palette.primary.main};
   ${(props) =>
     !props.isActive &&
     css`
       background-color: ${props.theme.palette.background.default};
     `};
+  ${media.greaterThan("medium")`
+    width: 48px;
+    height: 48px;
+  `}
 `;
 
 export const StepDivisor = styled.div<{ disabled?: boolean }>`
@@ -45,4 +49,9 @@ export const StepDivisor = styled.div<{ disabled?: boolean }>`
     `};
 `;
 
-export const Icon = styled.img<{ src: any }>``;
+export const Icon = styled.img<{ src: any }>`
+  ${media.greaterThan("medium")`
+    width: 28px;
+    height: 28px;
+  `}
+`;

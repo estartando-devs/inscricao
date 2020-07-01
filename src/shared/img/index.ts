@@ -13,6 +13,7 @@ const images: IImage<string> = {
   inscricaoConfirmada: require("./inscricao-confirmada.svg"),
   perfilFormado: require("./perfil-formado.svg"),
   step1: require("./step-1-white.svg"),
+  step1Disabled: require("./step-1-grey.svg"),
   step2: require("./step-2-white.svg"),
   step2Disabled: require("./step-2-grey.svg"),
   step3: require("./step-3-white.svg"),

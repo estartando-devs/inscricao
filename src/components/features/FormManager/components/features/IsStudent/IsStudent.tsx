@@ -45,7 +45,7 @@ const IsStudent: React.FC<IProps> = ({
           image={getImage("perfilFormado")}
           value={false}
           setValue={handleIsStudentStatus}
-          label="já concluí o ensino médio"
+          label="Já concluí o ensino médio"
           selected={value}
         />
       </S.Options>
