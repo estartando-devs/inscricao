@@ -92,6 +92,9 @@ const FormManager = () => {
         validationSchema={PersonalDataSchema}
       >
         <S.StepWizardStyled
+          onStepChange={() =>
+            document.querySelectorAll("*").forEach((el) => el.scrollTo(0, 0))
+          }
           nav={<Stepper ref={StepperRef} setStep={setStep} status={status} />}
         >
           <PersonalData />
