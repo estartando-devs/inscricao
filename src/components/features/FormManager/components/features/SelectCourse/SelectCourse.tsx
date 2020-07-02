@@ -52,6 +52,7 @@ const SelectCourse: React.FC<IProps> = ({
         <S.TestimonyBox>
           <TextArea name="testimony" placeholder="Você pode escrever aqui." />
         </S.TestimonyBox>
+        <S.GreenBalloon />
       </S.TestimonyWrapper>
     </S.SelectCourseWrapper>
   );

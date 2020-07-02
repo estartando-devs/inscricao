@@ -1,16 +1,15 @@
 import styled from "styled-components";
 import { Field } from "formik";
 
-const TextArea = styled(Field)`
-  background-color: ${(props) => props.theme.palette.background.paper};
+export const TextArea = styled(Field)`
+  /* background-color: ${(props) => props.theme.palette.background.paper}; */
+  background-color: transparent;
   padding: 9px 8px;
-  border-width: 2px;
-  border-style: solid;
+  border: none;
   border-radius: 5px;
   min-width: ${(props) => props.width || "254px"};
-  min-height: ${(props) => props.width || "220px"};
+  height: ${(props) => props.width || "155px"};
   max-width: 380px;
-  max-height: 250px;
   color: ${(props) => props.theme.palette.text.primary};
   border-color: ${(props) =>
     props.error
@@ -24,5 +23,3 @@ const TextArea = styled(Field)`
     outline: none;
   }
 `;
-
-export { TextArea };

@@ -2,7 +2,7 @@ export interface TextAreaProps {
   /**
    * expected string description
    */
-  placeholder: string,
+  placeholder: string;
   /**
    * @default "254px"
    * width px | rem ...

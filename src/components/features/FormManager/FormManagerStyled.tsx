@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import StepWizard from "react-step-wizard";
+import media from "styled-media-query";
 
 export const FormManagerContainer = styled.div`
   display: flex;
@@ -12,6 +13,9 @@ export const StepWizardStyled = styled(StepWizard)`
   width: 100%;
   height: auto;
   overflow: hidden;
+  ${media.greaterThan("medium")`
+    overflow: visible;
+  `}
   &::-webkit-scrollbar {
     display: none;
   }

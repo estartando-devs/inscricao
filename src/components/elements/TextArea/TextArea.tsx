@@ -3,10 +3,7 @@ import { useFormikContext } from "formik";
 import { TextAreaProps } from "./TextArea.model";
 import * as S from "./TextAreaStyled";
 
-const TextArea: React.FC<TextAreaProps> = ({
-  placeholder,
-  name,
-}) => {
+const TextArea: React.FC<TextAreaProps> = ({ placeholder, name }) => {
   const { setFieldValue } = useFormikContext();
   const handleChange = (event: Event) => {
     const target = event.target as HTMLInputElement;

@@ -35,6 +35,7 @@ export const TestimonyWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 `;
 
 export const TestimonyTitle = styled(PageHeader)`
@@ -43,9 +44,29 @@ export const TestimonyTitle = styled(PageHeader)`
 `;
 
 export const TestimonyBox = styled.div`
-  /* background-image: url(${getImage("textAreaGreen")});
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(${getImage("textAreaBlack")});
   background-repeat: no-repeat;
-  background-size: contain; */
+  background-size: contain;
+  background-position: center 0px;
+  margin-bottom: 100px;
+  padding: 10px 0 60px 0;
+`;
+
+export const GreenBalloon = styled.div`
+  height: 178px;
+  width: 212px;
+  background-image: url(${getImage("textAreaGreen")});
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  position: absolute;
+  bottom: 100px;
+  right: -32px;
+  z-index: -1;
 `;
 
 export const ButtonsContainer = styled.div`
