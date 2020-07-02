@@ -10,8 +10,8 @@ export const FormManagerContainer = styled.div`
 
 export const StepWizardStyled = styled(StepWizard)`
   width: 100%;
-  height: 100%;
-  overflow-x: hidden;
+  height: auto;
+  overflow: hidden;
   &::-webkit-scrollbar {
     display: none;
   }
