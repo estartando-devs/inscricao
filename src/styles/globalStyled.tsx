@@ -4,7 +4,8 @@ export const GlobalStyles = createGlobalStyle`
   *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box
+    box-sizing: border-box;
+    scroll-behavior: smooth;
   }
 
   body {
@@ -12,7 +13,7 @@ export const GlobalStyles = createGlobalStyle`
     color: ${(props) => props.theme.palette.text.primary};
     font-family: ${(props) => props.theme.typography.fontFamily};
   }
-  
+
   html {
     font-size: ${(props) => props.theme.typography.htmlFontSize}px;
   }
