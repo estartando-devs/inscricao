@@ -16,6 +16,7 @@ const LayoutContent = styled.div`
   flex-direction: column;
   align-items: center;
   box-shadow: ${(props) => props.theme.shadows[2]};
+  overflow: hidden;
 `;
 
 export { LayoutContainer, LayoutContent };

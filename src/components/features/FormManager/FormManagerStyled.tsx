@@ -13,7 +13,7 @@ export const StepWizardStyled = styled(StepWizard)`
   width: 100%;
   height: auto;
   overflow: hidden;
-  ${media.greaterThan("medium")`
+  ${media.greaterThan("small")`
     overflow: visible;
   `}
   &::-webkit-scrollbar {
