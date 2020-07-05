@@ -22,13 +22,16 @@ export const sendSubscription = async (subscription: ISubscription) => {
     { method: "post", body: JSON.stringify(subscription) }
   );
   await http(
-    "https://discordapp.com/api/webhooks/729118719737069669/CAwTGLyMSLPjftBVNw1BZlU-68Da018TD5WuGipzQ8CIGc7jj1EK1fXpY_GilG1z9vHR" ,
-    { method: "post" , body: JSON.stringify(
-      {"content":`🎉🎉Mais um inscrito no Estartando Devs 2020🎉🎉 
+    "https://discordapp.com/api/webhooks/729118719737069669/CAwTGLyMSLPjftBVNw1BZlU-68Da018TD5WuGipzQ8CIGc7jj1EK1fXpY_GilG1z9vHR",
+    {
+      method: "post",
+      body: JSON.stringify({
+        content: `🎉🎉Mais um inscrito no Estartando Devs 2020🎉🎉 
                   \n👨‍💻 Nome:  ${subscription.fullName} 
                   \n📍 Local:  ${subscription.city} , ${subscription.neighborhood}
-                  \n💻 Turma:  ${subscription.course}`
-                 `} ) , 
-      headers: {'Content-Type': 'application/json'}}
+                  \n💻 Turma:  ${subscription.course}
+                 `}),
+      headers: { "Content-Type": "application/json" },
+    }
   );
 };
