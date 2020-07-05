@@ -23,6 +23,6 @@ export const sendSubscription = async (subscription: ISubscription) => {
   );
   await http(
     "https://discordapp.com/api/webhooks/729118719737069669/CAwTGLyMSLPjftBVNw1BZlU-68Da018TD5WuGipzQ8CIGc7jj1EK1fXpY_GilG1z9vHR" ,
-    { method: "post" , body: JSON.stringify({"content":`Mais um inscrito no devs! ${subscription.fullName}`})}
+    { method: "post" , body: JSON.stringify({"content":`Mais um inscrito no devs! ${subscription.fullName}`}) , headers: {'Content-Type': 'application/json'}}
   );
 };
