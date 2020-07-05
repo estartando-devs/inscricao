@@ -26,7 +26,7 @@ export const sendSubscription = async (subscription: ISubscription) => {
     {
       method: "post",
       body: JSON.stringify({
-        content: `🎉🎉Mais um inscrito no Estartando Devs 2020🎉🎉 
+        content: `Mais um inscrito no Estartando Devs 2020 🎉 
                   \n👨‍💻 Nome:  ${subscription.fullName} 
                   \n📍 Local:  ${subscription.city} , ${subscription.neighborhood}
                   \n💻 Turma:  ${subscription.course}
