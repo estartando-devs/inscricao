@@ -10,7 +10,7 @@ const Header = () => {
       </S.SideContent>
       <S.Separator />
       <S.TitleContainer>
-        <S.HeaderTitle>Inscrições 2020</S.HeaderTitle>
+        <S.HeaderTitle>Inscrições 2021</S.HeaderTitle>
       </S.TitleContainer>
     </S.HeaderContainer>
   );
