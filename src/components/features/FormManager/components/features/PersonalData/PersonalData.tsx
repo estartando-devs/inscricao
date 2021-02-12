@@ -28,10 +28,10 @@ const PersonalData: React.FC<IProps> = ({ nextStep = () => {} }) => {
       <Input label="Seu nome completo" name="fullName" />
       <Input label="Seu email" name="email" />
       <Input
+        type="date"
         label="Quando você nasceu?"
         name="dateBirth"
         width="70%"
-        mask={typeMask.date}
       />
       <Input
         label="Seu telefone"
