@@ -76,6 +76,7 @@ const FormManager = () => {
       history.push("/registration-end", "success");
     } catch (error) {
       setLoading(false);
+      alert("Ocorreu um erro. Tente novamente mais tarde.");
       console.log(error);
     }
   };
