@@ -1,4 +1,4 @@
-import { http } from "./base.service";
+// import { http } from "./base.service";
 
 export interface ISubscription {
   fullName: string;
@@ -17,20 +17,21 @@ export interface ISubscription {
 }
 
 export const sendSubscription = async (subscription: ISubscription) => {
-  await http(
+  await fetch(
     "https://us-central1-estartando-devs-platform.cloudfunctions.net/platform/subscribe",
     { method: "post", body: JSON.stringify(subscription) }
   );
-  await http(
+  await fetch(
     "https://discordapp.com/api/webhooks/729118719737069669/CAwTGLyMSLPjftBVNw1BZlU-68Da018TD5WuGipzQ8CIGc7jj1EK1fXpY_GilG1z9vHR",
     {
       method: "post",
       body: JSON.stringify({
-        content: `Mais um inscrito no Estartando Devs 2020 🎉 
-                  \n👨‍💻 Nome:  ${subscription.fullName} 
+        content: `Mais um inscrito no Estartando Devs 2020 🎉
+                  \n👨‍💻 Nome:  ${subscription.fullName}
                   \n📍 Local:  ${subscription.city} , ${subscription.neighborhood}
                   \n💻 Turma:  ${subscription.course}
-                 `}),
+                 `,
+      }),
       headers: { "Content-Type": "application/json" },
     }
   );
