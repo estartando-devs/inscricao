@@ -3,6 +3,8 @@ import * as S from "./HeaderStyled";
 import { Logo } from "../../elements";
 
 const Header = () => {
+  const year = new Date().getFullYear();
+
   return (
     <S.HeaderContainer>
       <S.SideContent>
@@ -10,7 +12,7 @@ const Header = () => {
       </S.SideContent>
       <S.Separator />
       <S.TitleContainer>
-        <S.HeaderTitle>Inscrições 2021</S.HeaderTitle>
+        <S.HeaderTitle>{`Inscrições ${year}`}</S.HeaderTitle>
       </S.TitleContainer>
     </S.HeaderContainer>
   );
