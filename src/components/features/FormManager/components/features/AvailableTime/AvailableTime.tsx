@@ -11,10 +11,10 @@ interface IProps {
   previousStep?: Function;
 }
 
-const AvailableTime: React.RefForwardingComponent<
+const AvailableTime: React.ForwardRefRenderFunction<
   { submitForm: Function },
   IProps
-> = ({ previousStep = () => {} }, ref) => {
+> = (_, ref) => {
   const { setFieldValue, submitForm, isValid } = useFormikContext();
   const [, { value }] = useField("availableTime");
 

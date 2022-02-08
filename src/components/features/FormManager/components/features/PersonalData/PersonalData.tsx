@@ -10,7 +10,7 @@ interface IProps {
   nextStep?: Function;
 }
 
-const PersonalData: React.FC<IProps> = ({ nextStep = () => {} }) => {
+const PersonalData: React.FC<IProps> = () => {
   const { setFieldValue } = useFormikContext();
 
   const changeCep = async (value: string) => {
