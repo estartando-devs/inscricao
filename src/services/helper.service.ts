@@ -12,10 +12,8 @@ interface IViaCep {
   gia: string;
 }
 
-export const getAddressByCep = async (cep: string): Promise<IViaCep> => {
-  return new Promise((resolve) => {
-    http<IViaCep>(`https://viacep.com.br/ws/${cep}/json/`).then((response) => {
-      resolve(response.parsedBody);
-    });
-  });
-};
+export const getAddressByCep = async (cep: string): Promise<IViaCep | any> => new Promise(
+  (resolve) => {
+    http<IViaCep>(`https://viacep.com.br/ws/${cep}/json/`).then((response) => resolve(response.parsedBody));
+  },
+);

@@ -14,12 +14,15 @@ export interface ISubscription {
   course: string;
   availableTime: boolean | undefined;
   testimony: string;
+  createdAt: Date | string
 }
 
 export const sendSubscription = async (subscription: ISubscription) => {
   await fetch(
     "https://us-central1-estartando-devs-platform.cloudfunctions.net/platform/subscribe",
-    { method: "post", body: JSON.stringify(subscription) }
+    {
+      method: "post", body: JSON.stringify(subscription),
+    },
   );
   await fetch(
     "https://discordapp.com/api/webhooks/729118719737069669/CAwTGLyMSLPjftBVNw1BZlU-68Da018TD5WuGipzQ8CIGc7jj1EK1fXpY_GilG1z9vHR",
@@ -32,7 +35,9 @@ export const sendSubscription = async (subscription: ISubscription) => {
                   \n💻 Turma:  ${subscription.course}
                  `,
       }),
-      headers: { "Content-Type": "application/json" },
-    }
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
   );
 };

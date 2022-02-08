@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Formik, FormikHelpers } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
 
@@ -9,10 +9,7 @@ import PersonalData from "./components/features/PersonalData/PersonalData";
 import IsStudent from "./components/features/IsStudent/IsStudent";
 import SelectCourse from "./components/features/SelectCourse/SelectCourse";
 import AvailableTime from "./components/features/AvailableTime/AvailableTime";
-import {
-  sendSubscription,
-  ISubscription,
-} from "../../../services/student.service";
+import { ISubscription, sendSubscription } from "../../../services/student.service";
 import StepperBottom from "./components/modules/StepperBottom/StepperBottom";
 
 const initialValues: ISubscription = {
@@ -29,6 +26,7 @@ const initialValues: ISubscription = {
   isStudent: undefined,
   availableTime: undefined,
   testimony: "",
+  createdAt: new Date(),
 };
 
 const PersonalDataSchema = Yup.object().shape({
@@ -53,7 +51,7 @@ const PersonalDataSchema = Yup.object().shape({
 });
 
 const FormManager = () => {
-  const status = [true, true, true, true];
+  const status = new Array(4).fill(true);
   const history = useHistory();
 
   const [loading, setLoading] = useState(false);
@@ -61,28 +59,28 @@ const FormManager = () => {
   const StepperRef = useRef<{ goToStep: Function }>(null);
   const AvailableTimeRef = useRef<{ submitForm: Function }>(null);
 
+  const goToStep = (_step: number) => StepperRef.current?.goToStep(_step);
+
   const onSubmit = async (
     values: ISubscription,
-    { setSubmitting }: FormikHelpers<ISubscription>
   ) => {
-    console.log("VALUES :: ", values);
+    const credentials = {
+      ...values,
+      createdAt: new Date(values.createdAt).toISOString(),
+    };
     if (step !== 4) {
       goToStep(step + 1);
     }
     setLoading(true);
     try {
-      await sendSubscription(values);
-      setLoading(false);
+      await sendSubscription(credentials);
       history.push("/registration-end", "success");
-    } catch (error) {
-      setLoading(false);
+    } catch {
+      // eslint-disable-next-line no-alert
       alert("Ocorreu um erro. Tente novamente mais tarde.");
-      console.log(error);
+    } finally {
+      setLoading(false);
     }
-  };
-
-  const goToStep = (_step: number) => {
-    StepperRef.current?.goToStep(_step);
   };
 
   return (

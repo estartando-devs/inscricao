@@ -38,7 +38,6 @@ const RegistrationEnd = ({ status = "confirmed" }: IRegistrarionEnd) => {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(state);
     if (!state) {
       history.push("/");
     }
