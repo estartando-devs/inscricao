@@ -1,4 +1,5 @@
 import config from "../config/constants";
+import { currentYear } from "../utils/currentYear";
 
 export interface ISubscription {
   fullName: string;
@@ -28,7 +29,7 @@ export const sendSubscription = async (subscription: ISubscription) => {
     {
       method: "post",
       body: JSON.stringify({
-        content: `Mais um inscrito no Estartando Devs 2022 🎉
+        content: `Mais um inscrito no Estartando Devs ${currentYear} 🎉
                   \n👨‍💻 Nome:  ${subscription.fullName}
                   \n📍 Local:  ${subscription.city} , ${subscription.neighborhood}
                   \n💻 Turma:  ${subscription.course}
