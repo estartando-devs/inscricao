@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { RegistrationEnd, Home } from ".";
+import { RegistrationEnd } from "./RegistrationEnd";
+import { Home } from "./Home";
 import { Layout } from "../components/modules";
 
-export default function Routes() {
+export function Routes() {
   return (
     <BrowserRouter>
       <Layout>
