@@ -6,11 +6,7 @@ import * as S from "./PersonalDataStyled";
 import { typeMask } from "../../../../../../utils/masks";
 import { getAddressByCep } from "../../../../../../services/helper.service";
 
-interface IProps {
-  nextStep?: Function;
-}
-
-const PersonalData: React.FC<IProps> = ({ nextStep = () => {} }) => {
+const PersonalData = () => {
   const { setFieldValue } = useFormikContext();
 
   const changeCep = async (value: string) => {
@@ -37,13 +33,13 @@ const PersonalData: React.FC<IProps> = ({ nextStep = () => {} }) => {
         label="Seu telefone"
         name="phone"
         width="70%"
-        mask={typeMask.phone}
+        mask={typeMask.PHONE}
       />
       <Input
         label="Seu cep (é opcional)"
         name="zipcode"
         width="90%"
-        mask={typeMask.cep}
+        mask={typeMask.CEP}
         onChange={changeCep}
       />
       <Input label="Seu endereço" name="address" />
