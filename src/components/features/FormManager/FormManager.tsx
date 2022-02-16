@@ -2,16 +2,19 @@ import React, { useState, useRef, useCallback } from "react";
 import { Formik } from "formik";
 import { useHistory } from "react-router-dom";
 
-import * as S from "./FormManagerStyled";
+import {
+  sendSubscription, ISubscription, notifyDiscord, NotifyDiscordService,
+} from "../../../services";
+import { currentYear } from "../../../utils/currentYear";
+import { useNotification } from "../../../contexts";
 import Stepper from "./components/modules/Stepper/Stepper";
 import PersonalData from "./components/features/PersonalData/PersonalData";
 import IsStudent from "./components/features/IsStudent/IsStudent";
 import SelectCourse from "./components/features/SelectCourse/SelectCourse";
 import AvailableTime from "./components/features/AvailableTime/AvailableTime";
 import StepperBottom from "./components/modules/StepperBottom/StepperBottom";
-import { sendSubscription, ISubscription, notifyDiscord, NotifyDiscordService } from "../../../services";
-import { currentYear } from "../../../utils/currentYear";
 import { initialValues, PersonalDataSchema } from "./helpers";
+import * as S from "./FormManagerStyled";
 
 const FormManager = () => {
   const history = useHistory();
@@ -35,6 +38,8 @@ const FormManager = () => {
 
   const goToStep = useCallback((_step: number) => StepperRef.current?.goToStep(_step), []);
 
+  const { notify } = useNotification();
+
   const onSubmit = async (
     values: ISubscription,
   ) => {
@@ -49,7 +54,12 @@ const FormManager = () => {
       history.push("/registration-end", "success");
     } catch ({ message }) {
       setLoading(false);
-      alert(message || "Ocorreu um erro. Tente novamente mais tarde.");
+      notify(
+        message as string || "Ocorreu um erro. Tente novamente mais tarde.",
+        {
+          type: "error",
+        },
+      );
     }
   };
 
