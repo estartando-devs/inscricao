@@ -45,7 +45,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "generate": "plop",
-    "commit": "cz"
+    "commit": "cz",
+    "check:types": "tsc --pretty --noEmit",
+    "lint": "eslint src"
   },
   "eslintConfig": {
     "extends": "react-app"

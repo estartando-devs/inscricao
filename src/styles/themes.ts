@@ -1,6 +1,6 @@
 import { DefaultTheme } from "styled-components";
 
-const Theme: DefaultTheme = {
+export const theme: DefaultTheme = {
   shadows: [
     "0px 3px 4px rgba(0, 0, 0, 0.1)",
     "0px 4px 4px rgba(0, 0, 0, 0.25)",
@@ -87,5 +87,3 @@ const Theme: DefaultTheme = {
     },
   },
 };
-
-export default Theme;
