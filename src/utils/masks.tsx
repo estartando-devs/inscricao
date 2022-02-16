@@ -1,8 +1,6 @@
 import VMasker from "vanilla-masker";
 
-const standard = (value: string) => {
-  return value;
-};
+const standard = (value: string) => value;
 
 const date = (value: string) => {
   const rawValue = value.replace(/[/]/g, "");
@@ -33,12 +31,12 @@ const cep = (value: string) => {
 };
 
 export enum typeMask {
-  date = "date",
-  dateTime = "dateTime",
-  cpf = "cpf",
-  phone = "phone",
-  cep = "cep",
-  standard = "standard",
+  DATE = "date",
+  DATE_TIME = "dateTime",
+  CPF = "cpf",
+  PHONE = "phone",
+  CEP = "cep",
+  STANDARD = "standard",
 }
 
 export const masks = {

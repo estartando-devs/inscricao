@@ -28,7 +28,6 @@ const StepperBottom: React.FC<IStepperBottom> = ({
     }
   };
   const prevStep = () => {
-    console.log("PREV");
     handlePrev();
   };
   return (

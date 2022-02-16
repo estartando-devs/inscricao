@@ -3,7 +3,7 @@ import * as S from "./HeaderStyled";
 import { Logo } from "../../elements";
 import { currentYear } from "../../../utils/currentYear";
 
-const Header = () => (
+export const Header = () => (
   <S.HeaderContainer>
     <S.SideContent>
       <Logo width="125px" />
@@ -14,5 +14,3 @@ const Header = () => (
     </S.TitleContainer>
   </S.HeaderContainer>
 );
-
-export default Header;

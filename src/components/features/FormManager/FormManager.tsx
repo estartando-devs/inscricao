@@ -1,88 +1,66 @@
-import React, { useState, useRef } from "react";
-import { Formik, FormikHelpers } from "formik";
-import * as Yup from "yup";
+import React, { useState, useRef, useCallback } from "react";
+import { Formik } from "formik";
 import { useHistory } from "react-router-dom";
 
-import * as S from "./FormManagerStyled";
+import {
+  sendSubscription, ISubscription, notifyDiscord, NotifyDiscordService,
+} from "../../../services";
+import { currentYear } from "../../../utils/currentYear";
+import { useNotification } from "../../../contexts";
 import Stepper from "./components/modules/Stepper/Stepper";
 import PersonalData from "./components/features/PersonalData/PersonalData";
 import IsStudent from "./components/features/IsStudent/IsStudent";
 import SelectCourse from "./components/features/SelectCourse/SelectCourse";
 import AvailableTime from "./components/features/AvailableTime/AvailableTime";
-import {
-  sendSubscription,
-  ISubscription,
-} from "../../../services/student.service";
 import StepperBottom from "./components/modules/StepperBottom/StepperBottom";
-
-const initialValues: ISubscription = {
-  fullName: "",
-  email: "",
-  dateBirth: "",
-  phone: "",
-  zipcode: "",
-  address: "",
-  number: "",
-  city: "",
-  neighborhood: "",
-  course: "",
-  isStudent: undefined,
-  availableTime: undefined,
-  testimony: "",
-};
-
-const PersonalDataSchema = Yup.object().shape({
-  fullName: Yup.string()
-    .min(4, "Nome muito curto")
-    .required("Nome é obrigatório"),
-  email: Yup.string().email("Email inválido").required("Email é obrigatório"),
-  dateBirth: Yup.string().required("Data de nascimento é obrigatório"),
-  phone: Yup.string()
-    .min(13, "Telefone inválido")
-    .max(15, "Telefone inválido")
-    .required("Telefone é obrigatório"),
-  zipcode: Yup.string().min(10, "Cep inválido").max(10, "Cep inválido"),
-  number: Yup.string(),
-  address: Yup.string().required("Endereço é obrigatório"),
-  neighborhood: Yup.string().required("Bairro é obrigatória"),
-  city: Yup.string().required("Cidade é obrigatória"),
-  isStudent: Yup.boolean().required("isStudent"),
-  course: Yup.string().required("course"),
-  availableTime: Yup.boolean(),
-  testimony: Yup.string(),
-});
+import { initialValues, PersonalDataSchema } from "./helpers";
+import * as S from "./FormManagerStyled";
 
 const FormManager = () => {
-  const status = [true, true, true, true];
   const history = useHistory();
-
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
   const StepperRef = useRef<{ goToStep: Function }>(null);
   const AvailableTimeRef = useRef<{ submitForm: Function }>(null);
+  const status = [true, true, true, true];
+
+  const mountDiscordConfig = useCallback((subscription: ISubscription): NotifyDiscordService => ({
+    webhookId: process.env.REACT_APP_WEBHOOK_NOTIFICATION_ID as string,
+    webhookToken: process.env.REACT_APP_WEBHOOK_NOTIFICATION_TOKEN as string,
+    body: JSON.stringify({
+      content: `Mais um inscrito no Estartando Devs ${currentYear} 🎉
+                \n👨‍💻 Nome:  ${subscription.fullName}
+                \n📍 Local:  ${subscription.city} , ${subscription.neighborhood}
+                \n💻 Turma:  ${subscription.course}
+               `,
+    }),
+  }), []);
+
+  const goToStep = useCallback((_step: number) => StepperRef.current?.goToStep(_step), []);
+
+  const { notify } = useNotification();
 
   const onSubmit = async (
     values: ISubscription,
-    { setSubmitting }: FormikHelpers<ISubscription>
   ) => {
-    console.log("VALUES :: ", values);
     if (step !== 4) {
       goToStep(step + 1);
     }
     setLoading(true);
     try {
       await sendSubscription(values);
+      await notifyDiscord(mountDiscordConfig(values));
       setLoading(false);
       history.push("/registration-end", "success");
-    } catch (error) {
+    } catch ({ message }) {
       setLoading(false);
-      alert("Ocorreu um erro. Tente novamente mais tarde.");
-      console.log(error);
+      notify(
+        message as string || "Ocorreu um erro. Tente novamente mais tarde.",
+        {
+          type: "error",
+        },
+      );
     }
-  };
-
-  const goToStep = (_step: number) => {
-    StepperRef.current?.goToStep(_step);
   };
 
   return (

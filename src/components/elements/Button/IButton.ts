@@ -1,8 +1,6 @@
-export interface IButton {
-  /**
-   *function to be performed at the click of button
-   */
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+import { ButtonHTMLAttributes } from "react";
+
+export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * expected one of  'default' | 'outlined'
    */
@@ -12,10 +10,6 @@ export interface IButton {
    */
   size?: "large" | "medium" | "small" | "huge";
   /**
-   * bollean
-   */
-  disabled?: boolean;
-  /**
    * boolean
    */
   isLoading?: boolean;
@@ -23,8 +17,4 @@ export interface IButton {
    * one of "button" | "submit" | "reset" | undefined
    */
   type?: "button" | "submit" | "reset" | undefined;
-  /**
-   * React element
-   */
-  children: React.ReactNode;
 }

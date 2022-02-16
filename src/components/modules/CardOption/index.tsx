@@ -1,3 +1,1 @@
-import CardOption from "./CardOption";
-
-export { CardOption };
+export { CardOption } from "./CardOption";

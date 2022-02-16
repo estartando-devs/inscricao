@@ -23,9 +23,8 @@ const CardImage = styled.img<ICard>`
   object-fit: cover;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8),
     -1px -1px 3px rgba(123, 122, 122, 0.3);
-  ${(props) =>
-    props.selected &&
-    css`
+  ${(props) => props.selected
+    && css`
       border-color: ${props.theme.palette.primary.main};
       transform: scale(1.05);
     `}

@@ -12,14 +12,14 @@ interface InputProps {
   onChange?: Function;
 }
 
-const Input: React.FC<InputProps> = ({
+const Input = ({
   label,
   type,
   name,
   mask,
   width = "100%",
   onChange,
-}) => {
+}: InputProps) => {
   const { setFieldValue } = useFormikContext();
   const [, { error, touched }] = useField(name);
 

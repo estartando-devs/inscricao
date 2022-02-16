@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const RegistrationEndContainer = styled.div`
+export const RegistrationEndContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,15 +8,13 @@ const RegistrationEndContainer = styled.div`
   height: 100%;
 `;
 
-const FinalImage = styled.img`
+export const FinalImage = styled.img`
   width: 230px;
   height: auto;
 `;
 
-const FinalMessage = styled.h3`
+export const FinalMessage = styled.h3`
   margin: 50px 0;
   text-align: center;
   font-family: ${(props) => props.theme.typography?.h1?.fontFamily || ""};
 `;
-
-export { RegistrationEndContainer, FinalImage, FinalMessage };

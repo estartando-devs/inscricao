@@ -1,3 +1,1 @@
-import  RegistrationEnd  from './RegistrationEnd' 
-
-export { RegistrationEnd }
+export * from "./RegistrationEnd";

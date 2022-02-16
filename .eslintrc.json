@@ -14,16 +14,7 @@
   },
   "plugins": ["react", "import", "@typescript-eslint"],
   "rules": {
-    "object-curly-newline": [
-      "error",
-      {
-        "ObjectExpression": "always",
-        "ObjectPattern": { "multiline": true },
-        "ImportDeclaration": "never",
-        "ExportDeclaration": { "multiline": true, "minProperties": 3 }
-      }
-    ],
-    "react/jsx-filename-extension": [
+      "react/jsx-filename-extension": [
       1,
       {
         "extensions": [".ts", ".tsx"]
@@ -32,6 +23,7 @@
     "import/prefer-default-export": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "react/prop-types": "off",
+    "react/require-default-props": "off",
     "react/jsx-props-no-spreading": "off",
     "quotes": [1, "double"],
     "import/extensions": "off",

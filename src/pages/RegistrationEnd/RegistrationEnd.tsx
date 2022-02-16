@@ -31,14 +31,13 @@ const messagesOptions: IMessagesOptions = {
   },
 };
 
-const RegistrationEnd = ({ status = "confirmed" }: IRegistrarionEnd) => {
+export const RegistrationEnd = ({ status = "confirmed" }: IRegistrarionEnd) => {
   const finalMessage = messagesOptions[status];
 
   const { state } = useLocation();
   const history = useHistory();
 
   useEffect(() => {
-    console.log(state);
     if (!state) {
       history.push("/");
     }
@@ -52,5 +51,3 @@ const RegistrationEnd = ({ status = "confirmed" }: IRegistrarionEnd) => {
     </S.RegistrationEndContainer>
   );
 };
-
-export default RegistrationEnd;

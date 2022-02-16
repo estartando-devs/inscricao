@@ -11,6 +11,6 @@ const STAGES = {
 };
 
 const env = process.env.REACT_APP_STAGE || "prod";
-const config = STAGES[env];
+const config = STAGES[env].BASE_URL;
 
 export default config;

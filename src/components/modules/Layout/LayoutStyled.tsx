@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-const LayoutContainer = styled.div`
+export const LayoutContainer = styled.div`
   width: 100%;
   height: 100%;
 `;
 
-const LayoutContent = styled.div`
+export const LayoutContent = styled.div`
   background-color: ${(props) => props.theme.palette.background.default};
   margin: 0 auto;
   width: 100%;
@@ -18,5 +18,3 @@ const LayoutContent = styled.div`
   box-shadow: ${(props) => props.theme.shadows[2]};
   overflow: hidden;
 `;
-
-export { LayoutContainer, LayoutContent };
