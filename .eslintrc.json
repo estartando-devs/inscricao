@@ -32,6 +32,7 @@
     "import/prefer-default-export": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "react/prop-types": "off",
+    "react/require-default-props": "off",
     "react/jsx-props-no-spreading": "off",
     "quotes": [1, "double"],
     "import/extensions": "off",
