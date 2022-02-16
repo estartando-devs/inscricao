@@ -9,7 +9,7 @@ interface ICardOption {
   setValue: (value: string | boolean | number) => void;
 }
 
-const CardOption = ({
+export const CardOption = ({
   image,
   label,
   value,
@@ -30,5 +30,3 @@ const CardOption = ({
     </S.CardContainer>
   );
 };
-
-export default CardOption;

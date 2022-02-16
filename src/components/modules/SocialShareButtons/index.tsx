@@ -1,3 +1,1 @@
-import SocialShareButtons from "./SocialShareButtons";
-
-export { SocialShareButtons };
+export { SocialShareButtons } from "./SocialShareButtons";

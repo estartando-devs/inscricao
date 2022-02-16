@@ -1,6 +1,6 @@
 import FacebookIcon from "./icon-facebook.svg";
 import InstagramIcon from "./icon-instagram.svg";
-import { ISocialShare } from "../../../../models/socialshare.model";
+import { ISocialShare } from "../ISocialShare";
 
 const SocialShareIcons: ISocialShare[] = [
   {

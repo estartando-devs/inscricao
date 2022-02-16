@@ -1,24 +1,20 @@
 import React from "react";
 import ReactLoading from "react-loading";
-import { IButton } from "../../../models";
+import { IButton } from "./IButton";
 import * as S from "./ButtonStyled";
 
-const Button: React.FC<IButton> = ({
-  onClick = () => {},
+export const Button = ({
   variant = "default",
   size = "small",
-  disabled,
   isLoading = false,
   children,
   type = "button",
   ...rest
-}) => (
+}: IButton) => (
   <S.ButtonContainer
     type={type}
-    onClick={onClick}
     variant={variant}
     size={size}
-    disabled={disabled}
     isLoading={isLoading}
     {...rest}
   >
@@ -29,5 +25,3 @@ const Button: React.FC<IButton> = ({
     )}
   </S.ButtonContainer>
 );
-
-export default Button;

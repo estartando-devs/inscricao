@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { shade } from "polished";
-import { IButton } from "../../../models";
+import { IButton } from "./IButton";
 
 const SIZE = {
   small: css`
@@ -23,8 +23,7 @@ const VARIANT = {
     border-color: ${(props) => props.theme.palette.primary.main};
     color: ${(props) => props.theme.palette.primary.contrastText};
     &:hover {
-      background-color: ${(props) =>
-        shade(0.15, props.theme.palette.primary.main)};
+      background-color: ${(props) => shade(0.15, props.theme.palette.primary.main)};
       border-color: ${(props) => shade(0.15, props.theme.palette.primary.main)};
     }
     &:active {
