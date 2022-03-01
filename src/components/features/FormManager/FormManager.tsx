@@ -7,12 +7,10 @@ import {
 } from "../../../services";
 import { currentYear } from "../../../utils/currentYear";
 import { useNotification } from "../../../contexts";
-import Stepper from "./components/modules/Stepper/Stepper";
-import PersonalData from "./components/features/PersonalData/PersonalData";
-import IsStudent from "./components/features/IsStudent/IsStudent";
-import SelectCourse from "./components/features/SelectCourse/SelectCourse";
-import AvailableTime from "./components/features/AvailableTime/AvailableTime";
-import StepperBottom from "./components/modules/StepperBottom/StepperBottom";
+import {
+  PersonalData, IsStudent, SelectCourse, AvailableTime,
+} from "./components/features";
+import { Stepper, StepperBottom } from "./components/modules";
 import { initialValues, PersonalDataSchema } from "./helpers";
 import * as S from "./FormManagerStyled";
 
