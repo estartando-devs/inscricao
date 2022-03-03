@@ -3,7 +3,7 @@ const STAGES = {
     BASE_URL: "http://localhost:5001/estartando-devs-platform/us-central1/platform/subscribe",
   },
   stg: {
-    BASE_URL: "",
+    BASE_URL: "http://localhost:5001/estartando-devs-platform/us-central1/platform/subscribe",
   },
   prod: {
     BASE_URL: "https://us-central1-estartando-devs-platform.cloudfunctions.net/platform/subscribe",
