@@ -3,11 +3,13 @@ import styled from "styled-components";
 export const Overlay = styled.div`
   position: fixed;
   left: 0;
-  bottom: 10px;
+  bottom: 20px;
   overflow: auto;
+  backdrop-filter: blur(5px);
+  height: 100%;
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   z-index: 9999;
 `;
@@ -18,12 +20,14 @@ export const SectionContainer = styled.section`
   padding: 1rem;
   gap: 2rem;
   align-items: center;
+  margin: 0 1rem;
   background-color: ${({ theme }) => theme.palette.background.default};
-  height: 100%;
+  height: 100px;
   border-radius: 0.25rem;
   box-shadow: 0rem 1rem 2rem -0.25rem rgba(0, 0, 0, 0.25);
 
   @media (max-width: 425px) {
+    height: 200px;
     flex-direction: column;
     justify-content: center;
     gap: 5px;
