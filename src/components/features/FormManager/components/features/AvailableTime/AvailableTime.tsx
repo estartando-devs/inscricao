@@ -10,13 +10,14 @@ import { useNotification } from "../../../../../../contexts";
 interface IProps {
   nextStep?: Function;
   previousStep?: Function;
+  isLastStep: boolean;
 }
 
 const AvailableTime: React.RefForwardingComponent<
   { submitForm: Function },
   IProps
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-> = ({ previousStep = () => {} }, ref) => {
+> = ({ previousStep = () => {}, isLastStep }, ref) => {
   const { setFieldValue, submitForm, isValid } = useFormikContext();
   const [, { value }] = useField("availableTime");
   const { notify } = useNotification();
@@ -30,7 +31,7 @@ const AvailableTime: React.RefForwardingComponent<
   }));
 
   useEffect(() => {
-    if (!isValid) {
+    if (isLastStep && !isValid) {
       notify(
         "Ei! Parece que esqueceu de preencher alguma coisa... Volte ao primeiro passo e confira se não falta nada.",
         {
@@ -39,7 +40,7 @@ const AvailableTime: React.RefForwardingComponent<
         },
       );
     }
-  }, [isValid, notify]);
+  }, [isValid, isLastStep, notify]);
 
   return (
     <S.AvailableTimeWrapper>

@@ -36,6 +36,13 @@ const SelectCourse: React.FC<IProps> = ({
           selected={value}
         />
         <CardOption
+          image={getImage("cursoDesenvolvimento")}
+          value="Desenvolvimento Backend"
+          setValue={handleIsCourse}
+          label="Desenvolvimento Backend"
+          selected={value}
+        />
+        <CardOption
           image={getImage("cursoDesign")}
           value="Design UI/UX"
           setValue={handleIsCourse}
