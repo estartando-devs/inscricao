@@ -6,7 +6,7 @@ import { NotificationProvider } from "./contexts";
 
 export default function App() {
   useLayoutEffect(() => {
-    if (process.env.REACT_APP_STAGE === "prod") {
+    if (process.env.REACT_APP_SUBSCRIPTIONS_STATUS === "closed") {
       window.location.replace("https://estartandodevs.com.br");
     }
   }, []);
