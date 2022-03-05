@@ -15,6 +15,7 @@ export const initialValues: ISubscription = {
   isStudent: undefined,
   availableTime: undefined,
   testimony: "",
+  acceptTerms: false,
 };
 
 export const PersonalDataSchema = Yup.object().shape({
@@ -36,4 +37,5 @@ export const PersonalDataSchema = Yup.object().shape({
   course: Yup.string().required("course"),
   availableTime: Yup.boolean(),
   testimony: Yup.string(),
+  acceptTerms: Yup.boolean(),
 });

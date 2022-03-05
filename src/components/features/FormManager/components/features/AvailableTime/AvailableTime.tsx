@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle } from "react";
+import React, { ChangeEvent, useEffect, useImperativeHandle } from "react";
 import { useFormikContext, useField } from "formik";
 
 import * as S from "./AvailableTimeStyled";
@@ -6,6 +6,7 @@ import * as S from "./AvailableTimeStyled";
 import { CardOption } from "../../../../../modules";
 import { getImage } from "../../../../../../shared/img";
 import { useNotification } from "../../../../../../contexts";
+import { TERMS_OF_USE_URL } from "../../../../../../utils/constants/termsURL";
 
 interface IProps {
   nextStep?: Function;
@@ -18,12 +19,18 @@ const AvailableTime: React.RefForwardingComponent<
   IProps
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 > = ({ previousStep = () => {}, isLastStep }, ref) => {
-  const { setFieldValue, submitForm, isValid } = useFormikContext();
+  const {
+    setFieldValue, submitForm, isValid,
+  } = useFormikContext();
   const [, { value }] = useField("availableTime");
   const { notify } = useNotification();
 
   const handleIsStudentStatus = (_value: string | number | boolean) => {
     setFieldValue("availableTime", _value);
+  };
+
+  const handleTermsOfUse = (event: ChangeEvent<HTMLInputElement>) => {
+    setFieldValue("acceptTerms", event.target.checked);
   };
 
   useImperativeHandle(ref, () => ({
@@ -63,6 +70,15 @@ const AvailableTime: React.RefForwardingComponent<
           selected={value}
         />
       </S.Options>
+      <S.TermsOfUse>
+        <input type="checkbox" id="terms" onChange={handleTermsOfUse} value="1" />
+        <label htmlFor="terms">
+          {" "}
+          Eu li e concordo com os
+          {" "}
+          <a href={TERMS_OF_USE_URL} target="_blank" rel="noopener noreferrer">Termos de uso.</a>
+        </label>
+      </S.TermsOfUse>
     </S.AvailableTimeWrapper>
   );
 };

@@ -58,8 +58,18 @@ export const CardError = styled.div`
   padding: 20px;
   background-color: ${(props) => props.theme.palette.error.main};
 `;
+
 export const CardErrorMessage = styled.p`
   width: 100%;
   text-align: center;
   color: ${(props) => props.theme.palette.error.contrastText};
+`;
+
+export const TermsOfUse = styled.div`
+  ${media.lessThan("medium")`
+    padding: 30px;
+  `}
+  a {
+    color: ${({ theme }) => theme.palette.primary.main};
+  }
 `;
