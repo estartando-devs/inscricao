@@ -17,11 +17,9 @@ interface IProps {
 const AvailableTime: React.RefForwardingComponent<
   { submitForm: Function },
   IProps
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 > = ({ previousStep = () => {}, isLastStep }, ref) => {
-  const {
-    setFieldValue, submitForm, isValid,
-  } = useFormikContext();
+  const { setFieldValue, submitForm, isValid } = useFormikContext();
   const [, { value }] = useField("availableTime");
   const { notify } = useNotification();
 
@@ -71,12 +69,19 @@ const AvailableTime: React.RefForwardingComponent<
         />
       </S.Options>
       <S.TermsOfUse>
-        <input type="checkbox" id="terms" onChange={handleTermsOfUse} value="1" />
+        <input
+          type="checkbox"
+          id="terms"
+          onChange={handleTermsOfUse}
+          value="1"
+        />
         <label htmlFor="terms">
           {" "}
-          Eu li e concordo com os
+          Eu li e concordo com as
           {" "}
-          <a href={TERMS_OF_USE_URL} target="_blank" rel="noopener noreferrer">Termos de uso.</a>
+          <a href={TERMS_OF_USE_URL} target="_blank" rel="noopener noreferrer">
+            Políticas de Privacidade.
+          </a>
         </label>
       </S.TermsOfUse>
     </S.AvailableTimeWrapper>
