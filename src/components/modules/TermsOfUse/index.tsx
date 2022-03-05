@@ -24,7 +24,7 @@ const TermsOfUse = () => {
               <small>
                 Para visualizar os termos de uso:
                 {" "}
-                <a href={TERMS_OF_USE_URL}>
+                <a href={TERMS_OF_USE_URL} target="_blank" rel="noreferrer">
                   Clique aqui!
                 </a>
               </small>
