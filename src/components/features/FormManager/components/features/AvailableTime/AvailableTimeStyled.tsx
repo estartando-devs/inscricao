@@ -66,6 +66,9 @@ export const CardErrorMessage = styled.p`
 `;
 
 export const TermsOfUse = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   ${media.lessThan("medium")`
     padding: 30px;
   `}
