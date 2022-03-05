@@ -14,6 +14,7 @@ export interface ISubscription {
   course: string;
   availableTime: boolean | undefined;
   testimony: string;
+  acceptTerms: boolean
 }
 
 export const sendSubscription = async (subscription: ISubscription) => {

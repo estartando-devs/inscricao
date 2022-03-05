@@ -36,6 +36,7 @@ export const TestimonyWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+  margin-top: 32px;
 `;
 
 export const TestimonyTitle = styled(PageHeader)`

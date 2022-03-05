@@ -21,6 +21,7 @@ const FormManager = () => {
   const StepperRef = useRef<{ goToStep: Function }>(null);
   const AvailableTimeRef = useRef<{ submitForm: Function }>(null);
   const status = [true, true, true, true];
+  const isLastStep = step === 4;
 
   const mountDiscordConfig = useCallback((subscription: ISubscription): NotifyDiscordService => ({
     webhookId: process.env.REACT_APP_WEBHOOK_NOTIFICATION_ID as string,
@@ -74,7 +75,7 @@ const FormManager = () => {
           <PersonalData />
           <IsStudent />
           <SelectCourse />
-          <AvailableTime ref={AvailableTimeRef} />
+          <AvailableTime ref={AvailableTimeRef} isLastStep={isLastStep} />
         </S.StepWizardStyled>
       </Formik>
       <StepperBottom

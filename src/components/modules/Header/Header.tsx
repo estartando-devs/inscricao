@@ -6,7 +6,7 @@ import { currentYear } from "../../../utils/currentYear";
 export const Header = () => (
   <S.HeaderContainer>
     <S.SideContent>
-      <Logo width="125px" />
+      <Logo width="48px" />
     </S.SideContent>
     <S.Separator />
     <S.TitleContainer>
