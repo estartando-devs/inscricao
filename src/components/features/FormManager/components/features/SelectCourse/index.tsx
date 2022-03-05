@@ -2,20 +2,12 @@ import React from "react";
 import { useFormikContext, useField } from "formik";
 
 import { TextArea } from "../../../../../elements";
-import * as S from "./SelectCourseStyled";
+import * as S from "./styles";
 
 import { CardOption } from "../../../../../modules";
 import { getImage } from "../../../../../../shared/img";
 
-interface IProps {
-  nextStep?: Function;
-  previousStep?: Function;
-}
-
-const SelectCourse: React.FC<IProps> = ({
-  nextStep = () => {},
-  previousStep = () => {},
-}) => {
+export const SelectCourse = () => {
   const { setFieldValue } = useFormikContext();
 
   const [, { value }] = useField("course");
@@ -29,14 +21,14 @@ const SelectCourse: React.FC<IProps> = ({
       <S.PageHeader>Qual curso você quer fazer?</S.PageHeader>
       <S.Options>
         <CardOption
-          image={getImage("cursoDesenvolvimento")}
+          image={getImage("cursoFrontend")}
           value="Desenvolvimento Web"
           setValue={handleIsCourse}
           label="Desenvolvimento Web"
           selected={value}
         />
         <CardOption
-          image={getImage("cursoDesenvolvimento")}
+          image={getImage("cursoBackend")}
           value="Desenvolvimento Backend"
           setValue={handleIsCourse}
           label="Desenvolvimento Backend"
@@ -64,5 +56,3 @@ const SelectCourse: React.FC<IProps> = ({
     </S.SelectCourseWrapper>
   );
 };
-
-export default SelectCourse;

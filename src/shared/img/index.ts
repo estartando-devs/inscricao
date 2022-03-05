@@ -1,10 +1,12 @@
+/* eslint-disable global-require */
 interface IImage<TValue> {
   [id: string]: TValue;
 }
 
 const images: IImage<string> = {
-  cursoDesenvolvimento: require("./option-desenvolvimento.svg"),
-  cursoDesign: require("./option-design.svg"),
+  cursoBackend: require("./backend.svg"),
+  cursoFrontend: require("./frontend.svg"),
+  cursoDesign: require("./design.svg"),
   finalNao: require("./final-nao.svg"),
   finalSim: require("./final-sim.svg"),
   iconFacebook: require("./icon-facebook.svg"),
@@ -25,6 +27,6 @@ const images: IImage<string> = {
   textAreaBlack: require("./text-area-black.svg"),
 };
 
-export const getImage = (id: any) => images[id];
+export const getImage = (id: string) => images[id];
 
 export default images;
