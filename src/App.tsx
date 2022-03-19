@@ -6,9 +6,7 @@ import { NotificationProvider } from "./contexts";
 
 export default function App() {
   useLayoutEffect(() => {
-    const optConfig = JSON.parse(window.sessionStorage.getItem("optConfig") || "{}");
-
-    if (optConfig?.subscriptionStatus === "closed") {
+    if (process.env.REACT_APP_SUBSCRIPTIONS_STATUS === "closed") {
       window.location.replace("https://estartandodevs.com.br");
     }
   }, []);
