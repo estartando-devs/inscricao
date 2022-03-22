@@ -1,12 +1,14 @@
+const { BASE_URL_DEV, BASE_URL_STG, BASE_URL_PROD } = process.env;
+
 const STAGES = {
   dev: {
-    BASE_URL: "http://localhost:5001/estartando-devs-platform/us-central1/platform/subscribe",
+    BASE_URL: BASE_URL_DEV,
   },
   stg: {
-    BASE_URL: "http://localhost:5001/estartando-devs-platform/us-central1/platform/subscribe",
+    BASE_URL: BASE_URL_STG,
   },
   prod: {
-    BASE_URL: "https://us-central1-estartando-devs-platform.cloudfunctions.net/platform/subscribe",
+    BASE_URL: BASE_URL_PROD,
   },
 };
 
