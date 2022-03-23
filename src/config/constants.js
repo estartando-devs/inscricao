@@ -1,16 +1,17 @@
+const { REACT_APP_BASE_URL_DEV, REACT_APP_BASE_URL_STG, REACT_APP_BASE_URL_PROD } = process.env;
+
 const STAGES = {
   dev: {
-    BASE_URL: "http://localhost:5001/estartando-devs-platform/us-central1/platform/subscribe",
+    BASE_URL: REACT_APP_BASE_URL_DEV,
   },
   stg: {
-    BASE_URL: "http://localhost:5001/estartando-devs-platform/us-central1/platform/subscribe",
+    BASE_URL: REACT_APP_BASE_URL_STG,
   },
   prod: {
-    BASE_URL: "https://us-central1-estartando-devs-platform.cloudfunctions.net/platform/subscribe",
+    BASE_URL: REACT_APP_BASE_URL_PROD,
   },
 };
 
 const env = process.env.REACT_APP_STAGE || "prod";
 const config = STAGES[env].BASE_URL;
-
 export default config;
