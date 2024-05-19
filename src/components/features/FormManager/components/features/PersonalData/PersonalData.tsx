@@ -36,6 +36,12 @@ const PersonalData = () => {
         mask={typeMask.PHONE}
       />
       <Input
+        label="Renda familiar mensal"
+        name="monthlyHouseholdIncome"
+        width="70%"
+        mask={typeMask.CURRENCY}
+      />
+      <Input
         label="Seu cep (é opcional)"
         name="zipcode"
         width="90%"

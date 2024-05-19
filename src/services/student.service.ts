@@ -14,14 +14,15 @@ export interface ISubscription {
   course: string;
   availableTime: boolean | undefined;
   testimony: string;
-  acceptTerms: boolean
+  acceptTerms: boolean,
+  monthlyHouseholdIncome: string
 }
 
 export const sendSubscription = async (subscription: ISubscription) => {
   const response = await fetch(
     config,
     {
-      method: "post", body: JSON.stringify(subscription),
+      method: "post", body: JSON.stringify(subscription)
     },
   );
 

@@ -30,6 +30,19 @@ const cep = (value: string) => {
   return VMasker.toPattern(rawValue, "99.999-999");
 };
 
+const currency = (value: string) => {
+  const rawValue = value.replace(/\D/g, "");
+  const formattedValue = VMasker.toMoney(rawValue, {
+    precision: 2,
+    separator: ",",
+    delimiter: ".",
+    unit: "",
+    zeroCents: false,
+  });
+
+  return formattedValue;
+};
+
 export enum typeMask {
   DATE = "date",
   DATE_TIME = "dateTime",
@@ -37,6 +50,7 @@ export enum typeMask {
   PHONE = "phone",
   CEP = "cep",
   STANDARD = "standard",
+  CURRENCY = "currency",
 }
 
 export const masks = {
@@ -46,4 +60,5 @@ export const masks = {
   phone,
   cep,
   standard,
+  currency,
 };

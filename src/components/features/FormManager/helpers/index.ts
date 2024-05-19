@@ -16,6 +16,7 @@ export const initialValues: ISubscription = {
   availableTime: undefined,
   testimony: "",
   acceptTerms: false,
+  monthlyHouseholdIncome: "",
 };
 
 export const PersonalDataSchema = Yup.object().shape({
@@ -38,4 +39,5 @@ export const PersonalDataSchema = Yup.object().shape({
   availableTime: Yup.boolean(),
   testimony: Yup.string(),
   acceptTerms: Yup.boolean(),
+  monthlyHouseholdIncome: Yup.string().required("Renda familiar é obrigatório"),
 });
