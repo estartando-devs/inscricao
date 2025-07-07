@@ -1,13 +1,13 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { Home } from '@/view/pages/home'
-
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { Subscriber } from '@/view/pages/subscriber';
+import './view/styles/global.css';
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
 
-  root.render(
+root.render(
     <StrictMode>
-      <Home />
+      <Subscriber />
     </StrictMode>,
   )
 

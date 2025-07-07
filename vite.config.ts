@@ -3,6 +3,7 @@ import { resolve } from 'path'
 import { type UserConfig, defineConfig } from 'vite'
 import { compression } from 'vite-plugin-compression2'
 import { qrcode } from 'vite-plugin-qrcode'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   resolve: {
@@ -14,6 +15,7 @@ export default defineConfig({
   plugins: [
     react(),
     qrcode(),
+    tailwindcss(),
     compression({
       algorithm: 'gzip',
       exclude: [/\.(br)$/, /\.(gz)$/],

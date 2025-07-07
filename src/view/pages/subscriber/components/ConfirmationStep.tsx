@@ -1,0 +1,58 @@
+import React from "react";
+import { ThumbsUp, ThumbsDown } from "lucide-react";
+
+type Course = { label: string; value: string };
+
+type Props = {
+  selectedCourse: string | null;
+  availability: "yes" | "no" | null;
+  setAvailability: (v: "yes" | "no") => void;
+  acceptedPolicy: boolean;
+  setAcceptedPolicy: (v: boolean) => void;
+  courses: Course[];
+};
+
+export const ConfirmationStep: React.FC<Props> = ({ selectedCourse, availability, setAvailability, acceptedPolicy, setAcceptedPolicy, courses }) => (
+  <div className="flex flex-col items-center justify-center min-h-[120px] gap-6">
+    {selectedCourse && (
+      <span className="mt-2 text-base text-primary-main">Curso escolhido: <span className="font-bold">{courses.find(c => c.value === selectedCourse)?.label}</span></span>
+    )}
+    <div className="flex flex-col items-center gap-4 w-full mt-4">
+      <div className="text-center bg-primary-light rounded">
+        <span className="text-lg font-bold font-family-mono text-gray-800 px-2 p-1">Para terminar, uma informação importante: as aulas serão às terças e quintas, de 19h30 às 21h30. Você tem disponibilidade nesses dias e horário?</span>
+      </div>
+      <div className="flex flex-row gap-8 justify-center mt-2">
+        <button
+          type="button"
+          className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 w-28 h-28 transition-all duration-200 text-center text-lg font-semibold
+            ${availability === "yes" ? "border-primary-light bg-primary-light/20" : "border-gray-400 bg-gray-800 hover:border-primary-light"}`}
+          onClick={() => setAvailability("yes")}
+        >
+          <ThumbsUp size={48} className="mx-auto mb-2 text-primary-light" />
+          Sim
+        </button>
+        <button
+          type="button"
+          className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 w-28 h-28 transition-all duration-200 text-center text-lg font-semibold
+            ${availability === "no" ? "border-red-400 bg-red-400/20" : "border-gray-400 bg-gray-800 hover:border-red-400"}`}
+          onClick={() => setAvailability("no")}
+        >
+          <ThumbsDown size={48} className="mx-auto mb-2 text-red-400" />
+          Não
+        </button>
+      </div>
+      <div className="flex items-center mt-4">
+        <input
+          id="privacy"
+          type="checkbox"
+          checked={acceptedPolicy}
+          onChange={e => setAcceptedPolicy(e.target.checked)}
+          className="mr-2 accent-primary-light w-4 h-4"
+        />
+        <label htmlFor="privacy" className="text-sm">
+          Eu li e concordo com as <a href="https://docs.google.com/document/d/1xspDTj_BXuU599g0MP0jrSIknat15wEARxGGYWWZsPo/edit" target="_blank" className="underline text-primary-light hover:text-primary-main">Políticas de Privacidade</a>.
+        </label>
+      </div>
+    </div>
+  </div>
+);
