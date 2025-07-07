@@ -1,18 +1,17 @@
-import React from "react";
 import { ThumbsUp, ThumbsDown } from "lucide-react";
 
 type Course = { label: string; value: string };
 
 type Props = {
-  selectedCourse: string | null;
-  availability: "yes" | "no" | null;
-  setAvailability: (v: "yes" | "no") => void;
-  acceptedPolicy: boolean;
-  setAcceptedPolicy: (v: boolean) => void;
   courses: Course[];
+  acceptedPolicy: boolean;
+  selectedCourse: string | null;
+  availability: boolean | null;
+  setAcceptedPolicy: (v: boolean) => void;
+  setAvailability: (v: boolean) => void;
 };
 
-export const ConfirmationStep: React.FC<Props> = ({ selectedCourse, availability, setAvailability, acceptedPolicy, setAcceptedPolicy, courses }) => (
+export const ConfirmationStep = ({ selectedCourse, availability, setAvailability, acceptedPolicy, setAcceptedPolicy, courses }: Props) => (
   <div className="flex flex-col items-center justify-center min-h-[120px] gap-6">
     {selectedCourse && (
       <span className="mt-2 text-base text-primary-main">Curso escolhido: <span className="font-bold">{courses.find(c => c.value === selectedCourse)?.label}</span></span>
@@ -25,8 +24,8 @@ export const ConfirmationStep: React.FC<Props> = ({ selectedCourse, availability
         <button
           type="button"
           className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 w-28 h-28 transition-all duration-200 text-center text-lg font-semibold
-            ${availability === "yes" ? "border-primary-light bg-primary-light/20" : "border-gray-400 bg-gray-800 hover:border-primary-light"}`}
-          onClick={() => setAvailability("yes")}
+            ${availability === true ? "border-primary-light bg-primary-light/20" : "border-gray-400 bg-gray-800 hover:border-primary-light"}`}
+          onClick={() => setAvailability(true)}
         >
           <ThumbsUp size={48} className="mx-auto mb-2 text-primary-light" />
           Sim
@@ -34,8 +33,8 @@ export const ConfirmationStep: React.FC<Props> = ({ selectedCourse, availability
         <button
           type="button"
           className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 w-28 h-28 transition-all duration-200 text-center text-lg font-semibold
-            ${availability === "no" ? "border-red-400 bg-red-400/20" : "border-gray-400 bg-gray-800 hover:border-red-400"}`}
-          onClick={() => setAvailability("no")}
+            ${availability === false ? "border-red-400 bg-red-400/20" : "border-gray-400 bg-gray-800 hover:border-red-400"}`}
+          onClick={() => setAvailability(false)}
         >
           <ThumbsDown size={48} className="mx-auto mb-2 text-red-400" />
           Não

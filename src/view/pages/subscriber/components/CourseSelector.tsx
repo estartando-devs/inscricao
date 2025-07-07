@@ -1,7 +1,7 @@
-import React from "react";
 import { Code2, Server, Palette } from "lucide-react";
 
 type Course = { label: string; value: string };
+
 type Props = {
   courses: Course[];
   selectedCourse: string | null;
@@ -14,7 +14,7 @@ const courseIcons: Record<string, React.ReactNode> = {
   design: <Palette className="w-6 h-6 mr-2" />,
 };
 
-export const CourseSelector: React.FC<Props> = ({ courses, selectedCourse, setSelectedCourse }) => (
+export const CourseSelector = ({ courses, selectedCourse, setSelectedCourse }: Props) => (
   <div className="flex flex-col items-center gap-6">
     <span className="text-lg font-semibold text-primary-light mb-2">Qual curso você quer fazer?</span>
     <div className="flex flex-col gap-4 w-full max-w-md justify-center">

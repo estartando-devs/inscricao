@@ -5,15 +5,18 @@ type StepperProps = {
   step: number;
   steps: ReactNode[];
   onStepClick?: (idx: number) => void;
+  isStepEnabled?: (idx: number) => boolean;
 };
 
-export const Stepper = ({ step, steps, onStepClick }: StepperProps) => (
+export const Stepper = ({ step, steps, onStepClick, isStepEnabled }: StepperProps) => (
   <div className="flex justify-center mb-8">
     {steps.map((icon, idx) => (
       <div key={idx} className="flex items-center">
         <motion.button
           type="button"
-          disabled={!onStepClick || step === idx}
+          disabled={
+            !onStepClick || step === idx || (isStepEnabled ? !isStepEnabled(idx) : false)
+          }
           onClick={onStepClick ? () => onStepClick(idx) : undefined}
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: step === idx ? 1.15 : 1, opacity: 1, boxShadow: step === idx ? '0 0 0 4px #81CAA8' : 'none' }}

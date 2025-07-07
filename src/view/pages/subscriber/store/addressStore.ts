@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 export interface AddressData {
   cep: string;
@@ -15,14 +16,22 @@ interface AddressStore extends AddressData {
   setAll: (data: Partial<AddressData>) => void;
 }
 
-export const useAddressStore = create<AddressStore>((set) => ({
-  cep: '',
-  address: '',
-  district: '',
-  city: '',
-  setCep: (cep) => set({ cep }),
-  setAddress: (address) => set({ address }),
-  setDistrict: (district) => set({ district }),
-  setCity: (city) => set({ city }),
-  setAll: (data) => set((state) => ({ ...state, ...data })),
-}));
+export const useAddressStore = create<AddressStore>()(
+  persist(
+    (set) => ({
+      cep: '',
+      address: '',
+      district: '',
+      city: '',
+      setCep: (cep) => set({ cep }),
+      setAddress: (address) => set({ address }),
+      setDistrict: (district) => set({ district }),
+      setCity: (city) => set({ city }),
+      setAll: (data) => set((state) => ({ ...state, ...data })),
+    }),
+    {
+      name: 'address-store',
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);

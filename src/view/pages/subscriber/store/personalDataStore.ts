@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface PersonalData {
   name: string;
@@ -15,7 +16,9 @@ interface PersonalDataStore extends PersonalData {
   setAll: (data: Partial<PersonalData>) => void;
 }
 
-export const usePersonalDataStore = create<PersonalDataStore>((set) => ({
+export const usePersonalDataStore = create<PersonalDataStore>()(
+  persist(
+    (set) => ({
   name: '',
   email: '',
   birth: '',
@@ -25,4 +28,8 @@ export const usePersonalDataStore = create<PersonalDataStore>((set) => ({
   setBirth: (birth) => set({ birth }),
   setPhone: (phone) => set({ phone }),
   setAll: (data) => set((state) => ({ ...state, ...data })),
-}));
+}), {
+  name: 'personal-data-store',
+  storage: createJSONStorage(() => localStorage),
+  }
+));

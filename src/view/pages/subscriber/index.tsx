@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Stepper } from "./components/Stepper";
 import { CourseSelector } from "./components/CourseSelector";
 import { PersonalDataForm } from "./components/PersonalDataForm";
@@ -6,6 +6,10 @@ import { AddressForm } from "./components/AddressForm";
 import { ConfirmationStep } from "./components/ConfirmationStep";
 import { AnimatePresence, motion } from "motion/react";
 import { GraduationCap, User, MapPin, CheckCircle2 } from "lucide-react";
+import { usePersonalDataStore } from "./store/personalDataStore";
+import { useAddressStore } from "./store/addressStore";
+import { personalDataSchema } from "./schemas/personalDataSchema";
+import { addressSchema } from "./schemas/addressSchema";
 
 const year = new Date().getFullYear();
 
@@ -25,8 +29,28 @@ const courses = [
 export const Subscriber = () => {
   const [step, setStep] = useState(0);
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
-  const [availability, setAvailability] = useState<"yes" | "no" | null>(null);
+  const [availability, setAvailability] = useState<boolean | null>(null);
   const [acceptedPolicy, setAcceptedPolicy] = useState(false);
+
+  const addressData = useAddressStore();
+  const personalData = usePersonalDataStore();
+
+  const isStepValid = useMemo(() => [
+    !!selectedCourse,
+    personalDataSchema.safeParse({
+      name: personalData.name,
+      email: personalData.email,
+      birth: personalData.birth,
+      phone: personalData.phone,
+    }).success,
+    addressSchema.safeParse({
+      cep: addressData.cep,
+      address: addressData.address,
+      district: addressData.district,
+      city: addressData.city,
+    }).success,
+    true,
+  ], [selectedCourse, personalData, addressData]);
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-900 text-white px-2 sm:px-4">
@@ -44,15 +68,20 @@ export const Subscriber = () => {
       </header>
 
       <div className="w-full max-w-lg sm:max-w-xl md:max-w-2xl p-4 sm:p-8 space-y-8 bg-gray-900 rounded-3xl border border-gray-700 mx-auto">
-        <Stepper step={step} steps={steps} onStepClick={setStep} />
+        <Stepper
+          step={step}
+          steps={steps}
+          onStepClick={setStep}
+          isStepEnabled={(idx) => idx < step || isStepValid.slice(0, idx).every(Boolean)}
+        />
         <form onSubmit={e => { e.preventDefault(); }}>
           <AnimatePresence mode="wait" initial={false}>
             {step === 0 && (
               <motion.div
                 key="step-0"
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: 40 }}
                 transition={{ duration: 0.18, ease: 'easeInOut' }}
               >
                 <CourseSelector courses={courses} selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} />
@@ -61,9 +90,9 @@ export const Subscriber = () => {
             {step === 1 && (
               <motion.div
                 key="step-1"
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: 40 }}
                 transition={{ duration: 0.18, ease: 'easeInOut' }}
               >
                 <PersonalDataForm />
@@ -72,9 +101,9 @@ export const Subscriber = () => {
             {step === 2 && (
               <motion.div
                 key="step-2"
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: 40 }}
                 transition={{ duration: 0.18, ease: 'easeInOut' }}
               >
                 <AddressForm />
@@ -83,18 +112,18 @@ export const Subscriber = () => {
             {step === 3 && (
               <motion.div
                 key="step-3"
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: 40 }}
                 transition={{ duration: 0.18, ease: 'easeInOut' }}
               >
                 <ConfirmationStep
-                  selectedCourse={selectedCourse}
-                  availability={availability}
-                  setAvailability={setAvailability}
-                  acceptedPolicy={acceptedPolicy}
-                  setAcceptedPolicy={setAcceptedPolicy}
                   courses={courses}
+                  availability={availability}
+                  selectedCourse={selectedCourse}
+                  acceptedPolicy={acceptedPolicy}
+                  setAvailability={setAvailability}
+                  setAcceptedPolicy={setAcceptedPolicy}
                 />
               </motion.div>
             )}
@@ -103,7 +132,7 @@ export const Subscriber = () => {
           <div className="flex flex-col sm:flex-row justify-between pt-6 gap-4">
             <button
               type="button"
-              className="btn bg-gray-700 text-gray-300 rounded-xl px-6 py-3 font-semibold shadow-sm w-full sm:w-auto disabled:opacity-60"
+              className="btn bg-gray-700 text-gray-300 rounded-xl px-6 py-3 font-semibold shadow-sm w-full sm:w-auto disabled:text-gray-400/30"
               onClick={() => setStep((s) => Math.max(0, s - 1))}
               disabled={step === 0}
             >
@@ -112,17 +141,17 @@ export const Subscriber = () => {
             {step < 3 ? (
               <button
                 type="button"
-                className="btn font-bold bg-primary-light text-gray-900 hover:bg-primary-main rounded-xl px-8 py-3 shadow-md transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-lg w-full sm:w-auto"
+                className="btn font-bold bg-primary-light text-gray-900 hover:bg-primary-main rounded-xl px-8 py-3 shadow-md transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-lg w-full sm:w-auto disabled:text-gray-400/30"
                 onClick={() => setStep((s) => Math.min(3, s + 1))}
-                disabled={step === 0 && !selectedCourse}
+                disabled={!isStepValid[step]}
               >
                 Continuar
               </button>
             ) : (
               <button
                 type="submit"
-                className="btn font-bold bg-primary-light text-gray-900 hover:bg-primary-main rounded-xl px-8 py-3 shadow-md transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-lg w-full sm:w-auto"
-                disabled={availability !== "yes" || !acceptedPolicy}
+                className="btn font-bold bg-primary-light text-gray-900 hover:bg-primary-main rounded-xl px-8 py-3 shadow-md transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-lg w-full sm:w-auto  disabled:text-gray-400/30"
+                disabled={availability !== true || !acceptedPolicy}
               >
                 Finalizar inscrição
               </button>
