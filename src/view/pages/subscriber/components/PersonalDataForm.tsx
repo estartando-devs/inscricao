@@ -2,6 +2,20 @@ import { usePersonalDataStore } from '../store/personalDataStore';
 import { personalDataSchema } from '../schemas/personalDataSchema';
 import { useState } from 'react';
 
+function formatPhone(value: string) {
+  const digits = value.replace(/\D/g, '');
+  if (digits.length <= 2) {
+    return digits;
+  }
+  if (digits.length <= 7) {
+    return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  }
+  if (digits.length <= 11) {
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7, 11)}`;
+  }
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7, 11)}`;
+}
+
 export const PersonalDataForm = () => {
   const [errors, setErrors] = useState<{ [k: string]: string }>({});
   const { name, email, birth, phone, setName, setEmail, setBirth, setPhone } = usePersonalDataStore();
@@ -67,9 +81,10 @@ export const PersonalDataForm = () => {
         </label>
         <input
           type="tel"
+          placeholder="(00) 00000-0000"
           className="input input-bordered w-full bg-background-paper text-white placeholder-gray-400 rounded-xl px-4 py-3 font-medium border border-transparent focus:border-primary-light focus:ring-2 focus:ring-primary-light transition"
-          value={phone}
-          onChange={e => setPhone(e.target.value)}
+          value={formatPhone(phone)}
+          onChange={e => setPhone(e.target.value.replace(/\D/g, ''))}
           onBlur={e => validateField('phone', e.target.value)}
         />
         {errors.phone && <span className="text-red-400 text-xs mt-1 font-semibold">{errors.phone}</span>}

@@ -10,6 +10,9 @@ import { usePersonalDataStore } from "./store/personalDataStore";
 import { useAddressStore } from "./store/addressStore";
 import { personalDataSchema } from "./schemas/personalDataSchema";
 import { addressSchema } from "./schemas/addressSchema";
+import { createSubscription } from "@/app/services/createSubscriptions";
+import { toast } from "sonner";
+import confetti from "canvas-confetti";
 
 const year = new Date().getFullYear();
 
@@ -21,9 +24,9 @@ const steps = [
 ];
 
 const courses = [
-  { label: "Desenvolvimento Web", value: "web" },
-  { label: "Desenvolvimento Backend", value: "backend" },
-  { label: "Design UI/UX", value: "design" },
+  { label: "Desenvolvimento Web", value: "Desenvolvimento Web" },
+  { label: "Desenvolvimento Backend", value: "Desenvolvimento Backend" },
+  { label: "Design UI/UX", value: "Design UI/UX" },
 ];
 
 export const Subscriber = () => {
@@ -31,6 +34,7 @@ export const Subscriber = () => {
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
   const [availability, setAvailability] = useState<boolean | null>(null);
   const [acceptedPolicy, setAcceptedPolicy] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const addressData = useAddressStore();
   const personalData = usePersonalDataStore();
@@ -51,6 +55,44 @@ export const Subscriber = () => {
     }).success,
     true,
   ], [selectedCourse, personalData, addressData]);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (step !== 3) return;
+    setLoading(true);
+    try {
+      if (!selectedCourse || availability !== true || !acceptedPolicy) {
+        toast.error("Preencha todos os campos obrigatórios.");
+        setLoading(false);
+        return;
+      }
+      const payload = {
+        city: addressData.city,
+        phone: personalData.phone,
+        email: personalData.email,
+        course: selectedCourse,
+        address: addressData.address,
+        fullName: personalData.name,
+        zipCode: addressData.cep,
+        district: addressData.district,
+        birthDate: personalData.birth,
+        acceptedTerms: acceptedPolicy,
+        availableForClasses: availability,
+      };
+      await createSubscription(payload);
+      toast.success("Inscrição realizada com sucesso!");
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.6 },
+      });
+      // Aqui você pode redirecionar, resetar o formulário, etc.
+    } catch (err: any) {
+      toast.error(err.message || "Erro ao enviar inscrição");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-900 text-white px-2 sm:px-4">
@@ -93,7 +135,7 @@ export const Subscriber = () => {
           onStepClick={setStep}
           isStepEnabled={(idx) => idx < step || isStepValid.slice(0, idx).every(Boolean)}
         />
-        <form onSubmit={e => { e.preventDefault(); }}>
+        <form onSubmit={handleSubmit}>
           <AnimatePresence mode="wait" initial={false}>
             {step === 0 && (
               <motion.div
@@ -153,7 +195,7 @@ export const Subscriber = () => {
               type="button"
               className="btn bg-gray-700 text-gray-300 rounded-xl px-6 py-3 font-semibold shadow-sm w-full sm:w-auto disabled:text-gray-400/30"
               onClick={() => setStep((s) => Math.max(0, s - 1))}
-              disabled={step === 0}
+              disabled={step === 0 || loading}
             >
               Voltar
             </button>
@@ -162,7 +204,7 @@ export const Subscriber = () => {
                 type="button"
                 className="btn font-bold bg-primary-light text-gray-900 hover:bg-primary-main rounded-xl px-8 py-3 shadow-md transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-lg w-full sm:w-auto disabled:text-gray-400/30"
                 onClick={() => setStep((s) => Math.min(3, s + 1))}
-                disabled={!isStepValid[step]}
+                disabled={!isStepValid[step] || loading}
               >
                 Continuar
               </button>
@@ -170,9 +212,9 @@ export const Subscriber = () => {
               <button
                 type="submit"
                 className="btn font-bold bg-primary-light text-gray-900 hover:bg-primary-main rounded-xl px-8 py-3 shadow-md transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-lg w-full sm:w-auto  disabled:text-gray-400/30"
-                disabled={availability !== true || !acceptedPolicy}
+                disabled={availability === null || !acceptedPolicy || loading}
               >
-                Finalizar inscrição
+                {loading ? "Enviando..." : "Finalizar inscrição"}
               </button>
             )}
           </div>
