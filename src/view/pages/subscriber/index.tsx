@@ -13,6 +13,7 @@ import { addressSchema } from "./schemas/addressSchema";
 import { createSubscription } from "@/app/services/createSubscriptions";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
+import { ConfirmationModal } from "@/view/components/ConfirmationModal";
 
 const year = new Date().getFullYear();
 
@@ -35,6 +36,7 @@ export const Subscriber = () => {
   const [availability, setAvailability] = useState<boolean | null>(null);
   const [acceptedPolicy, setAcceptedPolicy] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const addressData = useAddressStore();
   const personalData = usePersonalDataStore();
@@ -80,15 +82,14 @@ export const Subscriber = () => {
         availableForClasses: availability,
       };
       await createSubscription(payload);
-      toast.success("Inscrição realizada com sucesso!");
+      setShowConfirmation(true);
       confetti({
         particleCount: 120,
         spread: 80,
         origin: { y: 0.6 },
       });
-      // Aqui você pode redirecionar, resetar o formulário, etc.
     } catch (err: any) {
-      toast.error(err.message || "Erro ao enviar inscrição");
+      toast.error('Houve um erro ao enviar sua inscrição. Por favor, tente novamente.');
     } finally {
       setLoading(false);
     }
@@ -96,6 +97,7 @@ export const Subscriber = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-900 text-white px-2 sm:px-4">
+      <ConfirmationModal open={showConfirmation} onClose={() => setShowConfirmation(false)} />
 
       <header className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-b-3xl mb-8 transition-all duration-500 max-w-3xl mx-auto px-2 sm:px-4 py-3 sm:py-4 bg-gray-900">
         <div className="flex items-center gap-2 sm:gap-4">
