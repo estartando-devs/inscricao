@@ -9,9 +9,9 @@ type Props = {
 };
 
 const courseIcons: Record<string, React.ReactNode> = {
-  web: <Code2 className="w-6 h-6 mr-2" />,
-  backend: <Server className="w-6 h-6 mr-2" />,
-  design: <Palette className="w-6 h-6 mr-2" />,
+  "Desenvolvimento Web": <Code2 className="w-6 h-6 mr-2" />,
+  "Desenvolvimento Backend": <Server className="w-6 h-6 mr-2" />,
+  "Design UI/UX": <Palette className="w-6 h-6 mr-2" />,
 };
 
 export const CourseSelector = ({ courses, selectedCourse, setSelectedCourse }: Props) => (
