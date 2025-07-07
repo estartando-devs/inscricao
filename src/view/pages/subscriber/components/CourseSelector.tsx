@@ -15,14 +15,14 @@ const courseIcons: Record<string, React.ReactNode> = {
 };
 
 export const CourseSelector = ({ courses, selectedCourse, setSelectedCourse }: Props) => (
-  <div className="flex flex-col items-center gap-6">
-    <span className="text-lg font-semibold text-primary-light mb-2">Qual curso você quer fazer?</span>
-    <div className="flex flex-col gap-4 w-full max-w-md justify-center">
+  <div className="flex flex-col items-center gap-4 sm:gap-6">
+    <span className="text-base sm:text-lg font-semibold text-primary-light mb-1 sm:mb-2">Qual curso você quer fazer?</span>
+    <div className="flex flex-col gap-3 sm:gap-4 w-full max-w-md justify-center">
       {courses.map((course) => (
         <button
           type="button"
           key={course.value}
-          className={`flex items-center gap-3 px-6 py-5 rounded-2xl border-2 font-semibold text-lg transition-all duration-200 w-full
+          className={`flex items-center gap-2 sm:gap-3 px-3 py-3 sm:px-6 sm:py-5 rounded-2xl border-2 font-semibold text-base sm:text-lg transition-all duration-200 w-full
             ${selectedCourse === course.value
               ? "bg-primary-light border-primary-light text-gray-900 shadow-lg scale-105"
               : "bg-gray-800 border-gray-700 text-white hover:bg-primary-main/30 hover:border-primary-main"}
