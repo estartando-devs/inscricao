@@ -1,5 +1,0 @@
-{
-  "*.{html,md,json,jsonc}": ["bun run prettier:fix"],
-  "*.{ts,tsx}": ["bun run prettier:fix", "bun run lint:fix"],
-  "*.css": ["bun run lint:css"]
-}
