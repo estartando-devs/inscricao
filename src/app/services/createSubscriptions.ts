@@ -24,9 +24,9 @@ export interface SubscriptionResponse {
   district: string;
   birthDate: string;
   acceptedTerms: boolean;
-  availableForClasses: boolean;
   applicationDate: string;
   applicationStatus: string;
+  availableForClasses: boolean;
 }
 
 const API_URL = 'https://9h6j9n1vpc.execute-api.us-east-1.amazonaws.com/subscriptions';
@@ -41,8 +41,7 @@ export async function createSubscription(data: SubscriptionData): Promise<Subscr
   });
 
   if (!response.ok) {
-    const error = await response.json().catch(() => ({ message: 'Erro desconhecido' }));
-    throw new Error(error.message || 'Erro ao criar inscrição');
+    throw new Error('Houve um erro ao enviar sua inscrição. Por favor, tente novamente.');
   }
 
   return response.json();

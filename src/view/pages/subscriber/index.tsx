@@ -14,6 +14,7 @@ import { createSubscription } from "@/app/services/createSubscriptions";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
 import { ConfirmationModal } from "@/view/components/ConfirmationModal";
+import { notifyDiscord } from "@/app/services/notifyDiscord";
 
 const year = new Date().getFullYear();
 
@@ -61,6 +62,7 @@ export const Subscriber = () => {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (step !== 3) return;
+
     setLoading(true);
     try {
       if (!selectedCourse || availability !== true || !acceptedPolicy) {
@@ -83,13 +85,17 @@ export const Subscriber = () => {
       };
       await createSubscription(payload);
       setShowConfirmation(true);
-      confetti({
-        particleCount: 120,
-        spread: 80,
-        origin: { y: 0.6 },
+      confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+
+      await notifyDiscord({
+        city: addressData.city,
+        course: selectedCourse,
+        fullName: personalData.name,
+        neighborhood: addressData.district,
       });
-    } catch (err: any) {
-      toast.error('Houve um erro ao enviar sua inscrição. Por favor, tente novamente.');
+    } catch (err) {
+
+      toast.error(err instanceof Error ? err.message : 'Houve um erro ao enviar sua inscrição. Por favor, tente novamente.');
     } finally {
       setLoading(false);
     }
