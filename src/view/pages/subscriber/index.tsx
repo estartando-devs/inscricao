@@ -5,24 +5,33 @@ import { PersonalDataForm } from "./components/PersonalDataForm";
 import { AddressForm } from "./components/AddressForm";
 import { ConfirmationStep } from "./components/ConfirmationStep";
 import { AnimatePresence, motion } from "motion/react";
-import { GraduationCap, User, MapPin, CheckCircle2 } from "lucide-react";
+import { GraduationCap, User, MapPin, CheckCircle2, Briefcase, MessageCircle } from "lucide-react";
 import { usePersonalDataStore } from "./store/personalDataStore";
 import { useAddressStore } from "./store/addressStore";
+import { useExperienceStore } from "./store/experienceStore";
+import { useReasonStore } from "./store/reasonStore";
 import { personalDataSchema } from "./schemas/personalDataSchema";
 import { addressSchema } from "./schemas/addressSchema";
+import { experienceSchema } from "./schemas/experienceSchema";
+import { reasonSchema } from "./schemas/reasonSchema";
 import { createSubscription } from "@/app/services/createSubscriptions";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
 import { ConfirmationModal } from "@/view/components/ConfirmationModal";
 import { notifyDiscord } from "@/app/services/notifyDiscord";
+import { ExperienceForm } from "./components/ExperienceForm";
+import { ReasonForm } from "./components/ReasonForm";
+import { RequirementsModal } from "./components/RequirementsModal";
 
 const year = new Date().getFullYear();
 
 const steps = [
-  <GraduationCap key="curso" />,
-  <User key="dados" />,
-  <MapPin key="endereco" />,
-  <CheckCircle2 key="confirmacao" />
+  <GraduationCap key="curso" />, // 0
+  <User key="dados" />,          // 1
+  <MapPin key="endereco" />,     // 2
+  <Briefcase key="experiencia" />, // 3
+  <MessageCircle key="motivo" />,  // 4
+  <CheckCircle2 key="confirmacao" /> // 5
 ];
 
 const courses = [
@@ -38,9 +47,12 @@ export const Subscriber = () => {
   const [acceptedPolicy, setAcceptedPolicy] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showRequirementsModal, setShowRequirementsModal] = useState(true);
 
   const addressData = useAddressStore();
   const personalData = usePersonalDataStore();
+  const experienceData = useExperienceStore();
+  const reasonData = useReasonStore();
 
   const isStepValid = useMemo(() => [
     !!selectedCourse,
@@ -56,12 +68,13 @@ export const Subscriber = () => {
       district: addressData.district,
       city: addressData.city,
     }).success,
+    experienceSchema.safeParse({ experience: experienceData.experience }).success,
+    reasonSchema.safeParse({ reason: reasonData.reason }).success,
     true,
-  ], [selectedCourse, personalData, addressData]);
+  ], [selectedCourse, personalData, addressData, experienceData, reasonData]);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (step !== 3) return;
+  async function handleSubmit() {
+    if (step !== 5) return;
 
     setLoading(true);
     try {
@@ -80,6 +93,8 @@ export const Subscriber = () => {
         zipCode: addressData.cep,
         district: addressData.district,
         birthDate: personalData.birth,
+        experience: experienceData.experience,
+        reason: reasonData.reason,
         acceptedTerms: acceptedPolicy,
         availableForClasses: availability,
       };
@@ -103,6 +118,7 @@ export const Subscriber = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-900 text-white px-2 sm:px-4">
+      <RequirementsModal open={showRequirementsModal} onClose={() => setShowRequirementsModal(false)} />
       <ConfirmationModal open={showConfirmation} onClose={() => setShowConfirmation(false)} />
 
       <header className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-b-3xl mb-8 transition-all duration-500 max-w-3xl mx-auto px-2 sm:px-4 py-3 sm:py-4 bg-gray-900">
@@ -143,7 +159,6 @@ export const Subscriber = () => {
           onStepClick={setStep}
           isStepEnabled={(idx) => idx < step || isStepValid.slice(0, idx).every(Boolean)}
         />
-        <form onSubmit={handleSubmit}>
           <AnimatePresence mode="wait" initial={false}>
             {step === 0 && (
               <motion.div
@@ -186,6 +201,28 @@ export const Subscriber = () => {
                 initial={{ opacity: 0, x: 40 }}
                 transition={{ duration: 0.18, ease: 'easeInOut' }}
               >
+                <ExperienceForm />
+              </motion.div>
+            )}
+            {step === 4 && (
+              <motion.div
+                key="step-4"
+                exit={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: 40 }}
+                transition={{ duration: 0.18, ease: 'easeInOut' }}
+              >
+                <ReasonForm />
+              </motion.div>
+            )}
+            {step === 5 && (
+              <motion.div
+                key="step-5"
+                exit={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: 40 }}
+                transition={{ duration: 0.18, ease: 'easeInOut' }}
+              >
                 <ConfirmationStep
                   courses={courses}
                   availability={availability}
@@ -207,18 +244,19 @@ export const Subscriber = () => {
             >
               Voltar
             </button>
-            {step < 3 ? (
+            {step < 5 ? (
               <button
                 type="button"
                 className="btn font-bold bg-primary-light text-gray-900 hover:bg-primary-main rounded-xl px-8 py-3 shadow-md transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-lg w-full sm:w-auto disabled:text-gray-400/30"
-                onClick={() => setStep((s) => Math.min(3, s + 1))}
+                onClick={() => setStep((s) => Math.min(5, s + 1))}
                 disabled={!isStepValid[step] || loading}
               >
                 Continuar
               </button>
             ) : (
               <button
-                type="submit"
+                type="button"
+                onClick={handleSubmit}
                 className="btn font-bold bg-primary-light text-gray-900 hover:bg-primary-main rounded-xl px-8 py-3 shadow-md transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-lg w-full sm:w-auto  disabled:text-gray-400/30"
                 disabled={availability === null || !acceptedPolicy || loading}
               >
@@ -226,7 +264,7 @@ export const Subscriber = () => {
               </button>
             )}
           </div>
-        </form>
+
       </div>
     </div>
   );
