@@ -5,7 +5,7 @@ import { PersonalDataForm } from "./components/PersonalDataForm";
 import { AddressForm } from "./components/AddressForm";
 import { ConfirmationStep } from "./components/ConfirmationStep";
 import { AnimatePresence, motion } from "motion/react";
-import { GraduationCap, User, MapPin, CheckCircle2, Briefcase, MessageCircle } from "lucide-react";
+import { GraduationCap, User, MapPin, CheckCircle2, Briefcase, MessageCircle, XCircle } from "lucide-react";
 import { usePersonalDataStore } from "./store/personalDataStore";
 import { useAddressStore } from "./store/addressStore";
 import { useExperienceStore } from "./store/experienceStore";
@@ -40,6 +40,28 @@ const courses = [
   { label: "Design UI/UX", value: "Design UI/UX" },
 ];
 
+// ErrorModal: modal para exibir erros ao finalizar inscrição
+function ErrorModal({ open, onClose, title, message }: { open: boolean; onClose: () => void; title: string; message: string }) {
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className="bg-gray-900 text-white rounded-3xl shadow-2xl max-w-md w-full p-8 relative border-2 border-red-400 animate-fade-in">
+        <div className="flex flex-col items-center">
+          <XCircle className="w-16 h-16 text-red-400 mb-2 drop-shadow-lg" />
+          <h2 className="text-2xl font-extrabold mb-2 text-red-400 text-center drop-shadow">{title}</h2>
+          <p className="mb-2 text-center text-gray-200 font-semibold">{message}</p>
+        </div>
+        <button
+          onClick={onClose}
+          className="w-full bg-red-400 text-gray-900 py-2 rounded-xl font-bold hover:bg-red-500 hover:text-white transition border-2 border-red-400 shadow mt-4"
+        >
+          Fechar
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export const Subscriber = () => {
   const [step, setStep] = useState(0);
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
@@ -48,6 +70,9 @@ export const Subscriber = () => {
   const [loading, setLoading] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showRequirementsModal, setShowRequirementsModal] = useState(true);
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorTitle, setErrorTitle] = useState("");
 
   const addressData = useAddressStore();
   const personalData = usePersonalDataStore();
@@ -72,6 +97,25 @@ export const Subscriber = () => {
     reasonSchema.safeParse({ reason: reasonData.reason }).success,
     true,
   ], [selectedCourse, personalData, addressData, experienceData, reasonData]);
+
+  const errorMap: { [key: string]: { title: string; message: string } } = {
+    'inscrições ainda não estão abertas': {
+      title: 'Inscrições em Breve',
+      message: 'As inscrições ainda não começaram. Fique de olho nas nossas redes para não perder a abertura!'
+    },
+    'inscrições foram encerradas': {
+      title: 'Inscrições Encerradas',
+      message: 'O período de inscrições já foi encerrado. Agradecemos muito seu interesse!'
+    },
+    'já realizou sua inscrição': {
+      title: 'E-mail Já Cadastrado',
+      message: 'Você já se inscreveu para este curso! Se precisar atualizar algum dado, fale com nosso suporte no discord.'
+    },
+    'Preencha todos os campos obrigatórios': {
+      title: 'Campos Obrigatórios',
+      message: 'Por favor, preencha todos os campos obrigatórios antes de finalizar.'
+    },
+  };
 
   async function handleSubmit() {
     if (step !== 5) return;
@@ -109,8 +153,22 @@ export const Subscriber = () => {
         neighborhood: addressData.district,
       });
     } catch (err) {
-
-      toast.error(err instanceof Error ? err.message : 'Houve um erro ao enviar sua inscrição. Por favor, tente novamente.');
+      let title = "Ops! Algo não saiu como esperado 😥";
+      let msg = "Houve um erro ao enviar sua inscrição. Por favor, tente novamente.";
+      if (err instanceof Error && err.message) {
+        // Busca por uma chave do mapeamento que esteja contida na mensagem de erro
+        const found = Object.keys(errorMap).find((key) => err.message.includes(key));
+        if (found) {
+          title = errorMap[found].title;
+          msg = errorMap[found].message;
+        } else {
+          // Se vier uma mensagem do backend mais amigável, exibe ela
+          msg = err.message;
+        }
+      }
+      setErrorTitle(title);
+      setErrorMessage(msg);
+      setShowError(true);
     } finally {
       setLoading(false);
     }
@@ -120,6 +178,7 @@ export const Subscriber = () => {
     <div className="min-h-screen flex flex-col items-center bg-gray-900 text-white px-2 sm:px-4">
       <RequirementsModal open={showRequirementsModal} onClose={() => setShowRequirementsModal(false)} />
       <ConfirmationModal open={showConfirmation} onClose={() => setShowConfirmation(false)} />
+      <ErrorModal open={showError} onClose={() => setShowError(false)} title={errorTitle} message={errorMessage} />
 
       <header className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-b-3xl mb-8 transition-all duration-500 max-w-3xl mx-auto px-2 sm:px-4 py-3 sm:py-4 bg-gray-900">
         <div className="flex items-center gap-2 sm:gap-4">

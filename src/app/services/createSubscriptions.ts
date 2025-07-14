@@ -41,7 +41,14 @@ export async function createSubscription(data: SubscriptionData): Promise<Subscr
   });
 
   if (!response.ok) {
-    throw new Error('Houve um erro ao enviar sua inscrição. Por favor, tente novamente.');
+    let errorMsg = 'Houve um erro ao enviar sua inscrição. Por favor, tente novamente.';
+    try {
+      const errorData = await response.json();
+      if (errorData && errorData.message) {
+        errorMsg = errorData.message;
+      }
+    } catch {}
+    throw new Error(errorMsg);
   }
 
   return response.json();
