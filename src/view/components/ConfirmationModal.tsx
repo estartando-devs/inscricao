@@ -17,7 +17,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ open, onCl
           <p className="mb-4 text-center text-gray-200">Recebemos sua inscrição com sucesso.</p>
         </div>
         <ul className="mb-6 text-base text-gray-300 list-disc list-inside space-y-1">
-          <li>Enviamos um <span className="text-primary-light font-semibold">e-mail de confirmação</span> para você.</li>
+          <li>Enviamos um <span className="text-primary-light font-semibold">e-mail de confirmação</span> para você. É possível que demore um pouco mais para chegar, mas não se preocupe, sua inscrição está confirmada.</li>
           <li>Fique atento à sua caixa de entrada e spam.</li>
           <li>Entre no nosso canal do <span className="text-primary-light font-semibold">Discord</span> para novidades e dúvidas:</li>
         </ul>
