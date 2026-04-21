@@ -1,4 +1,5 @@
 import { ThumbsUp, ThumbsDown } from "lucide-react";
+import { KNOWN_FROM_OPTIONS, type KnownFrom } from "../store/sourceStore";
 
 type Course = { label: string; value: string };
 
@@ -9,9 +10,31 @@ type Props = {
   availability: boolean | null;
   setAcceptedPolicy: (v: boolean) => void;
   setAvailability: (v: boolean) => void;
+  knownFrom: KnownFrom | "";
+  setKnownFrom: (v: KnownFrom | "") => void;
 };
 
-export const ConfirmationStep = ({ selectedCourse, availability, setAvailability, acceptedPolicy, setAcceptedPolicy, courses }: Props) => (
+const KNOWN_FROM_LABELS: Record<KnownFrom, string> = {
+  instagram: "Instagram",
+  linkedin: "LinkedIn",
+  youtube: "YouTube",
+  discord: "Discord",
+  google: "Google",
+  indicacao: "Indicação de amigo",
+  evento: "Evento/comunidade",
+  outro: "Outro",
+};
+
+export const ConfirmationStep = ({
+  selectedCourse,
+  availability,
+  setAvailability,
+  acceptedPolicy,
+  setAcceptedPolicy,
+  courses,
+  knownFrom,
+  setKnownFrom,
+}: Props) => (
   <div className="flex flex-col items-center justify-center min-h-[120px] gap-6">
     {selectedCourse && (
       <span className="text-base sm:text-lg font-semibold text-primary-light mb-1 sm:mb-2">Curso escolhido: <span className="font-bold">{courses.find(c => c.value === selectedCourse)?.label}</span></span>
@@ -41,6 +64,27 @@ export const ConfirmationStep = ({ selectedCourse, availability, setAvailability
           <ThumbsDown size={40} className="mx-auto mb-1 sm:mb-2 text-red-400" />
           Não
         </button>
+      </div>
+      <div className="w-full">
+        <label htmlFor="knownFrom" className="text-base font-semibold text-primary-light block mb-2">
+          Como você conheceu a EstartandoDevs?
+        </label>
+        <select
+          id="knownFrom"
+          className="w-full appearance-none rounded-xl border border-gray-600 bg-gray-800 px-4 py-3 leading-6 text-base font-medium text-gray-100 transition focus:border-primary-light focus:outline-none focus:ring-2 focus:ring-primary-light"
+          value={knownFrom}
+          onChange={(e) => setKnownFrom(e.target.value as KnownFrom | "")}
+          required
+        >
+          <option value="" className="bg-gray-800 text-gray-300">
+            Selecione uma opção
+          </option>
+          {KNOWN_FROM_OPTIONS.map((option) => (
+            <option key={option} value={option} className="bg-gray-800 text-gray-100">
+              {KNOWN_FROM_LABELS[option]}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="flex items-center mt-4 w-full">
         <input
