@@ -22,6 +22,13 @@ import { notifyDiscord } from "@/app/services/notifyDiscord";
 import { ExperienceForm } from "./components/ExperienceForm";
 import { ReasonForm } from "./components/ReasonForm";
 import { RequirementsModal } from "./components/RequirementsModal";
+import { useSourceStore } from "./store/sourceStore";
+
+const COURSE_TO_API: Record<string, "web" | "backend" | "uiux"> = {
+  "Desenvolvimento Web": "web",
+  "Desenvolvimento Backend": "backend",
+  "Design UI/UX": "uiux",
+};
 
 const year = new Date().getFullYear();
 
@@ -41,7 +48,7 @@ const courses = [
 ];
 
 // ErrorModal: modal para exibir erros ao finalizar inscrição
-function ErrorModal({ open, onClose, title, message }: { open: boolean; onClose: () => void; title: string; message: string }) {
+function ErrorModal({ open, onClose, title, message }: Readonly<{ open: boolean; onClose: () => void; title: string; message: string }>) {
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
@@ -78,6 +85,11 @@ export const Subscriber = () => {
   const personalData = usePersonalDataStore();
   const experienceData = useExperienceStore();
   const reasonData = useReasonStore();
+  const sourceData = useSourceStore();
+  const search = globalThis.window?.location.search;
+  const utmMedium = search
+    ? new URLSearchParams(search).get("utm_medium") || undefined
+    : undefined;
 
   const isStepValid = useMemo(() => [
     !!selectedCourse,
@@ -95,8 +107,8 @@ export const Subscriber = () => {
     }).success,
     experienceSchema.safeParse({ experience: experienceData.experience }).success,
     reasonSchema.safeParse({ reason: reasonData.reason }).success,
-    true,
-  ], [selectedCourse, personalData, addressData, experienceData, reasonData]);
+    !!sourceData.knownFrom,
+  ], [selectedCourse, personalData, addressData, experienceData, reasonData, sourceData.knownFrom]);
 
   const errorMap: { [key: string]: { title: string; message: string } } = {
     'inscrições ainda não estão abertas': {
@@ -127,20 +139,34 @@ export const Subscriber = () => {
         setLoading(false);
         return;
       }
+      const apiCourse = COURSE_TO_API[selectedCourse];
+      if (!apiCourse) {
+        throw new Error("Curso inválido. Tente selecionar o curso novamente.");
+      }
+      if (!sourceData.knownFrom) {
+        throw new Error("Selecione como conheceu a EstartandoDevs.");
+      }
+
       const payload = {
-        city: addressData.city,
-        phone: personalData.phone,
+        cidade: addressData.city,
+        celular: personalData.phone,
         email: personalData.email,
-        course: selectedCourse,
-        address: addressData.address,
-        fullName: personalData.name,
-        zipCode: addressData.cep,
-        district: addressData.district,
-        birthDate: personalData.birth,
-        experience: experienceData.experience,
-        reason: reasonData.reason,
-        acceptedTerms: acceptedPolicy,
-        availableForClasses: availability,
+        curso: apiCourse,
+        trilha: "estartando" as const,
+        endereco: addressData.address,
+        nomeCompleto: personalData.name,
+        cep: addressData.cep,
+        bairro: addressData.district,
+        dataNascimento: personalData.birth,
+        experiencia: experienceData.experience,
+        motivacao: reasonData.reason,
+        comoConheceu: sourceData.knownFrom,
+        disponibilidade: availability,
+        utmMedium,
+        politicasAceitas: {
+          aceito: acceptedPolicy,
+          aceitoEm: new Date().toISOString(),
+        },
       };
       await createSubscription(payload);
       setShowConfirmation(true);
@@ -289,6 +315,8 @@ export const Subscriber = () => {
                   acceptedPolicy={acceptedPolicy}
                   setAvailability={setAvailability}
                   setAcceptedPolicy={setAcceptedPolicy}
+                  knownFrom={sourceData.knownFrom}
+                  setKnownFrom={sourceData.setKnownFrom}
                 />
               </motion.div>
             )}
@@ -317,7 +345,7 @@ export const Subscriber = () => {
                 type="button"
                 onClick={handleSubmit}
                 className="btn font-bold bg-primary-light text-gray-900 hover:bg-primary-main rounded-xl px-8 py-3 shadow-md transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-lg w-full sm:w-auto  disabled:text-gray-400/30"
-                disabled={availability === null || !acceptedPolicy || loading}
+                disabled={availability === null || !acceptedPolicy || !sourceData.knownFrom || loading}
               >
                 {loading ? "Enviando..." : "Finalizar inscrição"}
               </button>
