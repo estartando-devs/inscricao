@@ -20,15 +20,9 @@ export const RequirementsModal: FC<RequirementsModalProps> = ({ open, onClose })
         </button>
         <h2 className="text-2xl font-bold mb-6 text-white">Para se inscrever você precisa:</h2>
         <ul className="space-y-3 text-base text-gray-100 mb-8 list-disc list-inside">
-          <li>Estar cursando ou ter concluído o 3º ano do <span className="text-primary-light font-semibold">Ensino médio</span>;</li>
           <li>
-            Desejar ingressar na  <span className="text-primary-light font-semibold"> área de tecnologia</span> ou realizar  <span className="text-primary-light font-semibold">transição de carreira</span>;
-          </li>
-          <li>
-            Estar incluído em situação de <span className="text-primary-light font-semibold">vulnerabilidade social e econômica</span>.
-          </li>
-          <li>
-            Atender aos <span className="text-primary-light font-semibold">pré-requisitos</span> de cada curso.
+            Estar cursando o 3º ano do <span className="text-primary-light font-semibold">ensino médio</span> ou ter o{" "}
+            <span className="text-primary-light font-semibold">ensino médio completo</span>.
           </li>
         </ul>
         <button
