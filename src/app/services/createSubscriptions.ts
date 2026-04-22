@@ -12,6 +12,7 @@ export type KnownFrom =
 
 export interface SubscriptionData {
   cep?: string;
+  utmSource?: string;
   utmMedium?: string;
   curso: Course;
   email: string;

@@ -23,6 +23,7 @@ import { ExperienceForm } from "./components/ExperienceForm";
 import { ReasonForm } from "./components/ReasonForm";
 import { RequirementsModal } from "./components/RequirementsModal";
 import { useSourceStore } from "./store/sourceStore";
+import { resolveUtm } from "@/utils/resolveUtm";
 
 const COURSE_TO_API: Record<string, "web" | "backend" | "uiux"> = {
   "Desenvolvimento Web": "web",
@@ -87,10 +88,9 @@ export const Subscriber = () => {
   const experienceData = useExperienceStore();
   const reasonData = useReasonStore();
   const sourceData = useSourceStore();
-  const search = globalThis.window?.location.search;
-  const utmMedium = search
-    ? new URLSearchParams(search).get("utm_medium") || undefined
-    : undefined;
+  const search = globalThis.window?.location.search ?? "";
+  const referrer = globalThis.document?.referrer ?? "";
+  const { utmSource, utmMedium } = resolveUtm(search, referrer);
 
   const isStepValid = useMemo(() => [
     !!selectedCourse,
@@ -167,6 +167,7 @@ export const Subscriber = () => {
         comoConheceu: sourceData.knownFrom,
         disponibilidade: availability,
         enquadramentoRendaPrioritaria,
+        utmSource,
         utmMedium,
         politicasAceitas: {
           aceito: acceptedPolicy,
