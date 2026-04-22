@@ -1,5 +1,9 @@
-import { ThumbsUp, ThumbsDown } from "lucide-react";
+import { CheckCircle2, ThumbsDown, ThumbsUp, XCircle } from "lucide-react";
 import { KNOWN_FROM_OPTIONS, type KnownFrom } from "../store/sourceStore";
+import {
+  amplaConcorrenciaVagasPhrase,
+  formatLimiteRendaPerCapita,
+} from "@/constants/enrollmentCriteria";
 
 type Course = { label: string; value: string };
 
@@ -8,8 +12,10 @@ type Props = {
   acceptedPolicy: boolean;
   selectedCourse: string | null;
   availability: boolean | null;
+  enquadramentoRendaPrioritaria: boolean | null;
   setAcceptedPolicy: (v: boolean) => void;
   setAvailability: (v: boolean) => void;
+  setEnquadramentoRendaPrioritaria: (v: boolean) => void;
   knownFrom: KnownFrom | "";
   setKnownFrom: (v: KnownFrom | "") => void;
 };
@@ -28,7 +34,9 @@ const KNOWN_FROM_LABELS: Record<KnownFrom, string> = {
 export const ConfirmationStep = ({
   selectedCourse,
   availability,
+  enquadramentoRendaPrioritaria,
   setAvailability,
+  setEnquadramentoRendaPrioritaria,
   acceptedPolicy,
   setAcceptedPolicy,
   courses,
@@ -40,6 +48,45 @@ export const ConfirmationStep = ({
       <span className="text-base sm:text-lg font-semibold text-primary-light mb-1 sm:mb-2">Curso escolhido: <span className="font-bold">{courses.find(c => c.value === selectedCourse)?.label}</span></span>
     )}
     <div className="flex flex-col items-center gap-4 w-full mt-4">
+      <div className="w-full rounded-xl border border-gray-600 bg-gray-800/80 px-3 py-4 sm:px-5 sm:py-5 text-left text-sm sm:text-base text-gray-200 space-y-3">
+        <p className="font-semibold text-primary-light">
+          Sobre renda e vagas
+        </p>
+        <p>
+          O EstartandoDevs foi criado para ampliar oportunidades em tecnologia para pessoas em situação de baixa renda.
+          Reservamos também <span className="font-semibold text-gray-100">{amplaConcorrenciaVagasPhrase()}</span> em ampla concorrência.
+        </p>
+        <p className="text-gray-100 font-medium bg-gray-900/60 rounded-lg px-3 py-2 border border-gray-700">
+          Critério de renda per capita da família: a soma de todos os rendimentos da família, dividida pelo número de moradores da residência,
+          não pode ultrapassar <span className="text-primary-light">{formatLimiteRendaPerCapita()}</span>.
+        </p>
+        <p className="text-xs sm:text-sm text-gray-400">
+          Essa informação é usada no processo seletivo. A declaração falsa pode implicar desclassificação, conforme o regulamento do programa.
+        </p>
+        <p className="font-semibold text-gray-100 pt-1">
+          Considerando esse critério, você se enquadra no público prioritário?
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center w-full">
+          <button
+            type="button"
+            className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border-2 w-full sm:w-28 h-24 sm:h-28 transition-all duration-200 text-center text-base font-semibold
+              ${enquadramentoRendaPrioritaria === true ? "border-primary-light bg-primary-light/20" : "border-gray-400 bg-gray-800 hover:border-primary-light"}`}
+            onClick={() => setEnquadramentoRendaPrioritaria(true)}
+          >
+            <CheckCircle2 size={36} className="mx-auto mb-1 text-primary-light" />
+            Sim
+          </button>
+          <button
+            type="button"
+            className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border-2 w-full sm:w-28 h-24 sm:h-28 transition-all duration-200 text-center text-base font-semibold
+              ${enquadramentoRendaPrioritaria === false ? "border-red-400 bg-red-400/20" : "border-gray-400 bg-gray-800 hover:border-red-400"}`}
+            onClick={() => setEnquadramentoRendaPrioritaria(false)}
+          >
+            <XCircle size={36} className="mx-auto mb-1 text-red-400" />
+            Não
+          </button>
+        </div>
+      </div>
       <div className="text-center bg-primary-light rounded px-2 py-3 sm:px-4">
         <span className="text-base sm:text-lg font-bold font-family-mono text-gray-800 block">
           Para terminar, uma informação importante: as aulas serão às terças e quintas, de 19h30 às 21h30. Você tem disponibilidade nesses dias e horário?

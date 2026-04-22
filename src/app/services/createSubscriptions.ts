@@ -26,6 +26,7 @@ export interface SubscriptionData {
   nomeCompleto: string;
   dataNascimento: string;
   disponibilidade: boolean;
+  enquadramentoRendaPrioritaria: boolean;
   politicasAceitas: {
     aceito: boolean;
     aceitoEm: string;

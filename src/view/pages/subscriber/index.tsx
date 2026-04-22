@@ -73,6 +73,7 @@ export const Subscriber = () => {
   const [step, setStep] = useState(0);
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
   const [availability, setAvailability] = useState<boolean | null>(null);
+  const [enquadramentoRendaPrioritaria, setEnquadramentoRendaPrioritaria] = useState<boolean | null>(null);
   const [acceptedPolicy, setAcceptedPolicy] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -107,8 +108,11 @@ export const Subscriber = () => {
     }).success,
     experienceSchema.safeParse({ experience: experienceData.experience }).success,
     reasonSchema.safeParse({ reason: reasonData.reason }).success,
-    !!sourceData.knownFrom,
-  ], [selectedCourse, personalData, addressData, experienceData, reasonData, sourceData.knownFrom]);
+    availability === true &&
+      acceptedPolicy &&
+      !!sourceData.knownFrom &&
+      enquadramentoRendaPrioritaria !== null,
+  ], [selectedCourse, personalData, addressData, experienceData, reasonData, sourceData.knownFrom, availability, acceptedPolicy, enquadramentoRendaPrioritaria]);
 
   const errorMap: { [key: string]: { title: string; message: string } } = {
     'inscrições ainda não estão abertas': {
@@ -134,7 +138,7 @@ export const Subscriber = () => {
 
     setLoading(true);
     try {
-      if (!selectedCourse || availability !== true || !acceptedPolicy) {
+      if (!selectedCourse || availability !== true || !acceptedPolicy || enquadramentoRendaPrioritaria === null) {
         toast.error("Preencha todos os campos obrigatórios.");
         setLoading(false);
         return;
@@ -162,6 +166,7 @@ export const Subscriber = () => {
         motivacao: reasonData.reason,
         comoConheceu: sourceData.knownFrom,
         disponibilidade: availability,
+        enquadramentoRendaPrioritaria,
         utmMedium,
         politicasAceitas: {
           aceito: acceptedPolicy,
@@ -311,9 +316,11 @@ export const Subscriber = () => {
                 <ConfirmationStep
                   courses={courses}
                   availability={availability}
+                  enquadramentoRendaPrioritaria={enquadramentoRendaPrioritaria}
                   selectedCourse={selectedCourse}
                   acceptedPolicy={acceptedPolicy}
                   setAvailability={setAvailability}
+                  setEnquadramentoRendaPrioritaria={setEnquadramentoRendaPrioritaria}
                   setAcceptedPolicy={setAcceptedPolicy}
                   knownFrom={sourceData.knownFrom}
                   setKnownFrom={sourceData.setKnownFrom}
@@ -325,7 +332,7 @@ export const Subscriber = () => {
           <div className="flex flex-col sm:flex-row justify-between pt-6 gap-4">
             <button
               type="button"
-              className="btn bg-gray-700 text-gray-300 rounded-xl px-6 py-3 font-semibold shadow-sm w-full sm:w-auto disabled:text-gray-400/30"
+              className="btn bg-gray-700 text-gray-300 rounded-xl px-6 py-3 font-semibold shadow-sm w-full sm:w-auto disabled:cursor-not-allowed disabled:bg-gray-700/40 disabled:text-gray-600 disabled:shadow-none disabled:opacity-45 disabled:grayscale"
               onClick={() => setStep((s) => Math.max(0, s - 1))}
               disabled={step === 0 || loading}
             >
@@ -334,7 +341,7 @@ export const Subscriber = () => {
             {step < 5 ? (
               <button
                 type="button"
-                className="btn font-bold bg-primary-light text-gray-900 hover:bg-primary-main rounded-xl px-8 py-3 shadow-md transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-lg w-full sm:w-auto disabled:text-gray-400/30"
+                className="btn font-bold border-2 border-transparent bg-primary-light text-gray-900 hover:bg-primary-main rounded-xl px-8 py-3 shadow-md transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-lg w-full sm:w-auto disabled:cursor-not-allowed disabled:border-gray-600 disabled:border-dashed disabled:bg-transparent disabled:text-gray-500 disabled:shadow-none disabled:opacity-80 disabled:saturate-0 disabled:hover:translate-y-0 disabled:hover:shadow-none disabled:hover:bg-transparent disabled:hover:border-gray-600"
                 onClick={() => setStep((s) => Math.min(5, s + 1))}
                 disabled={!isStepValid[step] || loading}
               >
@@ -344,8 +351,14 @@ export const Subscriber = () => {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="btn font-bold bg-primary-light text-gray-900 hover:bg-primary-main rounded-xl px-8 py-3 shadow-md transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-lg w-full sm:w-auto  disabled:text-gray-400/30"
-                disabled={availability === null || !acceptedPolicy || !sourceData.knownFrom || loading}
+                className="btn font-bold border-2 border-transparent bg-primary-light text-gray-900 hover:bg-primary-main rounded-xl px-8 py-3 shadow-md transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-lg w-full sm:w-auto disabled:cursor-not-allowed disabled:border-gray-600 disabled:border-dashed disabled:bg-transparent disabled:text-gray-500 disabled:shadow-none disabled:opacity-80 disabled:saturate-0 disabled:hover:translate-y-0 disabled:hover:shadow-none disabled:hover:bg-transparent disabled:hover:border-gray-600"
+                disabled={
+                  availability !== true ||
+                  !acceptedPolicy ||
+                  !sourceData.knownFrom ||
+                  enquadramentoRendaPrioritaria === null ||
+                  loading
+                }
               >
                 {loading ? "Enviando..." : "Finalizar inscrição"}
               </button>
