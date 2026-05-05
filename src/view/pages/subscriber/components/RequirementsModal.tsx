@@ -1,37 +1,92 @@
 import { FC } from "react";
-import { X } from "lucide-react";
+import { X, CheckCircle2, ShieldAlert } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 
 interface RequirementsModalProps {
   open: boolean;
   onClose: () => void;
+  track: string | null;
 }
 
-export const RequirementsModal: FC<RequirementsModalProps> = ({ open, onClose }) => {
-  if (!open) return null;
+export const RequirementsModal: FC<RequirementsModalProps> = ({ open, onClose, track }) => {
+  const isImpulso = track === "impulso";
+
+  const requirements = isImpulso ? [
+    "Cursando ou concluído o 3º ano do Ensino Médio",
+    "Desejo de ingressar na área de tecnologia ou transição",
+    "Situação de vulnerabilidade social e econômica",
+    "Atender aos pré-requisitos específicos do curso",
+    "Disponibilidade para aulas noturnas (Ter/Qui)",
+    "Comprometimento com as entregas semanais"
+  ] : [
+    "Cursando ou concluído o 3º ano do Ensino Médio",
+    "Desejo de ingressar na área de tecnologia ou transição",
+    "Comprometimento com as entregas semanais"
+  ];
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-      <div className="relative bg-gray-800 rounded-2xl shadow-2xl p-6 sm:p-10 max-w-2xl w-full mx-4">
-        <button
-          className="absolute top-4 right-4 text-gray-400 hover:text-primary-light transition-colors"
-          onClick={onClose}
-          aria-label="Fechar"
-        >
-          <X size={28} />
-        </button>
-        <h2 className="text-2xl font-bold mb-6 text-white">Para se inscrever você precisa:</h2>
-        <ul className="space-y-3 text-base text-gray-100 mb-8 list-disc list-inside">
-          <li>
-            Estar cursando o 3º ano do <span className="text-primary-light font-semibold">ensino médio</span> ou ter o{" "}
-            <span className="text-primary-light font-semibold">ensino médio completo</span>.
-          </li>
-        </ul>
-        <button
-          className="bg-primary-light text-gray-900 font-bold rounded-xl px-8 py-3 shadow-md hover:bg-primary-main transition-all w-full sm:w-auto"
-          onClick={onClose}
-        >
-          Fechar
-        </button>
-      </div>
-    </div>
+    <AnimatePresence>
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={onClose}
+          />
+          <motion.div 
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            className="bg-surface-container border border-white/10 text-white rounded-3xl shadow-2xl max-w-2xl w-full p-8 relative z-10 overflow-hidden"
+          >
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-purple to-brand-teal" />
+            
+            <button 
+              onClick={onClose}
+              className="absolute top-4 right-4 p-2 text-white/20 hover:text-white hover:bg-white/5 rounded-full transition-all"
+            >
+              <X size={24} />
+            </button>
+
+            <div className="space-y-8">
+              <header className="flex flex-col items-center text-center space-y-4">
+                <div className="w-16 h-16 rounded-2xl bg-brand-purple/10 flex items-center justify-center text-brand-purple border border-brand-purple/20">
+                  <ShieldAlert className="w-8 h-8" />
+                </div>
+                <div className="space-y-1">
+                  <h2 className="text-2xl font-bold font-display uppercase tracking-tight">Requisitos Mínimos</h2>
+                  <p className="text-white/40 font-medium">
+                    {isImpulso 
+                      ? "Esta trilha é voltada para quem já possui conhecimentos base." 
+                      : "Esta trilha é voltada para quem está começando do zero."}
+                  </p>
+                </div>
+              </header>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {requirements.map((req, idx) => (
+                  <div key={idx} className="flex items-start gap-3 p-4 bg-black/20 rounded-2xl border border-white/5">
+                    <CheckCircle2 className="w-5 h-5 text-brand-teal shrink-0 mt-0.5" />
+                    <p className="text-sm text-white/80 font-medium leading-relaxed">{req}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-4 text-center">
+                <p className="text-xs text-white/20 mb-6 italic">* Temos vagas para ampla concorrência e público prioritário.</p>
+                <button
+                  className="w-full bg-brand-teal text-surface-dark font-black py-4 rounded-2xl transition-all hover:bg-brand-teal/90 shadow-[0_4px_20px_rgba(0,191,166,0.3)] hover:scale-[1.02] active:scale-[0.98]"
+                  onClick={onClose}
+                >
+                  ESTOU DE ACORDO, QUERO CONTINUAR
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 };

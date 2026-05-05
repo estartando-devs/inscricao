@@ -1,6 +1,7 @@
 import { usePersonalDataStore } from '../store/personalDataStore';
 import { personalDataSchema } from '../schemas/personalDataSchema';
 import { useState } from 'react';
+import { User, Mail, Calendar, Phone } from 'lucide-react';
 
 function formatPhone(value: string) {
   const digits = value.replace(/\D/g, '');
@@ -33,61 +34,72 @@ export const PersonalDataForm = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-5 sm:gap-6">
-      <div className="form-control">
-        <label className="label mb-1">
-          <span className="label-text text-white font-semibold">Seu nome completo</span>
-        </label>
-        <input
-          type="text"
-          placeholder="Nome completo"
-          className="input input-bordered w-full bg-background-paper text-white placeholder-gray-400 rounded-xl px-4 py-3 font-medium border border-gray-700 focus:border-primary-light focus:ring-2 focus:ring-primary-light transition"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          onBlur={e => validateField('name', e.target.value)}
-        />
-        {errors.name && <span className="text-red-400 text-xs mt-1 font-semibold">{errors.name}</span>}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="space-y-2">
+        <label className="text-[11px] font-black text-white/40 uppercase tracking-[0.2em]" htmlFor="name">Nome Completo</label>
+        <div className="relative group">
+          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20 group-focus-within:text-brand-teal transition-colors" />
+          <input
+            type="text"
+            id="name"
+            placeholder="Seu nome aqui"
+            className="w-full bg-black/20 border border-white/5 rounded-2xl py-3.5 pl-12 pr-4 text-white placeholder:text-white/10 focus:outline-none focus:border-brand-teal/50 focus:ring-4 focus:ring-brand-teal/5 transition-all"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            onBlur={e => validateField('name', e.target.value)}
+          />
+        </div>
+        {errors.name && <span className="text-red-400 text-[10px] font-bold uppercase tracking-wider pl-1">{errors.name}</span>}
       </div>
-      <div className="form-control">
-        <label className="label mb-1">
-          <span className="label-text text-white font-semibold">Seu email</span>
-        </label>
-        <input
-          type="email"
-          placeholder="email@exemplo.com"
-          className="input input-bordered w-full bg-background-paper text-white placeholder-gray-400 rounded-xl px-4 py-3 font-medium border border-transparent focus:border-primary-light focus:ring-2 focus:ring-primary-light transition"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          onBlur={e => validateField('email', e.target.value)}
-        />
-        {errors.email && <span className="text-red-400 text-xs mt-1 font-semibold">{errors.email}</span>}
+
+      <div className="space-y-2">
+        <label className="text-[11px] font-black text-white/40 uppercase tracking-[0.2em]" htmlFor="email">E-mail</label>
+        <div className="relative group">
+          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20 group-focus-within:text-brand-teal transition-colors" />
+          <input
+            type="email"
+            id="email"
+            placeholder="seu@email.com"
+            className="w-full bg-black/20 border border-white/5 rounded-2xl py-3.5 pl-12 pr-4 text-white placeholder:text-white/10 focus:outline-none focus:border-brand-teal/50 focus:ring-4 focus:ring-brand-teal/5 transition-all"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            onBlur={e => validateField('email', e.target.value)}
+          />
+        </div>
+        {errors.email && <span className="text-red-400 text-[10px] font-bold uppercase tracking-wider pl-1">{errors.email}</span>}
       </div>
-      <div className="form-control">
-        <label className="label mb-1">
-          <span className="label-text text-white font-semibold">Quando você nasceu?</span>
-        </label>
-        <input
-          type="date"
-          className="input input-bordered w-full bg-background-paper text-white placeholder-gray-400 rounded-xl px-4 py-3 font-medium border border-transparent focus:border-primary-light focus:ring-2 focus:ring-primary-light transition"
-          value={birth}
-          onChange={e => setBirth(e.target.value)}
-          onBlur={e => validateField('birth', e.target.value)}
-        />
-        {errors.birth && <span className="text-red-400 text-xs mt-1 font-semibold">{errors.birth}</span>}
+
+      <div className="space-y-2">
+        <label className="text-[11px] font-black text-white/40 uppercase tracking-[0.2em]" htmlFor="birth">Data de Nascimento</label>
+        <div className="relative group">
+          <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20 group-focus-within:text-brand-teal transition-colors" />
+          <input
+            type="date"
+            id="birth"
+            className="w-full bg-black/20 border border-white/5 rounded-2xl py-3.5 pl-12 pr-4 text-white placeholder:text-white/10 focus:outline-none focus:border-brand-teal/50 focus:ring-4 focus:ring-brand-teal/5 transition-all"
+            value={birth}
+            onChange={e => setBirth(e.target.value)}
+            onBlur={e => validateField('birth', e.target.value)}
+          />
+        </div>
+        {errors.birth && <span className="text-red-400 text-[10px] font-bold uppercase tracking-wider pl-1">{errors.birth}</span>}
       </div>
-      <div className="form-control">
-        <label className="label mb-1">
-          <span className="label-text text-white font-semibold">Seu telefone</span>
-        </label>
-        <input
-          type="tel"
-          placeholder="(00) 00000-0000"
-          className="input input-bordered w-full bg-background-paper text-white placeholder-gray-400 rounded-xl px-4 py-3 font-medium border border-transparent focus:border-primary-light focus:ring-2 focus:ring-primary-light transition"
-          value={formatPhone(phone)}
-          onChange={e => setPhone(e.target.value.replace(/\D/g, ''))}
-          onBlur={e => validateField('phone', e.target.value)}
-        />
-        {errors.phone && <span className="text-red-400 text-xs mt-1 font-semibold">{errors.phone}</span>}
+
+      <div className="space-y-2">
+        <label className="text-[11px] font-black text-white/40 uppercase tracking-[0.2em]" htmlFor="phone">Telefone / WhatsApp</label>
+        <div className="relative group">
+          <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20 group-focus-within:text-brand-teal transition-colors" />
+          <input
+            type="tel"
+            id="phone"
+            placeholder="(00) 00000-0000"
+            className="w-full bg-black/20 border border-white/5 rounded-2xl py-3.5 pl-12 pr-4 text-white placeholder:text-white/10 focus:outline-none focus:border-brand-teal/50 focus:ring-4 focus:ring-brand-teal/5 transition-all"
+            value={formatPhone(phone)}
+            onChange={e => setPhone(e.target.value.replace(/\D/g, ''))}
+            onBlur={e => validateField('phone', e.target.value)}
+          />
+        </div>
+        {errors.phone && <span className="text-red-400 text-[10px] font-bold uppercase tracking-wider pl-1">{errors.phone}</span>}
       </div>
     </div>
   );

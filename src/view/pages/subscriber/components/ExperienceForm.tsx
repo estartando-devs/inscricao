@@ -1,6 +1,7 @@
 import { useExperienceStore } from '../store/experienceStore';
 import { experienceSchema } from '../schemas/experienceSchema';
 import { useState } from 'react';
+import { Briefcase } from 'lucide-react';
 
 export const ExperienceForm = () => {
   const [error, setError] = useState('');
@@ -12,20 +13,26 @@ export const ExperienceForm = () => {
   };
 
   return (
-    <div className="form-control">
-      <p className="mb-4 w-full text-base text-center font-semibold text-primary-light leading-snug whitespace-normal wrap-anywhere">
-          Você tem alguma experiência na área do curso escolhido? Conta pra gente!
-      </p>
-      <textarea
-        className="textarea textarea-bordered w-full bg-background-paper text-white placeholder-gray-400 rounded-xl px-4 py-3 font-medium border border-gray-700 focus:border-primary-light focus:ring-2 focus:ring-primary-light transition min-h-[100px] resize-y whitespace-pre-wrap wrap-anywhere overflow-x-hidden"
-        placeholder="Conte um pouco sobre sua experiência (ou diga que está começando agora)"
-        value={experience}
-        wrap="soft"
-        onChange={e => setExperience(e.target.value)}
-        onBlur={e => validate(e.target.value)}
-        required
-      />
-      {error && <span className="text-red-400 text-xs mt-1 font-semibold">{error}</span>}
+    <div className="space-y-6">
+      <div className="flex flex-col items-center justify-center text-center gap-2 mb-4">
+        <div className="w-14 h-14 rounded-2xl bg-brand-purple/10 flex items-center justify-center text-brand-purple border border-brand-purple/20 mb-2">
+          <Briefcase className="w-7 h-7" />
+        </div>
+        <span className="text-lg font-bold text-white">Sua Experiência</span>
+        <p className="text-sm text-white/40 max-w-md">Você tem alguma experiência na área do curso escolhido? Conta pra gente! (Mínimo 50 caracteres)</p>
+      </div>
+
+      <div className="space-y-2">
+        <textarea
+          className="w-full bg-black/20 border border-white/5 rounded-2xl p-6 text-white text-base focus:outline-none focus:border-brand-purple/40 transition-all placeholder:text-white/10 resize-none min-h-[200px]"
+          placeholder="Conte um pouco sobre sua experiência (ou diga que está começando agora)"
+          value={experience}
+          onChange={e => setExperience(e.target.value)}
+          onBlur={e => validate(e.target.value)}
+          required
+        />
+        {error && <span className="text-red-400 text-[10px] font-bold uppercase tracking-wider pl-1">{error}</span>}
+      </div>
     </div>
   );
 };

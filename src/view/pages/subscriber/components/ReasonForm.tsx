@@ -1,6 +1,7 @@
 import { useReasonStore } from '../store/reasonStore';
 import { reasonSchema } from '../schemas/reasonSchema';
 import { useState } from 'react';
+import { MessageCircle } from 'lucide-react';
 
 export const ReasonForm = () => {
   const [error, setError] = useState('');
@@ -12,20 +13,26 @@ export const ReasonForm = () => {
   };
 
   return (
-    <div className="form-control">
-      <p className="mb-4 w-full text-base text-center font-semibold text-primary-light leading-snug whitespace-normal wrap-anywhere">
-          Por que você quer estudar com a gente?
-      </p>
-      <textarea
-        className="textarea textarea-bordered w-full bg-background-paper text-white placeholder-gray-400 rounded-xl px-4 py-3 font-medium border border-gray-700 focus:border-primary-light focus:ring-2 focus:ring-primary-light transition min-h-[100px] resize-y whitespace-pre-wrap wrap-anywhere overflow-x-hidden"
-        placeholder="Fale sobre sua motivação para participar do curso"
-        value={reason}
-        wrap="soft"
-        onChange={e => setReason(e.target.value)}
-        onBlur={e => validate(e.target.value)}
-        required
-      />
-      {error && <span className="text-red-400 text-xs mt-1 font-semibold">{error}</span>}
+    <div className="space-y-6">
+      <div className="flex flex-col items-center justify-center text-center gap-2 mb-4">
+        <div className="w-14 h-14 rounded-2xl bg-brand-teal/10 flex items-center justify-center text-brand-teal border border-brand-teal/20 mb-2">
+          <MessageCircle className="w-7 h-7" />
+        </div>
+        <span className="text-lg font-bold text-white">Sua Motivação</span>
+        <p className="text-sm text-white/40 max-w-md">Por que você quer estudar com a gente? Conta um pouco dos seus sonhos! (Mínimo 50 caracteres)</p>
+      </div>
+
+      <div className="space-y-2">
+        <textarea
+          className="w-full bg-black/20 border border-white/5 rounded-2xl p-6 text-white text-base focus:outline-none focus:border-brand-teal/40 transition-all placeholder:text-white/10 resize-none min-h-[200px]"
+          placeholder="Fale sobre sua motivação para participar do curso"
+          value={reason}
+          onChange={e => setReason(e.target.value)}
+          onBlur={e => validate(e.target.value)}
+          required
+        />
+        {error && <span className="text-red-400 text-[10px] font-bold uppercase tracking-wider pl-1">{error}</span>}
+      </div>
     </div>
   );
 };
