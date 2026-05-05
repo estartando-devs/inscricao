@@ -2,14 +2,16 @@ import { useMemo, useState } from 'react';
 
 import confetti from 'canvas-confetti';
 import {
+  AlertTriangle,
   Briefcase,
   CheckCircle2,
+  Compass,
+  Globe,
   GraduationCap,
+  Instagram,
   MapPin,
   MessageCircle,
   User,
-  XCircle,
-  Compass,
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { toast } from 'sonner';
@@ -18,16 +20,17 @@ import { createSubscription } from '@/app/services/createSubscriptions';
 import { notifyDiscord } from '@/app/services/notifyDiscord';
 import { resolveUtm } from '@/utils/resolveUtm';
 import { ConfirmationModal } from '@/view/components/ConfirmationModal';
+import { ErrorModal } from '@/view/components/ErrorModal';
 
 import { AddressForm } from './components/AddressForm';
 import { ConfirmationStep } from './components/ConfirmationStep';
 import { CourseSelector } from './components/CourseSelector';
-import { TrackSelector } from './components/TrackSelector';
 import { ExperienceForm } from './components/ExperienceForm';
 import { PersonalDataForm } from './components/PersonalDataForm';
 import { ReasonForm } from './components/ReasonForm';
 import { RequirementsModal } from './components/RequirementsModal';
 import { Stepper } from './components/Stepper';
+import { TrackSelector } from './components/TrackSelector';
 import { addressSchema } from './schemas/addressSchema';
 import { experienceSchema } from './schemas/experienceSchema';
 import { personalDataSchema } from './schemas/personalDataSchema';
@@ -45,14 +48,15 @@ const COURSE_TO_API: Record<string, 'web' | 'backend' | 'uiux'> = {
 };
 
 const year = new Date().getFullYear();
+const IS_REGISTRATION_CLOSED = true;
 
 const steps = [
-  <Compass key="trilha" />,      // 0
+  <Compass key="trilha" />, // 0
   <GraduationCap key="curso" />, // 1
-  <User key="dados" />,          // 2
-  <MapPin key="endereco" />,     // 3
+  <User key="dados" />, // 2
+  <MapPin key="endereco" />, // 3
   <Briefcase key="experiencia" />, // 4
-  <MessageCircle key="motivo" />,  // 5
+  <MessageCircle key="motivo" />, // 5
   <CheckCircle2 key="confirmacao" />, // 6
 ];
 
@@ -63,38 +67,19 @@ const courses = [
 ];
 
 const tracks = [
-  { label: 'Estartando', value: 'estartando', description: 'Para quem está começando do zero na tecnologia.', icon: Compass },
-  { label: 'Impulso', value: 'impulso', description: 'Para quem já tem base e quer acelerar a carreira.', icon: Compass },
+  {
+    label: 'Estartando',
+    value: 'estartando',
+    description: 'Para quem está começando do zero na tecnologia.',
+    icon: Compass,
+  },
+  {
+    label: 'Impulso',
+    value: 'impulso',
+    description: 'Para quem já tem base e quer acelerar a carreira.',
+    icon: Compass,
+  },
 ];
-
-// ErrorModal: modal para exibir erros ao finalizar inscrição
-function ErrorModal({
-  open,
-  onClose,
-  title,
-  message,
-}: Readonly<{ open: boolean; onClose: () => void; title: string; message: string }>) {
-  if (!open) return null;
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-surface-container text-white rounded-3xl shadow-2xl max-w-md w-full p-8 relative border-2 border-red-400 animate-fade-in">
-        <div className="flex flex-col items-center">
-          <XCircle className="w-16 h-16 text-red-400 mb-2 drop-shadow-lg" />
-          <h2 className="text-2xl font-extrabold mb-2 text-red-400 text-center drop-shadow">
-            {title}
-          </h2>
-          <p className="mb-2 text-center text-white/60 font-semibold">{message}</p>
-        </div>
-        <button
-          onClick={onClose}
-          className="w-full bg-red-400 text-surface-dark py-2 rounded-xl font-bold hover:bg-red-500 hover:text-white transition border-2 border-red-400 shadow mt-4"
-        >
-          Fechar
-        </button>
-      </div>
-    </div>
-  );
-}
 
 export const Subscriber = () => {
   const [step, setStep] = useState(0);
@@ -213,7 +198,7 @@ export const Subscriber = () => {
         celular: personalData.phone,
         email: personalData.email,
         curso: apiCourse,
-        trilha: selectedTrack as "estartando" | "impulso",
+        trilha: selectedTrack as 'estartando' | 'impulso',
         endereco: addressData.address,
         nomeCompleto: personalData.name,
         cep: addressData.cep,
@@ -263,6 +248,88 @@ export const Subscriber = () => {
     }
   }
 
+  if (IS_REGISTRATION_CLOSED) {
+    return (
+      <div className="min-h-screen py-12 px-4 sm:px-6 flex flex-col items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-2xl w-full text-center space-y-10"
+        >
+          <div className="flex flex-col items-center gap-6">
+            <div className="w-24 h-24 rounded-3xl bg-brand-purple/10 flex items-center justify-center text-brand-purple border border-brand-purple/20 shadow-[0_0_50px_rgba(108,99,255,0.15)] relative">
+              <div className="absolute inset-0 blur-2xl bg-brand-purple/20 rounded-full animate-pulse"></div>
+              <AlertTriangle size={48} className="relative z-10" />
+            </div>
+            <div className="space-y-3">
+              <h1 className="font-display text-4xl sm:text-5xl text-white font-black tracking-tight uppercase">
+                Inscrições Encerradas
+              </h1>
+              <p className="text-white/60 text-lg font-medium">
+                O período de inscrições para a trilha{' '}
+                <span className="text-white font-bold">Estartando</span> no ciclo {year} chegou ao
+                fim.
+              </p>
+            </div>
+          </div>
+
+          <div className="glass-panel p-8 sm:p-12 rounded-[40px] border border-white/5 shadow-2xl relative overflow-hidden group">
+            <div className="absolute -right-20 -top-20 w-64 h-64 bg-brand-teal/10 rounded-full blur-[80px] pointer-events-none group-hover:scale-110 transition-transform duration-700" />
+
+            <div className="relative z-10 space-y-8">
+              <div className="space-y-4">
+                <h2 className="text-xl font-bold text-white uppercase tracking-wider">
+                  Obrigado pelo interesse!
+                </h2>
+                <p className="text-white/40 leading-relaxed max-w-md mx-auto">
+                  Agradecemos a todos que demonstraram interesse. Se você já realizou sua inscrição,
+                  fique de olho no seu e-mail para os próximos passos do processo seletivo.
+                </p>
+
+                <div className="bg-brand-teal/10 border border-brand-teal/20 rounded-2xl p-5 mt-6">
+                  <p className="text-brand-teal text-sm font-bold leading-relaxed">
+                    🚀 Prepare-se! No próximo semestre abriremos uma nova janela de inscrições
+                    exclusiva para a trilha <span className="underline uppercase">Impulso</span>.
+                  </p>
+                </div>
+              </div>
+
+              <div className="h-px w-full bg-white/5" />
+
+              <div className="space-y-6">
+                <p className="text-xs font-black text-brand-teal uppercase tracking-[0.3em]">
+                  Acompanhe nossas redes
+                </p>
+                <div className="flex items-center justify-center gap-4">
+                  <a
+                    href="https://instagram.com/estartandodevs"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-brand-purple/20 hover:border-brand-purple/30 transition-all duration-300 group"
+                  >
+                    <Instagram size={24} className="group-hover:scale-110 transition-transform" />
+                  </a>
+                  <a
+                    href="https://estartandodevs.com.br"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-brand-teal/20 hover:border-brand-teal/30 transition-all duration-300 group"
+                  >
+                    <Globe size={24} className="group-hover:scale-110 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-white/20 text-xs font-bold uppercase tracking-widest">
+            Estartando Devs • Transformando vidas através da tecnologia
+          </p>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 flex flex-col items-center">
       <div className="max-w-4xl mx-auto w-full space-y-12">
@@ -281,7 +348,9 @@ export const Subscriber = () => {
 
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
           <div className="space-y-2">
-            <h2 className="font-display text-[36px] text-white font-bold tracking-tight uppercase">Inscrições {year}</h2>
+            <h2 className="font-display text-[36px] text-white font-bold tracking-tight uppercase">
+              Inscrições {year}
+            </h2>
             <p className="text-white/60 max-w-2xl leading-relaxed">
               Faça parte da próxima turma do Estartando Devs e inicie sua jornada na tecnologia.
             </p>
@@ -290,14 +359,14 @@ export const Subscriber = () => {
 
         <div className="glass-panel p-6 sm:p-10 rounded-3xl border border-white/5 shadow-2xl relative overflow-hidden group">
           <div className="absolute -right-20 -top-20 w-64 h-64 bg-brand-teal/10 rounded-full blur-[80px] pointer-events-none group-hover:scale-110 transition-transform duration-700" />
-          
+
           <Stepper
             step={step}
             steps={steps}
             onStepClick={setStep}
             isStepEnabled={(idx) => idx < step || isStepValid.slice(0, idx).every(Boolean)}
           />
-          
+
           <div className="mt-10 min-h-[300px]">
             <AnimatePresence mode="wait" initial={false}>
               {step === 0 && (
@@ -430,7 +499,7 @@ export const Subscriber = () => {
                   loading
                 }
               >
-                {loading ? "Enviando..." : "Finalizar inscrição"}
+                {loading ? 'Enviando...' : 'Finalizar inscrição'}
               </button>
             )}
           </div>
